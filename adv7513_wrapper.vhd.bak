@@ -1,0 +1,139 @@
+LIBRARY ieee;
+use ieee.std_logic_1164.all;
+
+entity adv7513_wrapper is
+    port(
+        clk       : in  std_logic;
+        reset_n   : in  std_logic;
+        i2c_scl   : out std_logic;      -- Прямой вывод SCL
+        i2c_sda   : inout std_logic;    -- Двунаправленный SDA
+        init_done : out std_logic       -- Сигнал завершения
+    );
+end adv7513_wrapper;
+
+architecture structural of adv7513_wrapper is
+
+    -- Сигналы для I2C контроллера
+    signal i2c_scl_e, i2c_scl_o, i2c_scl_i : std_logic;
+    signal i2c_sda_e, i2c_sda_o, i2c_sda_i : std_logic;
+    
+    -- Сигналы для модуля adv7513_setup
+    signal i2c_activate  : std_logic;
+    signal i2c_busy      : std_logic;
+    signal i2c_address   : std_logic_vector(6 downto 0);
+    signal i2c_readnotwrite : std_logic;
+    signal i2c_byte1     : std_logic_vector(7 downto 0);
+    signal i2c_byte2     : std_logic_vector(7 downto 0);
+    signal setup_active  : std_logic;
+    signal setup_done    : std_logic;
+
+    -- Компонент I2C контроллера (SystemVerilog)
+    component I2C_CONTROLLER is
+        port(
+            clk         : in  std_logic;
+            reset       : in  std_logic;
+            scl_i       : in  std_logic;
+            scl_o       : out std_logic;
+            scl_e       : out std_logic;
+            sda_i       : in  std_logic;
+            sda_o       : out std_logic;
+            sda_e       : out std_logic;
+            busy        : out std_logic;
+            abort       : out std_logic;
+            success     : out std_logic;
+            activate    : in  std_logic;
+            read        : in  std_logic;
+            address     : in  std_logic_vector(6 downto 0);
+            location    : in  std_logic_vector(7 downto 0);
+            data        : in  std_logic_vector(7 downto 0);
+            data_repeat : in  std_logic_vector(2 downto 0);
+            start_pulse : out std_logic;
+            stop_pulse  : out std_logic;
+            got_ack     : out std_logic
+        );
+    end component;
+    
+    -- Компонент adv7513_setup (SystemVerilog)
+    component adv7513_setup is
+        port(
+            clk             : in  std_logic;
+            rst             : in  std_logic;
+            i2c_activate    : out std_logic;
+            i2c_busy        : in  std_logic;
+            i2c_address     : out std_logic_vector(6 downto 0);
+            i2c_readnotwrite: out std_logic;
+            i2c_byte1       : out std_logic_vector(7 downto 0);
+            i2c_byte2       : out std_logic_vector(7 downto 0);
+            active          : out std_logic;
+            done            : out std_logic;
+            is_busywait     : out std_logic;
+            is_busyseen     : out std_logic
+        );
+    end component;
+    
+    -- ALTIOBUF для SCL (если нужен)
+    component alt_iobuf_scl is
+        port(
+            i           : in  std_logic;
+            oe          : in  std_logic;
+            io          : out std_logic;
+            o           : out std_logic
+        );
+    end component;
+
+begin
+
+    -- Подключение I2C_CONTROLLER
+    i2c_inst: I2C_CONTROLLER
+        port map(
+            clk         => clk,
+            reset       => not reset_n,
+            scl_i       => '0',        -- Не используем
+            scl_o       => i2c_scl_o,
+            scl_e       => i2c_scl_e,
+            sda_i       => i2c_sda_i,
+            sda_o       => i2c_sda_o,
+            sda_e       => i2c_sda_e,
+            busy        => i2c_busy,
+            abort       => open,
+            success     => open,
+            activate    => i2c_activate,
+            read        => i2c_readnotwrite,
+            address     => i2c_address,
+            location    => i2c_byte1,
+            data        => i2c_byte2,
+            data_repeat => "000",      -- Не повторяем
+            start_pulse => open,
+            stop_pulse  => open,
+            got_ack     => open
+        );
+    
+    -- Подключение adv7513_setup
+    setup_inst: adv7513_setup
+        port map(
+            clk             => clk,
+            rst             => not reset_n,
+            i2c_activate    => i2c_activate,
+            i2c_busy        => i2c_busy,
+            i2c_address     => i2c_address,
+            i2c_readnotwrite=> i2c_readnotwrite,
+            i2c_byte1       => i2c_byte1,
+            i2c_byte2       => i2c_byte2,
+            active          => setup_active,
+            done            => setup_done,
+            is_busywait     => open,
+            is_busyseen     => open
+        );
+    
+    -- Управление I2C пинами (простой способ)
+    -- SCL: только выход
+    i2c_scl <= i2c_scl_o when i2c_scl_e = '1' else '0';
+    
+    -- SDA: двунаправленный (симуляция inout)
+    i2c_sda_i <= i2c_sda;
+    i2c_sda <= i2c_sda_o when i2c_sda_e = '1' else 'Z';
+    
+    -- Сигнал завершения
+    init_done <= setup_done;
+
+end structural;

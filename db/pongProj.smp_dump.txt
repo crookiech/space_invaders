@@ -1,0 +1,19 @@
+
+State Machine - |pongGame|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|setup_state
+Name setup_state.S_BUSYWAIT setup_state.S_SEND setup_state.S_WAIT setup_state.S_RESET setup_state.S_DONE 
+setup_state.S_RESET 0 0 0 0 0 
+setup_state.S_WAIT 0 0 1 1 0 
+setup_state.S_SEND 0 1 0 1 0 
+setup_state.S_BUSYWAIT 1 0 0 1 0 
+setup_state.S_DONE 0 0 0 1 1 
+
+State Machine - |pongGame|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|state
+Name state.S_STOP state.S_DATA2 state.S_DATA1 state.S_ADDRESS state.S_START state.S_IDLE state.S_POWERON state.S_RESET 
+state.S_RESET 0 0 0 0 0 0 0 0 
+state.S_POWERON 0 0 0 0 0 0 1 1 
+state.S_IDLE 0 0 0 0 0 1 0 1 
+state.S_START 0 0 0 0 1 0 0 1 
+state.S_ADDRESS 0 0 0 1 0 0 0 1 
+state.S_DATA1 0 0 1 0 0 0 0 1 
+state.S_DATA2 0 1 0 0 0 0 0 1 
+state.S_STOP 1 0 0 0 0 0 0 1 
