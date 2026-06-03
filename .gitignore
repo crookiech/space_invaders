@@ -1,0 +1,9 @@
+db/
+hc_output/
+incremental_db/
+output_files/
+*.txt
+*.echo
+*rom*
+*ROM*
+*.vhd.bak

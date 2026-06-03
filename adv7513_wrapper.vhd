@@ -5,6 +5,7 @@ entity adv7513_wrapper is
     port(
         clk       : in  std_logic;
         reset_n   : in  std_logic;
+		  resolution : in  std_logic_vector(1 downto 0); 
         i2c_scl   : out std_logic;
         i2c_sda   : inout std_logic;
         init_done : out std_logic
@@ -25,7 +26,6 @@ architecture structural of adv7513_wrapper is
     signal i2c_byte2      : std_logic_vector(7 downto 0);
     signal setup_done     : std_logic;
     
-    -- Векторные сигналы для ALTIOBUF
     signal scl_oe_vec     : std_logic_vector(0 downto 0);
     signal scl_datain_vec : std_logic_vector(0 downto 0);
     signal scl_dataio_vec : std_logic_vector(0 downto 0);
@@ -63,6 +63,7 @@ architecture structural of adv7513_wrapper is
         port(
             clk             : in  std_logic;
             rst             : in  std_logic;
+				resolution      : in  std_logic_vector(1 downto 0);
             i2c_activate    : out std_logic;
             i2c_busy        : in  std_logic;
             i2c_address     : out std_logic_vector(6 downto 0);
@@ -70,9 +71,7 @@ architecture structural of adv7513_wrapper is
             i2c_byte1       : out std_logic_vector(7 downto 0);
             i2c_byte2       : out std_logic_vector(7 downto 0);
             active          : out std_logic;
-            done            : out std_logic;
-            is_busywait     : out std_logic;
-            is_busyseen     : out std_logic
+            done            : out std_logic
         );
     end component;
     
@@ -86,25 +85,15 @@ architecture structural of adv7513_wrapper is
     end component;
 
 begin
-
-    --------------------------------------------------------------------
-    -- ПОДГОТОВКА СИГНАЛОВ
-    --------------------------------------------------------------------
     scl_datain_vec(0) <= i2c_scl_o;
     scl_oe_vec(0)     <= i2c_scl_e;
     
     sda_datain_vec(0) <= i2c_sda_o;
     sda_oe_vec(0)     <= i2c_sda_e;
     
-    -- Читаем значение с пина
     i2c_sda_i <= sda_dataout_vec(0);
-    
-    -- Выход SCL
     i2c_scl <= scl_dataio_vec(0);
 
-    --------------------------------------------------------------------
-    -- SCL BUFFER
-    --------------------------------------------------------------------
     scl_buf: i2ciobuf
         port map(
             datain  => scl_datain_vec,
@@ -113,9 +102,6 @@ begin
             dataout => open
         );
     
-    --------------------------------------------------------------------
-    -- SDA BUFFER (ПРЯМОЕ ПОДКЛЮЧЕНИЕ К ПИНУ)
-    --------------------------------------------------------------------
     sda_buf: i2ciobuf
         port map(
             datain  => sda_datain_vec,
@@ -124,9 +110,6 @@ begin
             dataout => sda_dataout_vec
         );
 
-    --------------------------------------------------------------------
-    -- I2C CONTROLLER
-    --------------------------------------------------------------------
     i2c_inst: I2C_CONTROLLER
         port map(
             clk         => clk,
@@ -151,13 +134,11 @@ begin
             got_ack     => open
         );
     
-    --------------------------------------------------------------------
-    -- ADV7513 SETUP
-    --------------------------------------------------------------------
     setup_inst: adv7513_setup
         port map(
             clk             => clk,
             rst             => not reset_n,
+				resolution      => resolution,
             i2c_activate    => i2c_activate,
             i2c_busy        => i2c_busy,
             i2c_address     => i2c_address,
@@ -165,14 +146,8 @@ begin
             i2c_byte1       => i2c_byte1,
             i2c_byte2       => i2c_byte2,
             active          => open,
-            done            => setup_done,
-            is_busywait     => open,
-            is_busyseen     => open
+            done            => setup_done
         );
-    
-    --------------------------------------------------------------------
-    -- INIT DONE
-    --------------------------------------------------------------------
     init_done <= setup_done;
 
 end structural;

@@ -35,6 +35,8 @@
 	 ( 
 		 locked	:	OUT  STD_LOGIC;
 		 outclk_0	:	OUT  STD_LOGIC;
+		 outclk_1	:	OUT  STD_LOGIC;
+		 outclk_2	:	OUT  STD_LOGIC;
 		 refclk	:	IN  STD_LOGIC;
 		 rst	:	IN  STD_LOGIC
 	 ); 
@@ -45,14 +47,16 @@
 	 ATTRIBUTE synthesis_clearbox : natural;
 	 ATTRIBUTE synthesis_clearbox OF RTL : ARCHITECTURE IS 1;
 	 SIGNAL  wire_gnd	:	STD_LOGIC;
-	 SIGNAL  wire_pll_25_altera_pll_altera_pll_i_182_locked	:	STD_LOGIC;
-	 SIGNAL  wire_pll_25_altera_pll_altera_pll_i_182_outclk	:	STD_LOGIC_VECTOR (0 DOWNTO 0);
+	 SIGNAL  wire_pll_25_altera_pll_altera_pll_i_204_locked	:	STD_LOGIC;
+	 SIGNAL  wire_pll_25_altera_pll_altera_pll_i_204_outclk	:	STD_LOGIC_VECTOR (2 DOWNTO 0);
  BEGIN
 
 	wire_gnd <= '0';
-	locked <= wire_pll_25_altera_pll_altera_pll_i_182_locked;
-	outclk_0 <= wire_pll_25_altera_pll_altera_pll_i_182_outclk(0);
-	pll_25_altera_pll_altera_pll_i_182 :  altera_pll
+	locked <= wire_pll_25_altera_pll_altera_pll_i_204_locked;
+	outclk_0 <= wire_pll_25_altera_pll_altera_pll_i_204_outclk(0);
+	outclk_1 <= wire_pll_25_altera_pll_altera_pll_i_204_outclk(1);
+	outclk_2 <= wire_pll_25_altera_pll_altera_pll_i_204_outclk(2);
+	pll_25_altera_pll_altera_pll_i_204 :  altera_pll
 	  GENERIC MAP (
 		c_cnt_bypass_en0 => "false",
 		c_cnt_bypass_en1 => "false",
@@ -210,10 +214,10 @@
 		n_cnt_hi_div => 1,
 		n_cnt_lo_div => 1,
 		n_cnt_odd_div_duty_en => "false",
-		number_of_clocks => 1,
+		number_of_clocks => 3,
 		operation_mode => "normal",
 		output_clock_frequency0 => "25.0 MHz",
-		output_clock_frequency1 => "0 MHz",
+		output_clock_frequency1 => "65.0 MHz",
 		output_clock_frequency10 => "0 MHz",
 		output_clock_frequency11 => "0 MHz",
 		output_clock_frequency12 => "0 MHz",
@@ -222,7 +226,7 @@
 		output_clock_frequency15 => "0 MHz",
 		output_clock_frequency16 => "0 MHz",
 		output_clock_frequency17 => "0 MHz",
-		output_clock_frequency2 => "0 MHz",
+		output_clock_frequency2 => "75.0 MHz",
 		output_clock_frequency3 => "0 MHz",
 		output_clock_frequency4 => "0 MHz",
 		output_clock_frequency5 => "0 MHz",
@@ -272,8 +276,8 @@
 	  )
 	  PORT MAP ( 
 		fbclk => wire_gnd,
-		locked => wire_pll_25_altera_pll_altera_pll_i_182_locked,
-		outclk => wire_pll_25_altera_pll_altera_pll_i_182_outclk,
+		locked => wire_pll_25_altera_pll_altera_pll_i_204_locked,
+		outclk => wire_pll_25_altera_pll_altera_pll_i_204_outclk,
 		refclk => refclk,
 		rst => rst
 	  );

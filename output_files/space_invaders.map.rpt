@@ -1,5 +1,5 @@
 Analysis & Synthesis report for space_invaders
-Wed May 27 23:05:53 2026
+Wed Jun 03 23:34:00 2026
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -13,35 +13,38 @@ Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. Analysis & Synthesis IP Cores Summary
-  9. State Machine - |spaceInvaders|invadersImg:imagegen|state
- 10. State Machine - |spaceInvaders|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|setup_state
- 11. State Machine - |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|state
- 12. Registers Removed During Synthesis
- 13. Removed Registers Triggering Further Register Optimizations
- 14. General Register Statistics
- 15. Inverted Register Statistics
- 16. Multiplexer Restructuring Statistics (Restructuring Performed)
- 17. Parameter Settings for User Entity Instance: pll_25:pll_inst|pll_25_0002:pll_25_inst|altera_pll:altera_pll_i
- 18. Parameter Settings for User Entity Instance: adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst
- 19. Parameter Settings for User Entity Instance: adv7513_wrapper:i2c_init|adv7513_setup:setup_inst
- 20. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Mod4
- 21. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Div3
- 22. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Mod3
- 23. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Div2
- 24. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Mod2
- 25. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Div1
- 26. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Mod1
- 27. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Div0
- 28. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Mod0
- 29. Port Connectivity Checks: "invadersImg:imagegen"
- 30. Port Connectivity Checks: "adv7513_wrapper:i2c_init|adv7513_setup:setup_inst"
- 31. Port Connectivity Checks: "adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst"
- 32. Port Connectivity Checks: "adv7513_wrapper:i2c_init|i2ciobuf:scl_buf"
- 33. Port Connectivity Checks: "pll_25:pll_inst"
- 34. Elapsed Time Per Partition
- 35. Analysis & Synthesis Messages
- 36. Analysis & Synthesis Suppressed Messages
+  8. Analysis & Synthesis DSP Block Usage Summary
+  9. Analysis & Synthesis IP Cores Summary
+ 10. State Machine - |spaceInvaders|invadersImg:imagegen|state
+ 11. State Machine - |spaceInvaders|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|state
+ 12. State Machine - |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|state
+ 13. Registers Removed During Synthesis
+ 14. Removed Registers Triggering Further Register Optimizations
+ 15. General Register Statistics
+ 16. Inverted Register Statistics
+ 17. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 18. Source assignments for Top-level Entity: |spaceInvaders
+ 19. Parameter Settings for User Entity Instance: pll_25:pll_inst|pll_25_0002:pll_25_inst|altera_pll:altera_pll_i
+ 20. Parameter Settings for User Entity Instance: adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst
+ 21. Parameter Settings for User Entity Instance: adv7513_wrapper:i2c_init|adv7513_setup:setup_inst
+ 22. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Mod5
+ 23. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Div4
+ 24. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Mod4
+ 25. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Div3
+ 26. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Mod3
+ 27. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Div2
+ 28. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Mod2
+ 29. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Div1
+ 30. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Mod1
+ 31. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Mod0
+ 32. Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Div0
+ 33. Port Connectivity Checks: "adv7513_wrapper:i2c_init|adv7513_setup:setup_inst"
+ 34. Port Connectivity Checks: "adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst"
+ 35. Port Connectivity Checks: "adv7513_wrapper:i2c_init|i2ciobuf:scl_buf"
+ 36. Port Connectivity Checks: "adv7513_wrapper:i2c_init"
+ 37. Port Connectivity Checks: "pll_25:pll_inst"
+ 38. Elapsed Time Per Partition
+ 39. Analysis & Synthesis Messages
 
 
 
@@ -67,17 +70,17 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                          ;
 +-------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status         ; Successful - Wed May 27 23:05:53 2026           ;
+; Analysis & Synthesis Status         ; Successful - Wed Jun 03 23:34:00 2026           ;
 ; Quartus II 64-Bit Version           ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                       ; space_invaders                                  ;
 ; Top-level Entity Name               ; spaceInvaders                                   ;
 ; Family                              ; Cyclone V                                       ;
 ; Logic utilization (in ALMs)         ; N/A                                             ;
-; Total registers                     ; 280                                             ;
-; Total pins                          ; 48                                              ;
+; Total registers                     ; 309                                             ;
+; Total pins                          ; 39                                              ;
 ; Total virtual pins                  ; 0                                               ;
 ; Total block memory bits             ; 0                                               ;
-; Total DSP Blocks                    ; 0                                               ;
+; Total DSP Blocks                    ; 5                                               ;
 ; Total HSSI RX PCSs                  ; 0                                               ;
 ; Total HSSI PMA RX Deserializers     ; 0                                               ;
 ; Total HSSI PMA RX ATT Deserializers ; 0                                               ;
@@ -194,41 +197,50 @@ applicable agreement for further details.
 +----------------------------+-------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                ;
-+----------------------------------+-----------------+------------------------------------+-----------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                          ; File Name with Absolute Path                                                      ; Library ;
-+----------------------------------+-----------------+------------------------------------+-----------------------------------------------------------------------------------+---------+
-; spaceInvaders.vhd                ; yes             ; User VHDL File                     ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/spaceInvaders.vhd          ;         ;
-; invadersImg.vhd                  ; yes             ; User VHDL File                     ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/invadersImg.vhd            ;         ;
-; spaceInvadersSync.vhd            ; yes             ; User VHDL File                     ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/spaceInvadersSync.vhd      ;         ;
-; pll_25.vhd                       ; yes             ; User Wizard-Generated File         ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/pll_25.vhd                 ; pll_25  ;
-; pll_25/pll_25_0002.v             ; yes             ; User Verilog HDL File              ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/pll_25/pll_25_0002.v       ; pll_25  ;
-; altera_pll.v                     ; yes             ; Megafunction                       ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altera_pll.v                    ;         ;
-; adv7513_wrapper.vhd              ; yes             ; Auto-Found VHDL File               ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/adv7513_wrapper.vhd        ;         ;
-; i2ciobuf.v                       ; yes             ; Auto-Found Wizard-Generated File   ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/i2ciobuf.v                 ;         ;
-; i2c_controller.sv                ; yes             ; Auto-Found SystemVerilog HDL File  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/i2c_controller.sv          ;         ;
-; adv7513_setup.sv                 ; yes             ; Auto-Found SystemVerilog HDL File  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/adv7513_setup.sv           ;         ;
-; lpm_divide.tdf                   ; yes             ; Megafunction                       ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_divide.tdf                  ;         ;
-; abs_divider.inc                  ; yes             ; Megafunction                       ; c:/altera/13.0sp1/quartus/libraries/megafunctions/abs_divider.inc                 ;         ;
-; sign_div_unsign.inc              ; yes             ; Megafunction                       ; c:/altera/13.0sp1/quartus/libraries/megafunctions/sign_div_unsign.inc             ;         ;
-; aglobal130.inc                   ; yes             ; Megafunction                       ; c:/altera/13.0sp1/quartus/libraries/megafunctions/aglobal130.inc                  ;         ;
-; db/lpm_divide_c5m.tdf            ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/lpm_divide_c5m.tdf      ;         ;
-; db/sign_div_unsign_fnh.tdf       ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/sign_div_unsign_fnh.tdf ;         ;
-; db/alt_u_div_43f.tdf             ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/alt_u_div_43f.tdf       ;         ;
-; db/lpm_divide_lbm.tdf            ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/lpm_divide_lbm.tdf      ;         ;
-; db/sign_div_unsign_rlh.tdf       ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/sign_div_unsign_rlh.tdf ;         ;
-; db/alt_u_div_sve.tdf             ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/alt_u_div_sve.tdf       ;         ;
-; db/lpm_divide_obm.tdf            ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/lpm_divide_obm.tdf      ;         ;
-; db/sign_div_unsign_ulh.tdf       ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/sign_div_unsign_ulh.tdf ;         ;
-; db/alt_u_div_20f.tdf             ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/alt_u_div_20f.tdf       ;         ;
-; db/lpm_divide_2dm.tdf            ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/lpm_divide_2dm.tdf      ;         ;
-; db/sign_div_unsign_8nh.tdf       ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/sign_div_unsign_8nh.tdf ;         ;
-; db/alt_u_div_m2f.tdf             ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/alt_u_div_m2f.tdf       ;         ;
-; db/lpm_divide_6dm.tdf            ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/lpm_divide_6dm.tdf      ;         ;
-; db/sign_div_unsign_cnh.tdf       ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/sign_div_unsign_cnh.tdf ;         ;
-; db/alt_u_div_u2f.tdf             ; yes             ; Auto-Generated Megafunction        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/alt_u_div_u2f.tdf       ;         ;
-+----------------------------------+-----------------+------------------------------------+-----------------------------------------------------------------------------------+---------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                          ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                      ; Library ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------+---------+
+; i2ciobuf.v                       ; yes             ; User Wizard-Generated File   ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/i2ciobuf.v                 ;         ;
+; adv7513_wrapper.vhd              ; yes             ; User VHDL File               ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/adv7513_wrapper.vhd        ;         ;
+; spaceInvaders.vhd                ; yes             ; User VHDL File               ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/spaceInvaders.vhd          ;         ;
+; invadersImg.vhd                  ; yes             ; User VHDL File               ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/invadersImg.vhd            ;         ;
+; spaceInvadersSync.vhd            ; yes             ; User VHDL File               ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/spaceInvadersSync.vhd      ;         ;
+; pll_25.vhd                       ; yes             ; User Wizard-Generated File   ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/pll_25.vhd                 ; pll_25  ;
+; pll_25/pll_25_0002.v             ; yes             ; User Verilog HDL File        ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/pll_25/pll_25_0002.v       ; pll_25  ;
+; I2C_CONTROLLER.vhd               ; yes             ; User VHDL File               ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/I2C_CONTROLLER.vhd         ;         ;
+; setup_rom.vhd                    ; yes             ; User VHDL File               ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/setup_rom.vhd              ;         ;
+; adv7513_setup.vhd                ; yes             ; User VHDL File               ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/adv7513_setup.vhd          ;         ;
+; altera_pll.v                     ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altera_pll.v                    ;         ;
+; lpm_divide.tdf                   ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_divide.tdf                  ;         ;
+; abs_divider.inc                  ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/abs_divider.inc                 ;         ;
+; sign_div_unsign.inc              ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/sign_div_unsign.inc             ;         ;
+; aglobal130.inc                   ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/aglobal130.inc                  ;         ;
+; db/lpm_divide_c5m.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/lpm_divide_c5m.tdf      ;         ;
+; db/sign_div_unsign_fnh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/sign_div_unsign_fnh.tdf ;         ;
+; db/alt_u_div_43f.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/alt_u_div_43f.tdf       ;         ;
+; db/lpm_divide_lbm.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/lpm_divide_lbm.tdf      ;         ;
+; db/sign_div_unsign_rlh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/sign_div_unsign_rlh.tdf ;         ;
+; db/alt_u_div_sve.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/alt_u_div_sve.tdf       ;         ;
+; db/lpm_divide_obm.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/lpm_divide_obm.tdf      ;         ;
+; db/sign_div_unsign_ulh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/sign_div_unsign_ulh.tdf ;         ;
+; db/alt_u_div_20f.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/alt_u_div_20f.tdf       ;         ;
+; db/lpm_divide_2dm.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/lpm_divide_2dm.tdf      ;         ;
+; db/sign_div_unsign_8nh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/sign_div_unsign_8nh.tdf ;         ;
+; db/alt_u_div_m2f.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/alt_u_div_m2f.tdf       ;         ;
+; db/lpm_divide_6dm.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/lpm_divide_6dm.tdf      ;         ;
+; db/sign_div_unsign_cnh.tdf       ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/sign_div_unsign_cnh.tdf ;         ;
+; db/alt_u_div_u2f.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/alt_u_div_u2f.tdf       ;         ;
+; db/lpm_divide_sio.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/lpm_divide_sio.tdf      ;         ;
+; db/abs_divider_2dg.tdf           ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/abs_divider_2dg.tdf     ;         ;
+; db/alt_u_div_k2f.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/alt_u_div_k2f.tdf       ;         ;
+; db/lpm_abs_3p9.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/lpm_abs_3p9.tdf         ;         ;
+; db/lpm_divide_cpo.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/lpm_divide_cpo.tdf      ;         ;
+; db/abs_divider_lbg.tdf           ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/abs_divider_lbg.tdf     ;         ;
+; db/alt_u_div_qve.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/alt_u_div_qve.tdf       ;         ;
+; db/lpm_abs_mn9.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/altera/13.0sp1/quartus/projects/plis/space_invaders/db/lpm_abs_mn9.tdf         ;         ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------+---------+
 
 
 +------------------------------------------------------------+
@@ -236,26 +248,26 @@ applicable agreement for further details.
 +---------------------------------------------+--------------+
 ; Resource                                    ; Usage        ;
 +---------------------------------------------+--------------+
-; Estimate of Logic utilization (ALMs needed) ; 2005         ;
+; Estimate of Logic utilization (ALMs needed) ; 3920         ;
 ;                                             ;              ;
-; Combinational ALUT usage for logic          ; 3589         ;
-;     -- 7 input functions                    ; 15           ;
-;     -- 6 input functions                    ; 402          ;
-;     -- 5 input functions                    ; 382          ;
-;     -- 4 input functions                    ; 613          ;
-;     -- <=3 input functions                  ; 2177         ;
+; Combinational ALUT usage for logic          ; 7075         ;
+;     -- 7 input functions                    ; 93           ;
+;     -- 6 input functions                    ; 669          ;
+;     -- 5 input functions                    ; 763          ;
+;     -- 4 input functions                    ; 949          ;
+;     -- <=3 input functions                  ; 4601         ;
 ;                                             ;              ;
-; Dedicated logic registers                   ; 280          ;
+; Dedicated logic registers                   ; 309          ;
 ;                                             ;              ;
-; I/O pins                                    ; 48           ;
-; Total DSP Blocks                            ; 0            ;
-; Total PLLs                                  ; 1            ;
-;     -- PLLs                                 ; 1            ;
+; I/O pins                                    ; 39           ;
+; Total DSP Blocks                            ; 5            ;
+; Total PLLs                                  ; 3            ;
+;     -- PLLs                                 ; 3            ;
 ;                                             ;              ;
 ; Maximum fan-out node                        ; KEY[4]~input ;
-; Maximum fan-out                             ; 165          ;
-; Total fan-out                               ; 13475        ;
-; Average fan-out                             ; 3.40         ;
+; Maximum fan-out                             ; 193          ;
+; Total fan-out                               ; 24425        ;
+; Average fan-out                             ; 3.27         ;
 +---------------------------------------------+--------------+
 
 
@@ -264,58 +276,80 @@ applicable agreement for further details.
 +------------------------------------------------------------------------+-------------------+--------------+-------------------+------------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                                             ; LC Combinationals ; LC Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                 ; Library Name ;
 +------------------------------------------------------------------------+-------------------+--------------+-------------------+------------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------+--------------+
-; |spaceInvaders                                                         ; 3589 (1)          ; 280 (0)      ; 0                 ; 0          ; 48   ; 0            ; |spaceInvaders                                                                                                                      ; work         ;
-;    |adv7513_wrapper:i2c_init|                                          ; 179 (0)           ; 109 (0)      ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|adv7513_wrapper:i2c_init                                                                                             ; work         ;
-;       |I2C_CONTROLLER:i2c_inst|                                        ; 82 (82)           ; 52 (52)      ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst                                                                     ; work         ;
-;       |adv7513_setup:setup_inst|                                       ; 97 (80)           ; 57 (57)      ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst                                                                    ; work         ;
-;          |setup_rom:setup_rom_inst|                                    ; 17 (17)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|setup_rom:setup_rom_inst                                           ; work         ;
+; |spaceInvaders                                                         ; 7075 (5)          ; 309 (0)      ; 0                 ; 5          ; 39   ; 0            ; |spaceInvaders                                                                                                                      ; work         ;
+;    |adv7513_wrapper:i2c_init|                                          ; 200 (0)           ; 115 (0)      ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|adv7513_wrapper:i2c_init                                                                                             ; work         ;
+;       |I2C_CONTROLLER:i2c_inst|                                        ; 73 (73)           ; 52 (52)      ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst                                                                     ; work         ;
+;       |adv7513_setup:setup_inst|                                       ; 127 (93)          ; 63 (63)      ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst                                                                    ; work         ;
+;          |setup_rom:rom_inst|                                          ; 34 (34)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|setup_rom:rom_inst                                                 ; work         ;
 ;       |i2ciobuf:scl_buf|                                               ; 0 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|adv7513_wrapper:i2c_init|i2ciobuf:scl_buf                                                                            ; work         ;
 ;          |i2ciobuf_iobuf_bidir_amo:i2ciobuf_iobuf_bidir_amo_component| ; 0 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|adv7513_wrapper:i2c_init|i2ciobuf:scl_buf|i2ciobuf_iobuf_bidir_amo:i2ciobuf_iobuf_bidir_amo_component                ; work         ;
 ;       |i2ciobuf:sda_buf|                                               ; 0 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|adv7513_wrapper:i2c_init|i2ciobuf:sda_buf                                                                            ; work         ;
 ;          |i2ciobuf_iobuf_bidir_amo:i2ciobuf_iobuf_bidir_amo_component| ; 0 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|adv7513_wrapper:i2c_init|i2ciobuf:sda_buf|i2ciobuf_iobuf_bidir_amo:i2ciobuf_iobuf_bidir_amo_component                ; work         ;
-;    |invadersImg:imagegen|                                              ; 3374 (1596)       ; 151 (151)    ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen                                                                                                 ; work         ;
-;       |lpm_divide:Div0|                                                ; 118 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div0                                                                                 ; work         ;
-;          |lpm_divide_6dm:auto_generated|                               ; 118 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div0|lpm_divide_6dm:auto_generated                                                   ; work         ;
-;             |sign_div_unsign_cnh:divider|                              ; 118 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div0|lpm_divide_6dm:auto_generated|sign_div_unsign_cnh:divider                       ; work         ;
-;                |alt_u_div_u2f:divider|                                 ; 118 (118)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div0|lpm_divide_6dm:auto_generated|sign_div_unsign_cnh:divider|alt_u_div_u2f:divider ; work         ;
-;       |lpm_divide:Div1|                                                ; 190 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div1                                                                                 ; work         ;
-;          |lpm_divide_2dm:auto_generated|                               ; 190 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div1|lpm_divide_2dm:auto_generated                                                   ; work         ;
-;             |sign_div_unsign_8nh:divider|                              ; 190 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div1|lpm_divide_2dm:auto_generated|sign_div_unsign_8nh:divider                       ; work         ;
-;                |alt_u_div_m2f:divider|                                 ; 190 (190)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div1|lpm_divide_2dm:auto_generated|sign_div_unsign_8nh:divider|alt_u_div_m2f:divider ; work         ;
-;       |lpm_divide:Div2|                                                ; 192 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div2                                                                                 ; work         ;
-;          |lpm_divide_obm:auto_generated|                               ; 192 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div2|lpm_divide_obm:auto_generated                                                   ; work         ;
-;             |sign_div_unsign_ulh:divider|                              ; 192 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div2|lpm_divide_obm:auto_generated|sign_div_unsign_ulh:divider                       ; work         ;
-;                |alt_u_div_20f:divider|                                 ; 192 (192)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div2|lpm_divide_obm:auto_generated|sign_div_unsign_ulh:divider|alt_u_div_20f:divider ; work         ;
-;       |lpm_divide:Div3|                                                ; 146 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div3                                                                                 ; work         ;
-;          |lpm_divide_lbm:auto_generated|                               ; 146 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div3|lpm_divide_lbm:auto_generated                                                   ; work         ;
-;             |sign_div_unsign_rlh:divider|                              ; 146 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div3|lpm_divide_lbm:auto_generated|sign_div_unsign_rlh:divider                       ; work         ;
-;                |alt_u_div_sve:divider|                                 ; 146 (146)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div3|lpm_divide_lbm:auto_generated|sign_div_unsign_rlh:divider|alt_u_div_sve:divider ; work         ;
-;       |lpm_divide:Mod0|                                                ; 36 (0)            ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod0                                                                                 ; work         ;
-;          |lpm_divide_c5m:auto_generated|                               ; 36 (0)            ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod0|lpm_divide_c5m:auto_generated                                                   ; work         ;
-;             |sign_div_unsign_fnh:divider|                              ; 36 (0)            ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod0|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider                       ; work         ;
-;                |alt_u_div_43f:divider|                                 ; 36 (36)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod0|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider|alt_u_div_43f:divider ; work         ;
-;       |lpm_divide:Mod1|                                                ; 157 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod1                                                                                 ; work         ;
-;          |lpm_divide_c5m:auto_generated|                               ; 157 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod1|lpm_divide_c5m:auto_generated                                                   ; work         ;
-;             |sign_div_unsign_fnh:divider|                              ; 157 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod1|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider                       ; work         ;
-;                |alt_u_div_43f:divider|                                 ; 157 (157)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod1|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider|alt_u_div_43f:divider ; work         ;
-;       |lpm_divide:Mod2|                                                ; 263 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod2                                                                                 ; work         ;
-;          |lpm_divide_c5m:auto_generated|                               ; 263 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod2|lpm_divide_c5m:auto_generated                                                   ; work         ;
-;             |sign_div_unsign_fnh:divider|                              ; 263 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod2|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider                       ; work         ;
-;                |alt_u_div_43f:divider|                                 ; 263 (263)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod2|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider|alt_u_div_43f:divider ; work         ;
-;       |lpm_divide:Mod3|                                                ; 331 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod3                                                                                 ; work         ;
-;          |lpm_divide_c5m:auto_generated|                               ; 331 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod3|lpm_divide_c5m:auto_generated                                                   ; work         ;
-;             |sign_div_unsign_fnh:divider|                              ; 331 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod3|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider                       ; work         ;
-;                |alt_u_div_43f:divider|                                 ; 331 (331)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod3|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider|alt_u_div_43f:divider ; work         ;
-;       |lpm_divide:Mod4|                                                ; 345 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod4                                                                                 ; work         ;
-;          |lpm_divide_c5m:auto_generated|                               ; 345 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod4|lpm_divide_c5m:auto_generated                                                   ; work         ;
-;             |sign_div_unsign_fnh:divider|                              ; 345 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod4|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider                       ; work         ;
-;                |alt_u_div_43f:divider|                                 ; 345 (345)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod4|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider|alt_u_div_43f:divider ; work         ;
+;    |invadersImg:imagegen|                                              ; 6798 (4670)       ; 171 (171)    ; 0                 ; 5          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen                                                                                                 ; work         ;
+;       |lpm_divide:Div0|                                                ; 152 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div0                                                                                 ; work         ;
+;          |lpm_divide_cpo:auto_generated|                               ; 152 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div0|lpm_divide_cpo:auto_generated                                                   ; work         ;
+;             |abs_divider_lbg:divider|                                  ; 152 (6)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div0|lpm_divide_cpo:auto_generated|abs_divider_lbg:divider                           ; work         ;
+;                |alt_u_div_qve:divider|                                 ; 134 (134)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div0|lpm_divide_cpo:auto_generated|abs_divider_lbg:divider|alt_u_div_qve:divider     ; work         ;
+;                |lpm_abs_3p9:my_abs_num|                                ; 12 (12)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div0|lpm_divide_cpo:auto_generated|abs_divider_lbg:divider|lpm_abs_3p9:my_abs_num    ; work         ;
+;       |lpm_divide:Div1|                                                ; 118 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div1                                                                                 ; work         ;
+;          |lpm_divide_6dm:auto_generated|                               ; 118 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div1|lpm_divide_6dm:auto_generated                                                   ; work         ;
+;             |sign_div_unsign_cnh:divider|                              ; 118 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div1|lpm_divide_6dm:auto_generated|sign_div_unsign_cnh:divider                       ; work         ;
+;                |alt_u_div_u2f:divider|                                 ; 118 (118)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div1|lpm_divide_6dm:auto_generated|sign_div_unsign_cnh:divider|alt_u_div_u2f:divider ; work         ;
+;       |lpm_divide:Div2|                                                ; 190 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div2                                                                                 ; work         ;
+;          |lpm_divide_2dm:auto_generated|                               ; 190 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div2|lpm_divide_2dm:auto_generated                                                   ; work         ;
+;             |sign_div_unsign_8nh:divider|                              ; 190 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div2|lpm_divide_2dm:auto_generated|sign_div_unsign_8nh:divider                       ; work         ;
+;                |alt_u_div_m2f:divider|                                 ; 190 (190)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div2|lpm_divide_2dm:auto_generated|sign_div_unsign_8nh:divider|alt_u_div_m2f:divider ; work         ;
+;       |lpm_divide:Div3|                                                ; 192 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div3                                                                                 ; work         ;
+;          |lpm_divide_obm:auto_generated|                               ; 192 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div3|lpm_divide_obm:auto_generated                                                   ; work         ;
+;             |sign_div_unsign_ulh:divider|                              ; 192 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div3|lpm_divide_obm:auto_generated|sign_div_unsign_ulh:divider                       ; work         ;
+;                |alt_u_div_20f:divider|                                 ; 192 (192)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div3|lpm_divide_obm:auto_generated|sign_div_unsign_ulh:divider|alt_u_div_20f:divider ; work         ;
+;       |lpm_divide:Div4|                                                ; 146 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div4                                                                                 ; work         ;
+;          |lpm_divide_lbm:auto_generated|                               ; 146 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div4|lpm_divide_lbm:auto_generated                                                   ; work         ;
+;             |sign_div_unsign_rlh:divider|                              ; 146 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div4|lpm_divide_lbm:auto_generated|sign_div_unsign_rlh:divider                       ; work         ;
+;                |alt_u_div_sve:divider|                                 ; 146 (146)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Div4|lpm_divide_lbm:auto_generated|sign_div_unsign_rlh:divider|alt_u_div_sve:divider ; work         ;
+;       |lpm_divide:Mod0|                                                ; 191 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod0                                                                                 ; work         ;
+;          |lpm_divide_sio:auto_generated|                               ; 191 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod0|lpm_divide_sio:auto_generated                                                   ; work         ;
+;             |abs_divider_2dg:divider|                                  ; 191 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod0|lpm_divide_sio:auto_generated|abs_divider_2dg:divider                           ; work         ;
+;                |alt_u_div_k2f:divider|                                 ; 179 (179)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod0|lpm_divide_sio:auto_generated|abs_divider_2dg:divider|alt_u_div_k2f:divider     ; work         ;
+;                |lpm_abs_3p9:my_abs_num|                                ; 12 (12)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod0|lpm_divide_sio:auto_generated|abs_divider_2dg:divider|lpm_abs_3p9:my_abs_num    ; work         ;
+;       |lpm_divide:Mod1|                                                ; 37 (0)            ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod1                                                                                 ; work         ;
+;          |lpm_divide_c5m:auto_generated|                               ; 37 (0)            ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod1|lpm_divide_c5m:auto_generated                                                   ; work         ;
+;             |sign_div_unsign_fnh:divider|                              ; 37 (0)            ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod1|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider                       ; work         ;
+;                |alt_u_div_43f:divider|                                 ; 37 (37)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod1|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider|alt_u_div_43f:divider ; work         ;
+;       |lpm_divide:Mod2|                                                ; 158 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod2                                                                                 ; work         ;
+;          |lpm_divide_c5m:auto_generated|                               ; 158 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod2|lpm_divide_c5m:auto_generated                                                   ; work         ;
+;             |sign_div_unsign_fnh:divider|                              ; 158 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod2|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider                       ; work         ;
+;                |alt_u_div_43f:divider|                                 ; 158 (158)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod2|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider|alt_u_div_43f:divider ; work         ;
+;       |lpm_divide:Mod3|                                                ; 264 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod3                                                                                 ; work         ;
+;          |lpm_divide_c5m:auto_generated|                               ; 264 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod3|lpm_divide_c5m:auto_generated                                                   ; work         ;
+;             |sign_div_unsign_fnh:divider|                              ; 264 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod3|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider                       ; work         ;
+;                |alt_u_div_43f:divider|                                 ; 264 (264)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod3|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider|alt_u_div_43f:divider ; work         ;
+;       |lpm_divide:Mod4|                                                ; 332 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod4                                                                                 ; work         ;
+;          |lpm_divide_c5m:auto_generated|                               ; 332 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod4|lpm_divide_c5m:auto_generated                                                   ; work         ;
+;             |sign_div_unsign_fnh:divider|                              ; 332 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod4|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider                       ; work         ;
+;                |alt_u_div_43f:divider|                                 ; 332 (332)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod4|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider|alt_u_div_43f:divider ; work         ;
+;       |lpm_divide:Mod5|                                                ; 348 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod5                                                                                 ; work         ;
+;          |lpm_divide_c5m:auto_generated|                               ; 348 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod5|lpm_divide_c5m:auto_generated                                                   ; work         ;
+;             |sign_div_unsign_fnh:divider|                              ; 348 (0)           ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod5|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider                       ; work         ;
+;                |alt_u_div_43f:divider|                                 ; 348 (348)         ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|invadersImg:imagegen|lpm_divide:Mod5|lpm_divide_c5m:auto_generated|sign_div_unsign_fnh:divider|alt_u_div_43f:divider ; work         ;
 ;    |pll_25:pll_inst|                                                   ; 0 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|pll_25:pll_inst                                                                                                      ; pll_25       ;
 ;       |pll_25_0002:pll_25_inst|                                        ; 0 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|pll_25:pll_inst|pll_25_0002:pll_25_inst                                                                              ; pll_25       ;
 ;          |altera_pll:altera_pll_i|                                     ; 0 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|pll_25:pll_inst|pll_25_0002:pll_25_inst|altera_pll:altera_pll_i                                                      ; work         ;
-;    |spaceInvadersSync:vgasync|                                         ; 35 (35)           ; 20 (20)      ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|spaceInvadersSync:vgasync                                                                                            ; work         ;
+;    |spaceInvadersSync:vgasync|                                         ; 72 (72)           ; 23 (23)      ; 0                 ; 0          ; 0    ; 0            ; |spaceInvaders|spaceInvadersSync:vgasync                                                                                            ; work         ;
 +------------------------------------------------------------------------+-------------------+--------------+-------------------+------------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++----------------------------------------------------------------------------+
+; Analysis & Synthesis DSP Block Usage Summary                               ;
++--------------------+-------------+---------------------+-------------------+
+; Statistic          ; Number Used ; Available per Block ; Maximum Available ;
++--------------------+-------------+---------------------+-------------------+
+; Independent 18x18  ; 5           ; 2.00                ; --                ;
+; DSP Block          ; 5           ; --                  ; --                ;
+; DSP 18-bit Element ; 5           ; 2.00                ; --                ;
+; Signed Multiplier  ; 5           ; --                  ; --                ;
++--------------------+-------------+---------------------+-------------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -343,17 +377,17 @@ Encoding Type:  One-Hot
 
 
 Encoding Type:  One-Hot
-+--------------------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |spaceInvaders|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|setup_state                                         ;
-+------------------------+------------------------+--------------------+--------------------+---------------------+--------------------+
-; Name                   ; setup_state.S_BUSYWAIT ; setup_state.S_SEND ; setup_state.S_WAIT ; setup_state.S_RESET ; setup_state.S_DONE ;
-+------------------------+------------------------+--------------------+--------------------+---------------------+--------------------+
-; setup_state.S_RESET    ; 0                      ; 0                  ; 0                  ; 0                   ; 0                  ;
-; setup_state.S_WAIT     ; 0                      ; 0                  ; 1                  ; 1                   ; 0                  ;
-; setup_state.S_SEND     ; 0                      ; 1                  ; 0                  ; 1                   ; 0                  ;
-; setup_state.S_BUSYWAIT ; 1                      ; 0                  ; 0                  ; 1                   ; 0                  ;
-; setup_state.S_DONE     ; 0                      ; 0                  ; 0                  ; 1                   ; 1                  ;
-+------------------------+------------------------+--------------------+--------------------+---------------------+--------------------+
++--------------------------------------------------------------------------------------------------+
+; State Machine - |spaceInvaders|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|state           ;
++------------------+--------------+------------------+--------------+--------------+---------------+
+; Name             ; state.S_DONE ; state.S_BUSYWAIT ; state.S_SEND ; state.S_WAIT ; state.S_RESET ;
++------------------+--------------+------------------+--------------+--------------+---------------+
+; state.S_RESET    ; 0            ; 0                ; 0            ; 0            ; 0             ;
+; state.S_WAIT     ; 0            ; 0                ; 0            ; 1            ; 1             ;
+; state.S_SEND     ; 0            ; 0                ; 1            ; 0            ; 1             ;
+; state.S_BUSYWAIT ; 0            ; 1                ; 0            ; 0            ; 1             ;
+; state.S_DONE     ; 1            ; 0                ; 0            ; 0            ; 1             ;
++------------------+--------------+------------------+--------------+--------------+---------------+
 
 
 Encoding Type:  One-Hot
@@ -379,21 +413,18 @@ Encoding Type:  One-Hot
 ; Register name                                                        ; Reason for Removal                                                           ;
 +----------------------------------------------------------------------+------------------------------------------------------------------------------+
 ; invadersImg:imagegen|score[0]                                        ; Stuck at GND due to stuck port data_in                                       ;
-; adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|i2c_readnotwrite   ; Stuck at GND due to stuck port data_in                                       ;
 ; adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|i2c_address[1,2,6] ; Stuck at GND due to stuck port data_in                                       ;
+; adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|i2c_readnotwrite   ; Stuck at GND due to stuck port data_in                                       ;
+; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|is_write            ; Stuck at VCC due to stuck port data_in                                       ;
 ; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|k_address[0,2,3,7]  ; Stuck at GND due to stuck port data_in                                       ;
 ; invadersImg:imagegen|aliens_x_off[2]                                 ; Merged with invadersImg:imagegen|aliens_x_off[0]                             ;
 ; adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|i2c_address[3..5]  ; Merged with adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|i2c_address[0] ;
 ; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|k_address[4..6]     ; Merged with adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|k_address[1]    ;
 ; invadersImg:imagegen|aliens_x_off[0]                                 ; Stuck at GND due to stuck port data_in                                       ;
 ; invadersImg:imagegen|e_bullet_x[0]                                   ; Stuck at GND due to stuck port data_in                                       ;
-; adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|setup_state~6      ; Lost fanout                                                                  ;
-; adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|setup_state~7      ; Lost fanout                                                                  ;
-; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|state~10            ; Lost fanout                                                                  ;
-; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|state~11            ; Lost fanout                                                                  ;
-; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|state~12            ; Lost fanout                                                                  ;
 ; invadersImg:imagegen|aliens_x_off[1]                                 ; Stuck at VCC due to stuck port data_in                                       ;
-; Total Number of Removed Registers = 24                               ;                                                                              ;
+; adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|state.S_DONE       ; Stuck at GND due to stuck port data_in                                       ;
+; Total Number of Removed Registers = 21                               ;                                                                              ;
 +----------------------------------------------------------------------+------------------------------------------------------------------------------+
 
 
@@ -402,13 +433,13 @@ Encoding Type:  One-Hot
 +--------------------------------------------------------------------+---------------------------+---------------------------------------------------------------+
 ; Register name                                                      ; Reason for Removal        ; Registers Removed due to This Register                        ;
 +--------------------------------------------------------------------+---------------------------+---------------------------------------------------------------+
-; adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|i2c_readnotwrite ; Stuck at GND              ; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|k_address[0] ;
-;                                                                    ; due to stuck port data_in ;                                                               ;
-; adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|i2c_address[1]   ; Stuck at GND              ; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|k_address[2] ;
+; adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|i2c_address[6]   ; Stuck at GND              ; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|k_address[7] ;
 ;                                                                    ; due to stuck port data_in ;                                                               ;
 ; adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|i2c_address[2]   ; Stuck at GND              ; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|k_address[3] ;
 ;                                                                    ; due to stuck port data_in ;                                                               ;
-; adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|i2c_address[6]   ; Stuck at GND              ; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|k_address[7] ;
+; adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|i2c_address[1]   ; Stuck at GND              ; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|k_address[2] ;
+;                                                                    ; due to stuck port data_in ;                                                               ;
+; adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|i2c_readnotwrite ; Stuck at GND              ; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|k_address[0] ;
 ;                                                                    ; due to stuck port data_in ;                                                               ;
 ; invadersImg:imagegen|aliens_x_off[0]                               ; Stuck at GND              ; invadersImg:imagegen|e_bullet_x[0]                            ;
 ;                                                                    ; due to stuck port data_in ;                                                               ;
@@ -420,75 +451,73 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 280   ;
-; Number of registers using Synchronous Clear  ; 92    ;
-; Number of registers using Synchronous Load   ; 33    ;
-; Number of registers using Asynchronous Clear ; 126   ;
+; Total registers                              ; 309   ;
+; Number of registers using Synchronous Clear  ; 115   ;
+; Number of registers using Synchronous Load   ; 18    ;
+; Number of registers using Asynchronous Clear ; 208   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 202   ;
+; Number of registers using Clock Enable       ; 221   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
-+---------------------------------------------------------------------------+
-; Inverted Register Statistics                                              ;
-+-----------------------------------------------------------------+---------+
-; Inverted Register                                               ; Fan out ;
-+-----------------------------------------------------------------+---------+
-; invadersImg:imagegen|aliens_y_off[5]                            ; 36      ;
-; invadersImg:imagegen|aliens_y_off[3]                            ; 13      ;
-; invadersImg:imagegen|aliens_x_off[5]                            ; 37      ;
-; invadersImg:imagegen|aliens_x_off[4]                            ; 37      ;
-; invadersImg:imagegen|lives[1]                                   ; 7       ;
-; invadersImg:imagegen|lives[0]                                   ; 8       ;
-; invadersImg:imagegen|aliens_alive[0][3]                         ; 7       ;
-; invadersImg:imagegen|aliens_alive[0][5]                         ; 7       ;
-; invadersImg:imagegen|aliens_alive[0][0]                         ; 6       ;
-; invadersImg:imagegen|aliens_alive[0][2]                         ; 6       ;
-; invadersImg:imagegen|aliens_alive[0][4]                         ; 6       ;
-; invadersImg:imagegen|aliens_alive[0][6]                         ; 7       ;
-; invadersImg:imagegen|aliens_alive[0][1]                         ; 7       ;
-; invadersImg:imagegen|aliens_alive[0][7]                         ; 7       ;
-; invadersImg:imagegen|aliens_alive[1][5]                         ; 6       ;
-; invadersImg:imagegen|aliens_alive[1][7]                         ; 7       ;
-; invadersImg:imagegen|aliens_alive[1][0]                         ; 7       ;
-; invadersImg:imagegen|aliens_alive[1][2]                         ; 6       ;
-; invadersImg:imagegen|aliens_alive[1][4]                         ; 6       ;
-; invadersImg:imagegen|aliens_alive[1][6]                         ; 7       ;
-; invadersImg:imagegen|aliens_alive[1][1]                         ; 7       ;
-; invadersImg:imagegen|aliens_alive[1][3]                         ; 6       ;
-; invadersImg:imagegen|aliens_alive[2][5]                         ; 13      ;
-; invadersImg:imagegen|aliens_alive[2][7]                         ; 19      ;
-; invadersImg:imagegen|aliens_alive[2][0]                         ; 7       ;
-; invadersImg:imagegen|aliens_alive[2][2]                         ; 6       ;
-; invadersImg:imagegen|aliens_alive[2][4]                         ; 6       ;
-; invadersImg:imagegen|aliens_alive[2][6]                         ; 13      ;
-; invadersImg:imagegen|aliens_alive[2][1]                         ; 7       ;
-; invadersImg:imagegen|aliens_alive[2][3]                         ; 6       ;
-; invadersImg:imagegen|aliens_alive[3][3]                         ; 94      ;
-; invadersImg:imagegen|aliens_alive[3][5]                         ; 61      ;
-; invadersImg:imagegen|aliens_alive[3][0]                         ; 49      ;
-; invadersImg:imagegen|aliens_alive[3][2]                         ; 80      ;
-; invadersImg:imagegen|aliens_alive[3][4]                         ; 80      ;
-; invadersImg:imagegen|aliens_alive[3][6]                         ; 41      ;
-; invadersImg:imagegen|aliens_alive[3][1]                         ; 56      ;
-; invadersImg:imagegen|aliens_alive[3][7]                         ; 20      ;
-; invadersImg:imagegen|tank_x[0]                                  ; 8       ;
-; invadersImg:imagegen|tank_x[8]                                  ; 17      ;
-; invadersImg:imagegen|tank_x[5]                                  ; 9       ;
-; invadersImg:imagegen|tank_x[4]                                  ; 9       ;
-; invadersImg:imagegen|lfsr[1]                                    ; 15      ;
-; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|clk_div_cnt[0] ; 3       ;
-; invadersImg:imagegen|aliens_dir                                 ; 9       ;
-; invadersImg:imagegen|lfsr[7]                                    ; 1       ;
-; invadersImg:imagegen|lfsr[5]                                    ; 2       ;
-; invadersImg:imagegen|lfsr[3]                                    ; 2       ;
-; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|busy           ; 7       ;
-; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|byte_idx[2]    ; 6       ;
-; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|byte_idx[1]    ; 4       ;
-; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|byte_idx[0]    ; 5       ;
-; Total number of inverted registers = 52                         ;         ;
-+-----------------------------------------------------------------+---------+
++------------------------------------------------------------------------+
+; Inverted Register Statistics                                           ;
++--------------------------------------------------------------+---------+
+; Inverted Register                                            ; Fan out ;
++--------------------------------------------------------------+---------+
+; invadersImg:imagegen|lives[1]                                ; 7       ;
+; invadersImg:imagegen|lives[0]                                ; 8       ;
+; invadersImg:imagegen|tank_x[8]                               ; 17      ;
+; invadersImg:imagegen|tank_x[5]                               ; 9       ;
+; invadersImg:imagegen|tank_x[4]                               ; 9       ;
+; invadersImg:imagegen|tank_x[0]                               ; 8       ;
+; invadersImg:imagegen|aliens_alive[1][5]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[1][4]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[1][3]                      ; 6       ;
+; invadersImg:imagegen|aliens_alive[1][2]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[1][0]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[1][1]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[1][6]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[1][7]                      ; 6       ;
+; invadersImg:imagegen|aliens_y_off[5]                         ; 27      ;
+; invadersImg:imagegen|aliens_y_off[3]                         ; 10      ;
+; invadersImg:imagegen|aliens_alive[2][5]                      ; 10      ;
+; invadersImg:imagegen|aliens_alive[2][4]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[2][3]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[2][2]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[2][0]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[2][1]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[2][6]                      ; 9       ;
+; invadersImg:imagegen|aliens_alive[2][7]                      ; 18      ;
+; invadersImg:imagegen|aliens_alive[3][6]                      ; 54      ;
+; invadersImg:imagegen|aliens_alive[3][7]                      ; 34      ;
+; invadersImg:imagegen|aliens_alive[3][3]                      ; 127     ;
+; invadersImg:imagegen|aliens_alive[3][4]                      ; 120     ;
+; invadersImg:imagegen|aliens_alive[3][5]                      ; 97      ;
+; invadersImg:imagegen|aliens_alive[3][2]                      ; 106     ;
+; invadersImg:imagegen|aliens_alive[3][0]                      ; 59      ;
+; invadersImg:imagegen|aliens_alive[3][1]                      ; 82      ;
+; invadersImg:imagegen|aliens_alive[0][7]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[0][6]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[0][4]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[0][5]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[0][3]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[0][2]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[0][0]                      ; 5       ;
+; invadersImg:imagegen|aliens_alive[0][1]                      ; 6       ;
+; invadersImg:imagegen|aliens_x_off[5]                         ; 39      ;
+; invadersImg:imagegen|aliens_x_off[4]                         ; 33      ;
+; invadersImg:imagegen|lfsr[1]                                 ; 15      ;
+; invadersImg:imagegen|aliens_dir                              ; 10      ;
+; invadersImg:imagegen|lfsr[7]                                 ; 1       ;
+; invadersImg:imagegen|lfsr[5]                                 ; 2       ;
+; invadersImg:imagegen|lfsr[3]                                 ; 2       ;
+; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|byte_idx[2] ; 6       ;
+; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|byte_idx[1] ; 4       ;
+; adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|byte_idx[0] ; 5       ;
+; Total number of inverted registers = 50                      ;         ;
++--------------------------------------------------------------+---------+
 
 
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -496,34 +525,84 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                       ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------------------+
-; 3:1                ; 6 bits    ; 12 LEs        ; 0 LEs                ; 12 LEs                 ; Yes        ; |spaceInvaders|invadersImg:imagegen|tank_x[2]                                    ;
-; 3:1                ; 9 bits    ; 18 LEs        ; 9 LEs                ; 9 LEs                  ; Yes        ; |spaceInvaders|invadersImg:imagegen|bullet_y[6]                                  ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |spaceInvaders|invadersImg:imagegen|e_bullet_y[2]                                ;
-; 4:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; Yes        ; |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|clk_div_cnt[1]   ;
-; 6:1                ; 4 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|byte_step[3]     ;
-; 6:1                ; 6 bits    ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |spaceInvaders|invadersImg:imagegen|alien_timer[1]                               ;
-; 7:1                ; 5 bits    ; 20 LEs        ; 15 LEs               ; 5 LEs                  ; Yes        ; |spaceInvaders|invadersImg:imagegen|e_bullet_y[6]                                ;
-; 6:1                ; 4 bits    ; 16 LEs        ; 4 LEs                ; 12 LEs                 ; Yes        ; |spaceInvaders|invadersImg:imagegen|wave[3]                                      ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 0 LEs                ; 12 LEs                 ; Yes        ; |spaceInvaders|invadersImg:imagegen|tank_x[3]                                    ;
+; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |spaceInvaders|invadersImg:imagegen|gameover_timer[8]                            ;
+; 3:1                ; 9 bits    ; 18 LEs        ; 9 LEs                ; 9 LEs                  ; Yes        ; |spaceInvaders|invadersImg:imagegen|bullet_y[4]                                  ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |spaceInvaders|invadersImg:imagegen|e_bullet_y[1]                                ;
+; 7:1                ; 5 bits    ; 20 LEs        ; 15 LEs               ; 5 LEs                  ; Yes        ; |spaceInvaders|invadersImg:imagegen|e_bullet_y[4]                                ;
+; 6:1                ; 4 bits    ; 16 LEs        ; 4 LEs                ; 12 LEs                 ; Yes        ; |spaceInvaders|invadersImg:imagegen|wave[0]                                      ;
 ; 6:1                ; 8 bits    ; 32 LEs        ; 0 LEs                ; 32 LEs                 ; Yes        ; |spaceInvaders|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|rom_step[2]     ;
 ; 7:1                ; 3 bits    ; 12 LEs        ; 3 LEs                ; 9 LEs                  ; Yes        ; |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|k_data_repeat[2] ;
-; 7:1                ; 7 bits    ; 28 LEs        ; 14 LEs               ; 14 LEs                 ; Yes        ; |spaceInvaders|invadersImg:imagegen|shoot_timer[6]                               ;
-; 9:1                ; 5 bits    ; 30 LEs        ; 10 LEs               ; 20 LEs                 ; Yes        ; |spaceInvaders|invadersImg:imagegen|aliens_x_off[6]                              ;
-; 9:1                ; 7 bits    ; 42 LEs        ; 14 LEs               ; 28 LEs                 ; Yes        ; |spaceInvaders|invadersImg:imagegen|aliens_y_off[1]                              ;
-; 48:1               ; 6 bits    ; 192 LEs       ; 12 LEs               ; 180 LEs                ; Yes        ; |spaceInvaders|invadersImg:imagegen|aliens_killed_count[2]                       ;
-; 50:1               ; 16 bits   ; 528 LEs       ; 0 LEs                ; 528 LEs                ; Yes        ; |spaceInvaders|invadersImg:imagegen|score[12]                                    ;
+; 6:1                ; 6 bits    ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |spaceInvaders|invadersImg:imagegen|alien_timer[5]                               ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; Yes        ; |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|byte_step[3]     ;
+; 7:1                ; 7 bits    ; 28 LEs        ; 14 LEs               ; 14 LEs                 ; Yes        ; |spaceInvaders|invadersImg:imagegen|shoot_timer[2]                               ;
+; 9:1                ; 5 bits    ; 30 LEs        ; 10 LEs               ; 20 LEs                 ; Yes        ; |spaceInvaders|invadersImg:imagegen|aliens_x_off[3]                              ;
+; 9:1                ; 7 bits    ; 42 LEs        ; 14 LEs               ; 28 LEs                 ; Yes        ; |spaceInvaders|invadersImg:imagegen|aliens_y_off[0]                              ;
+; 50:1               ; 16 bits   ; 528 LEs       ; 0 LEs                ; 528 LEs                ; Yes        ; |spaceInvaders|invadersImg:imagegen|score[9]                                     ;
+; 58:1               ; 6 bits    ; 228 LEs       ; 12 LEs               ; 216 LEs                ; Yes        ; |spaceInvaders|invadersImg:imagegen|aliens_killed_count[0]                       ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 0 LEs                ; 8 LEs                  ; Yes        ; |spaceInvaders|invadersImg:imagegen|tank_x[8]                                    ;
-; 6:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|byte_idx[0]      ;
+; 9:1                ; 3 bits    ; 18 LEs        ; 9 LEs                ; 9 LEs                  ; Yes        ; |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|byte_idx[2]      ;
 ; 9:1                ; 2 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |spaceInvaders|invadersImg:imagegen|aliens_x_off[4]                              ;
 ; 9:1                ; 2 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |spaceInvaders|invadersImg:imagegen|aliens_y_off[5]                              ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |spaceInvaders|invadersImg:imagegen|red_out                                      ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |spaceInvaders|invadersImg:imagegen|blue_out                                     ;
 ; 8:1                ; 4 bits    ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; No         ; |spaceInvaders|invadersImg:imagegen|Mux13                                        ;
-; 7:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |spaceInvaders|invadersImg:imagegen|blue_out[2]                                  ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 6 LEs                ; 4 LEs                  ; No         ; |spaceInvaders|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|setup_state     ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |spaceInvaders|invadersImg:imagegen|blue_out[6]                                  ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |spaceInvaders|invadersImg:imagegen|red_out[0]                                   ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |spaceInvaders|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|Selector42      ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |spaceInvaders|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|Selector44      ;
 ; 8:1                ; 2 bits    ; 10 LEs        ; 6 LEs                ; 4 LEs                  ; No         ; |spaceInvaders|invadersImg:imagegen|state                                        ;
-; 9:1                ; 2 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; No         ; |spaceInvaders|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|setup_state     ;
-; 13:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|state            ;
-; 13:1               ; 2 bits    ; 16 LEs        ; 6 LEs                ; 10 LEs                 ; No         ; |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|state            ;
-; 15:1               ; 2 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; No         ; |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|state            ;
+; 12:1               ; 4 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|state            ;
+; 12:1               ; 2 bits    ; 16 LEs        ; 4 LEs                ; 12 LEs                 ; No         ; |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|state            ;
+; 14:1               ; 2 bits    ; 18 LEs        ; 8 LEs                ; 10 LEs                 ; No         ; |spaceInvaders|adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst|state            ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------+
+; Source assignments for Top-level Entity: |spaceInvaders ;
++------------+----------+------+--------------------------+
+; Assignment ; Value    ; From ; To                       ;
++------------+----------+------+--------------------------+
+; LOCATION   ; Pin_P11  ; -    ; KEY[4]                   ;
+; LOCATION   ; Pin_P12  ; -    ; KEY[3]                   ;
+; LOCATION   ; Pin_Y15  ; -    ; KEY[2]                   ;
+; LOCATION   ; Pin_Y16  ; -    ; KEY[1]                   ;
+; LOCATION   ; Pin_AB24 ; -    ; KEY[0]                   ;
+; LOCATION   ; Pin_AD13 ; -    ; SW[2]                    ;
+; LOCATION   ; Pin_AE10 ; -    ; SW[1]                    ;
+; LOCATION   ; Pin_AC9  ; -    ; SW[0]                    ;
+; LOCATION   ; Pin_AD25 ; -    ; HDMI_TX_D[23]            ;
+; LOCATION   ; Pin_AC25 ; -    ; HDMI_TX_D[22]            ;
+; LOCATION   ; Pin_AB25 ; -    ; HDMI_TX_D[21]            ;
+; LOCATION   ; Pin_AA24 ; -    ; HDMI_TX_D[20]            ;
+; LOCATION   ; Pin_AB26 ; -    ; HDMI_TX_D[19]            ;
+; LOCATION   ; Pin_R26  ; -    ; HDMI_TX_D[18]            ;
+; LOCATION   ; Pin_R24  ; -    ; HDMI_TX_D[17]            ;
+; LOCATION   ; Pin_P21  ; -    ; HDMI_TX_D[16]            ;
+; LOCATION   ; Pin_P26  ; -    ; HDMI_TX_D[15]            ;
+; LOCATION   ; Pin_N25  ; -    ; HDMI_TX_D[14]            ;
+; LOCATION   ; Pin_P23  ; -    ; HDMI_TX_D[13]            ;
+; LOCATION   ; Pin_P22  ; -    ; HDMI_TX_D[12]            ;
+; LOCATION   ; Pin_R25  ; -    ; HDMI_TX_D[11]            ;
+; LOCATION   ; Pin_R23  ; -    ; HDMI_TX_D[10]            ;
+; LOCATION   ; Pin_T26  ; -    ; HDMI_TX_D[9]             ;
+; LOCATION   ; Pin_T24  ; -    ; HDMI_TX_D[8]             ;
+; LOCATION   ; Pin_T23  ; -    ; HDMI_TX_D[7]             ;
+; LOCATION   ; Pin_U24  ; -    ; HDMI_TX_D[6]             ;
+; LOCATION   ; Pin_V25  ; -    ; HDMI_TX_D[5]             ;
+; LOCATION   ; Pin_V24  ; -    ; HDMI_TX_D[4]             ;
+; LOCATION   ; Pin_W26  ; -    ; HDMI_TX_D[3]             ;
+; LOCATION   ; Pin_W25  ; -    ; HDMI_TX_D[2]             ;
+; LOCATION   ; Pin_AA26 ; -    ; HDMI_TX_D[1]             ;
+; LOCATION   ; Pin_V23  ; -    ; HDMI_TX_D[0]             ;
+; LOCATION   ; Pin_R20  ; -    ; clk_50                   ;
+; LOCATION   ; Pin_T12  ; -    ; HDMI_TX_CLK              ;
+; LOCATION   ; Pin_U26  ; -    ; HDMI_TX_HSYNC            ;
+; LOCATION   ; Pin_U25  ; -    ; HDMI_TX_VSYNC            ;
+; LOCATION   ; Pin_Y26  ; -    ; HDMI_TX_DE               ;
+; LOCATION   ; Pin_B7   ; -    ; I2C_SCL                  ;
+; LOCATION   ; Pin_G11  ; -    ; I2C_SDA                  ;
++------------+----------+------+--------------------------+
 
 
 +--------------------------------------------------------------------------------------------------------------+
@@ -535,7 +614,7 @@ Encoding Type:  One-Hot
 ; fractional_vco_multiplier            ; false      ; String                                                   ;
 ; pll_type                             ; General    ; String                                                   ;
 ; pll_subtype                          ; General    ; String                                                   ;
-; number_of_clocks                     ; 1          ; Signed Integer                                           ;
+; number_of_clocks                     ; 3          ; Signed Integer                                           ;
 ; operation_mode                       ; normal     ; String                                                   ;
 ; deserialization_factor               ; 4          ; Signed Integer                                           ;
 ; data_rate                            ; 0          ; Signed Integer                                           ;
@@ -543,10 +622,10 @@ Encoding Type:  One-Hot
 ; output_clock_frequency0              ; 25.0 MHz   ; String                                                   ;
 ; phase_shift0                         ; 0 ps       ; String                                                   ;
 ; duty_cycle0                          ; 50         ; Signed Integer                                           ;
-; output_clock_frequency1              ; 0 MHz      ; String                                                   ;
+; output_clock_frequency1              ; 65.0 MHz   ; String                                                   ;
 ; phase_shift1                         ; 0 ps       ; String                                                   ;
 ; duty_cycle1                          ; 50         ; Signed Integer                                           ;
-; output_clock_frequency2              ; 0 MHz      ; String                                                   ;
+; output_clock_frequency2              ; 75.0 MHz   ; String                                                   ;
 ; phase_shift2                         ; 0 ps       ; String                                                   ;
 ; duty_cycle2                          ; 50         ; Signed Integer                                           ;
 ; output_clock_frequency3              ; 0 MHz      ; String                                                   ;
@@ -756,18 +835,64 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Parameter Name ; Value ; Type                                                                 ;
 +----------------+-------+----------------------------------------------------------------------+
 ; CLK_DIV        ; 32    ; Signed Integer                                                       ;
-; CLK_CNT_SZ     ; 5     ; Signed Integer                                                       ;
 +----------------+-------+----------------------------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
 +------------------------------------------------------------------------------------------------+
 ; Parameter Settings for User Entity Instance: adv7513_wrapper:i2c_init|adv7513_setup:setup_inst ;
-+----------------+----------------------------------+--------------------------------------------+
-; Parameter Name ; Value                            ; Type                                       ;
-+----------------+----------------------------------+--------------------------------------------+
-; CNT_200MS      ; 00000000100110001001011010000000 ; Unsigned Binary                            ;
-+----------------+----------------------------------+--------------------------------------------+
++----------------+-------+-----------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                                  ;
++----------------+-------+-----------------------------------------------------------------------+
+; CLK_FREQ_MHZ   ; 50    ; Signed Integer                                                        ;
+; DELAY_MS       ; 200   ; Signed Integer                                                        ;
++----------------+-------+-----------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Mod5 ;
++------------------------+----------------+---------------------------------------------+
+; Parameter Name         ; Value          ; Type                                        ;
++------------------------+----------------+---------------------------------------------+
+; LPM_WIDTHN             ; 17             ; Untyped                                     ;
+; LPM_WIDTHD             ; 17             ; Untyped                                     ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                     ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                     ;
+; LPM_PIPELINE           ; 0              ; Untyped                                     ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                     ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                     ;
+; CBXI_PARAMETER         ; lpm_divide_c5m ; Untyped                                     ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                     ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                     ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                  ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                              ;
++------------------------+----------------+---------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Div4 ;
++------------------------+----------------+---------------------------------------------+
+; Parameter Name         ; Value          ; Type                                        ;
++------------------------+----------------+---------------------------------------------+
+; LPM_WIDTHN             ; 17             ; Untyped                                     ;
+; LPM_WIDTHD             ; 4              ; Untyped                                     ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                     ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                     ;
+; LPM_PIPELINE           ; 0              ; Untyped                                     ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                     ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                     ;
+; CBXI_PARAMETER         ; lpm_divide_lbm ; Untyped                                     ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                     ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                     ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                  ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                              ;
++------------------------+----------------+---------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -800,13 +925,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Parameter Name         ; Value          ; Type                                        ;
 +------------------------+----------------+---------------------------------------------+
 ; LPM_WIDTHN             ; 17             ; Untyped                                     ;
-; LPM_WIDTHD             ; 4              ; Untyped                                     ;
+; LPM_WIDTHD             ; 7              ; Untyped                                     ;
 ; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                     ;
 ; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                     ;
 ; LPM_PIPELINE           ; 0              ; Untyped                                     ;
 ; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                     ;
 ; MAXIMIZE_SPEED         ; 5              ; Untyped                                     ;
-; CBXI_PARAMETER         ; lpm_divide_lbm ; Untyped                                     ;
+; CBXI_PARAMETER         ; lpm_divide_obm ; Untyped                                     ;
 ; CARRY_CHAIN            ; MANUAL         ; Untyped                                     ;
 ; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                     ;
 ; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                  ;
@@ -846,13 +971,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Parameter Name         ; Value          ; Type                                        ;
 +------------------------+----------------+---------------------------------------------+
 ; LPM_WIDTHN             ; 17             ; Untyped                                     ;
-; LPM_WIDTHD             ; 7              ; Untyped                                     ;
+; LPM_WIDTHD             ; 10             ; Untyped                                     ;
 ; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                     ;
 ; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                     ;
 ; LPM_PIPELINE           ; 0              ; Untyped                                     ;
 ; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                     ;
 ; MAXIMIZE_SPEED         ; 5              ; Untyped                                     ;
-; CBXI_PARAMETER         ; lpm_divide_obm ; Untyped                                     ;
+; CBXI_PARAMETER         ; lpm_divide_2dm ; Untyped                                     ;
 ; CARRY_CHAIN            ; MANUAL         ; Untyped                                     ;
 ; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                     ;
 ; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                  ;
@@ -892,13 +1017,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Parameter Name         ; Value          ; Type                                        ;
 +------------------------+----------------+---------------------------------------------+
 ; LPM_WIDTHN             ; 17             ; Untyped                                     ;
-; LPM_WIDTHD             ; 10             ; Untyped                                     ;
+; LPM_WIDTHD             ; 14             ; Untyped                                     ;
 ; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                     ;
 ; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                     ;
 ; LPM_PIPELINE           ; 0              ; Untyped                                     ;
 ; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                     ;
 ; MAXIMIZE_SPEED         ; 5              ; Untyped                                     ;
-; CBXI_PARAMETER         ; lpm_divide_2dm ; Untyped                                     ;
+; CBXI_PARAMETER         ; lpm_divide_6dm ; Untyped                                     ;
 ; CARRY_CHAIN            ; MANUAL         ; Untyped                                     ;
 ; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                     ;
 ; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                  ;
@@ -933,18 +1058,18 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 
 +---------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Div0 ;
+; Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Mod0 ;
 +------------------------+----------------+---------------------------------------------+
 ; Parameter Name         ; Value          ; Type                                        ;
 +------------------------+----------------+---------------------------------------------+
-; LPM_WIDTHN             ; 17             ; Untyped                                     ;
-; LPM_WIDTHD             ; 14             ; Untyped                                     ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                     ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                     ;
+; LPM_WIDTHN             ; 13             ; Untyped                                     ;
+; LPM_WIDTHD             ; 13             ; Untyped                                     ;
+; LPM_NREPRESENTATION    ; SIGNED         ; Untyped                                     ;
+; LPM_DREPRESENTATION    ; SIGNED         ; Untyped                                     ;
 ; LPM_PIPELINE           ; 0              ; Untyped                                     ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                     ;
+; LPM_REMAINDERPOSITIVE  ; FALSE          ; Untyped                                     ;
 ; MAXIMIZE_SPEED         ; 5              ; Untyped                                     ;
-; CBXI_PARAMETER         ; lpm_divide_6dm ; Untyped                                     ;
+; CBXI_PARAMETER         ; lpm_divide_sio ; Untyped                                     ;
 ; CARRY_CHAIN            ; MANUAL         ; Untyped                                     ;
 ; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                     ;
 ; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                  ;
@@ -956,18 +1081,18 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 
 +---------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Mod0 ;
+; Parameter Settings for Inferred Entity Instance: invadersImg:imagegen|lpm_divide:Div0 ;
 +------------------------+----------------+---------------------------------------------+
 ; Parameter Name         ; Value          ; Type                                        ;
 +------------------------+----------------+---------------------------------------------+
-; LPM_WIDTHN             ; 17             ; Untyped                                     ;
-; LPM_WIDTHD             ; 17             ; Untyped                                     ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                     ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                     ;
+; LPM_WIDTHN             ; 13             ; Untyped                                     ;
+; LPM_WIDTHD             ; 7              ; Untyped                                     ;
+; LPM_NREPRESENTATION    ; SIGNED         ; Untyped                                     ;
+; LPM_DREPRESENTATION    ; SIGNED         ; Untyped                                     ;
 ; LPM_PIPELINE           ; 0              ; Untyped                                     ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                     ;
+; LPM_REMAINDERPOSITIVE  ; FALSE          ; Untyped                                     ;
 ; MAXIMIZE_SPEED         ; 5              ; Untyped                                     ;
-; CBXI_PARAMETER         ; lpm_divide_c5m ; Untyped                                     ;
+; CBXI_PARAMETER         ; lpm_divide_cpo ; Untyped                                     ;
 ; CARRY_CHAIN            ; MANUAL         ; Untyped                                     ;
 ; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                     ;
 ; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                  ;
@@ -978,26 +1103,14 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+---------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "invadersImg:imagegen"                                                                          ;
-+-----------------+--------+----------+-------------------------------------------------------------------------------------+
-; Port            ; Type   ; Severity ; Details                                                                             ;
-+-----------------+--------+----------+-------------------------------------------------------------------------------------+
-; red_out[1..0]   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; green_out[1..0] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; blue_out[1..0]  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+-----------------+--------+----------+-------------------------------------------------------------------------------------+
-
-
-+-----------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "adv7513_wrapper:i2c_init|adv7513_setup:setup_inst"                                         ;
-+-------------+--------+----------+-------------------------------------------------------------------------------------+
-; Port        ; Type   ; Severity ; Details                                                                             ;
-+-------------+--------+----------+-------------------------------------------------------------------------------------+
-; active      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; is_busywait ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; is_busyseen ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+-------------+--------+----------+-------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "adv7513_wrapper:i2c_init|adv7513_setup:setup_inst"                                                              ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; Port        ; Type   ; Severity ; Details                                                                                                  ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; active      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                      ;
+; debug_state ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------------------------------------------------------------------------+
@@ -1024,6 +1137,15 @@ Note: In order to hide this table in the UI and the text report file, please set
 +---------+--------+----------+-------------------------------------------------------------------------------------+
 
 
++---------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "adv7513_wrapper:i2c_init"                                                                ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port      ; Type   ; Severity ; Details                                                                             ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; init_done ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+
+
 +---------------------------------------------+
 ; Port Connectivity Checks: "pll_25:pll_inst" ;
 +------+-------+----------+-------------------+
@@ -1038,7 +1160,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:12     ;
+; Top            ; 00:00:28     ;
 +----------------+--------------+
 
 
@@ -1048,9 +1170,27 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Wed May 27 23:05:38 2026
+    Info: Processing started: Wed Jun 03 23:33:29 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off space_invaders -c space_invaders
 Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file uart_tx.vhd
+    Info (12022): Found design unit 1: uart_tx-rtl
+    Info (12023): Found entity 1: uart_tx
+Info (12021): Found 2 design units, including 1 entities, in source file uart_rx.vhd
+    Info (12022): Found design unit 1: uart_rx-rtl
+    Info (12023): Found entity 1: uart_rx
+Info (12021): Found 2 design units, including 1 entities, in source file uart_loopback.vhd
+    Info (12022): Found design unit 1: uart_loopback-rtl
+    Info (12023): Found entity 1: uart_loopback
+Info (12021): Found 2 design units, including 1 entities, in source file baud_rate_gen.vhd
+    Info (12022): Found design unit 1: baud_rate_gen-rtl
+    Info (12023): Found entity 1: baud_rate_gen
+Info (12021): Found 2 design units, including 2 entities, in source file i2ciobuf.v
+    Info (12023): Found entity 1: i2ciobuf_iobuf_bidir_amo
+    Info (12023): Found entity 2: i2ciobuf
+Info (12021): Found 2 design units, including 1 entities, in source file adv7513_wrapper.vhd
+    Info (12022): Found design unit 1: adv7513_wrapper-structural
+    Info (12023): Found entity 1: adv7513_wrapper
 Info (12021): Found 2 design units, including 1 entities, in source file spaceinvaders.vhd
     Info (12022): Found design unit 1: spaceInvaders-toplevel
     Info (12023): Found entity 1: spaceInvaders
@@ -1065,7 +1205,18 @@ Info (12021): Found 2 design units, including 1 entities, in source file pll_25.
     Info (12023): Found entity 1: pll_25
 Info (12021): Found 1 design units, including 1 entities, in source file pll_25/pll_25_0002.v
     Info (12023): Found entity 1: pll_25_0002
+Info (12021): Found 2 design units, including 1 entities, in source file i2c_controller.vhd
+    Info (12022): Found design unit 1: I2C_CONTROLLER-rtl
+    Info (12023): Found entity 1: I2C_CONTROLLER
+Info (12021): Found 2 design units, including 1 entities, in source file setup_rom.vhd
+    Info (12022): Found design unit 1: setup_rom-rtl
+    Info (12023): Found entity 1: setup_rom
+Info (12021): Found 2 design units, including 1 entities, in source file adv7513_setup.vhd
+    Info (12022): Found design unit 1: adv7513_setup-rtl
+    Info (12023): Found entity 1: adv7513_setup
 Info (12127): Elaborating entity "spaceInvaders" for the top level hierarchy
+Warning (10036): Verilog HDL or VHDL warning at spaceInvaders.vhd(45): object "reset_n" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at spaceInvaders.vhd(57): object "init_done" assigned a value but never read
 Info (12128): Elaborating entity "pll_25" for hierarchy "pll_25:pll_inst"
 Info (12128): Elaborating entity "pll_25_0002" for hierarchy "pll_25:pll_inst|pll_25_0002:pll_25_inst"
 Info (12128): Elaborating entity "altera_pll" for hierarchy "pll_25:pll_inst|pll_25_0002:pll_25_inst|altera_pll:altera_pll_i"
@@ -1076,14 +1227,14 @@ Info (12133): Instantiated megafunction "pll_25:pll_inst|pll_25_0002:pll_25_inst
     Info (12134): Parameter "fractional_vco_multiplier" = "false"
     Info (12134): Parameter "reference_clock_frequency" = "50.0 MHz"
     Info (12134): Parameter "operation_mode" = "normal"
-    Info (12134): Parameter "number_of_clocks" = "1"
+    Info (12134): Parameter "number_of_clocks" = "3"
     Info (12134): Parameter "output_clock_frequency0" = "25.0 MHz"
     Info (12134): Parameter "phase_shift0" = "0 ps"
     Info (12134): Parameter "duty_cycle0" = "50"
-    Info (12134): Parameter "output_clock_frequency1" = "0 MHz"
+    Info (12134): Parameter "output_clock_frequency1" = "65.0 MHz"
     Info (12134): Parameter "phase_shift1" = "0 ps"
     Info (12134): Parameter "duty_cycle1" = "50"
-    Info (12134): Parameter "output_clock_frequency2" = "0 MHz"
+    Info (12134): Parameter "output_clock_frequency2" = "75.0 MHz"
     Info (12134): Parameter "phase_shift2" = "0 ps"
     Info (12134): Parameter "duty_cycle2" = "50"
     Info (12134): Parameter "output_clock_frequency3" = "0 MHz"
@@ -1133,27 +1284,23 @@ Info (12133): Instantiated megafunction "pll_25:pll_inst|pll_25_0002:pll_25_inst
     Info (12134): Parameter "duty_cycle17" = "50"
     Info (12134): Parameter "pll_type" = "General"
     Info (12134): Parameter "pll_subtype" = "General"
-Warning (12125): Using design file adv7513_wrapper.vhd, which is not specified as a design file for the current project, but contains definitions for 2 design units and 1 entities in project
-    Info (12022): Found design unit 1: adv7513_wrapper-structural
-    Info (12023): Found entity 1: adv7513_wrapper
 Info (12128): Elaborating entity "adv7513_wrapper" for hierarchy "adv7513_wrapper:i2c_init"
-Warning (12125): Using design file i2ciobuf.v, which is not specified as a design file for the current project, but contains definitions for 2 design units and 2 entities in project
-    Info (12023): Found entity 1: i2ciobuf_iobuf_bidir_amo
-    Info (12023): Found entity 2: i2ciobuf
 Info (12128): Elaborating entity "i2ciobuf" for hierarchy "adv7513_wrapper:i2c_init|i2ciobuf:scl_buf"
 Info (12128): Elaborating entity "i2ciobuf_iobuf_bidir_amo" for hierarchy "adv7513_wrapper:i2c_init|i2ciobuf:scl_buf|i2ciobuf_iobuf_bidir_amo:i2ciobuf_iobuf_bidir_amo_component"
-Warning (12125): Using design file i2c_controller.sv, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
-    Info (12023): Found entity 1: I2C_CONTROLLER
 Info (12128): Elaborating entity "I2C_CONTROLLER" for hierarchy "adv7513_wrapper:i2c_init|I2C_CONTROLLER:i2c_inst"
-Warning (12125): Using design file adv7513_setup.sv, which is not specified as a design file for the current project, but contains definitions for 2 design units and 2 entities in project
-    Info (12023): Found entity 1: setup_rom
-    Info (12023): Found entity 2: adv7513_setup
 Info (12128): Elaborating entity "adv7513_setup" for hierarchy "adv7513_wrapper:i2c_init|adv7513_setup:setup_inst"
-Info (12128): Elaborating entity "setup_rom" for hierarchy "adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|setup_rom:setup_rom_inst"
+Info (12128): Elaborating entity "setup_rom" for hierarchy "adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|setup_rom:rom_inst"
 Info (12128): Elaborating entity "spaceInvadersSync" for hierarchy "spaceInvadersSync:vgasync"
+Warning (10036): Verilog HDL or VHDL warning at spaceInvadersSync.vhd(62): object "H_BACK_PORCH_reg" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at spaceInvadersSync.vhd(68): object "V_BACK_PORCH_reg" assigned a value but never read
 Info (12128): Elaborating entity "invadersImg" for hierarchy "invadersImg:imagegen"
-Warning (10036): Verilog HDL or VHDL warning at invadersImg.vhd(236): object "all_aliens_dead" assigned a value but never read
-Info (278001): Inferred 9 megafunctions from design logic
+Warning (10036): Verilog HDL or VHDL warning at invadersImg.vhd(83): object "alien_invasion_gameover" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at invadersImg.vhd(170): object "all_aliens_dead" assigned a value but never read
+Warning (19016): Clock multiplexers are found and protected
+    Warning (19017): Found clock multiplexer Mux0
+Info (278001): Inferred 11 megafunctions from design logic
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "invadersImg:imagegen|Mod5"
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "invadersImg:imagegen|Div4"
     Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "invadersImg:imagegen|Mod4"
     Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "invadersImg:imagegen|Div3"
     Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "invadersImg:imagegen|Mod3"
@@ -1161,10 +1308,10 @@ Info (278001): Inferred 9 megafunctions from design logic
     Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "invadersImg:imagegen|Mod2"
     Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "invadersImg:imagegen|Div1"
     Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "invadersImg:imagegen|Mod1"
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "invadersImg:imagegen|Div0"
     Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "invadersImg:imagegen|Mod0"
-Info (12130): Elaborated megafunction instantiation "invadersImg:imagegen|lpm_divide:Mod4"
-Info (12133): Instantiated megafunction "invadersImg:imagegen|lpm_divide:Mod4" with the following parameter:
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "invadersImg:imagegen|Div0"
+Info (12130): Elaborated megafunction instantiation "invadersImg:imagegen|lpm_divide:Mod5"
+Info (12133): Instantiated megafunction "invadersImg:imagegen|lpm_divide:Mod5" with the following parameter:
     Info (12134): Parameter "LPM_WIDTHN" = "17"
     Info (12134): Parameter "LPM_WIDTHD" = "17"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
@@ -1175,8 +1322,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/sign
     Info (12023): Found entity 1: sign_div_unsign_fnh
 Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_43f.tdf
     Info (12023): Found entity 1: alt_u_div_43f
-Info (12130): Elaborated megafunction instantiation "invadersImg:imagegen|lpm_divide:Div3"
-Info (12133): Instantiated megafunction "invadersImg:imagegen|lpm_divide:Div3" with the following parameter:
+Info (12130): Elaborated megafunction instantiation "invadersImg:imagegen|lpm_divide:Div4"
+Info (12133): Instantiated megafunction "invadersImg:imagegen|lpm_divide:Div4" with the following parameter:
     Info (12134): Parameter "LPM_WIDTHN" = "17"
     Info (12134): Parameter "LPM_WIDTHD" = "4"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
@@ -1187,14 +1334,14 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/sign
     Info (12023): Found entity 1: sign_div_unsign_rlh
 Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_sve.tdf
     Info (12023): Found entity 1: alt_u_div_sve
-Info (12130): Elaborated megafunction instantiation "invadersImg:imagegen|lpm_divide:Mod3"
-Info (12133): Instantiated megafunction "invadersImg:imagegen|lpm_divide:Mod3" with the following parameter:
+Info (12130): Elaborated megafunction instantiation "invadersImg:imagegen|lpm_divide:Mod4"
+Info (12133): Instantiated megafunction "invadersImg:imagegen|lpm_divide:Mod4" with the following parameter:
     Info (12134): Parameter "LPM_WIDTHN" = "17"
     Info (12134): Parameter "LPM_WIDTHD" = "17"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
     Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
-Info (12130): Elaborated megafunction instantiation "invadersImg:imagegen|lpm_divide:Div2"
-Info (12133): Instantiated megafunction "invadersImg:imagegen|lpm_divide:Div2" with the following parameter:
+Info (12130): Elaborated megafunction instantiation "invadersImg:imagegen|lpm_divide:Div3"
+Info (12133): Instantiated megafunction "invadersImg:imagegen|lpm_divide:Div3" with the following parameter:
     Info (12134): Parameter "LPM_WIDTHN" = "17"
     Info (12134): Parameter "LPM_WIDTHD" = "7"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
@@ -1205,8 +1352,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/sign
     Info (12023): Found entity 1: sign_div_unsign_ulh
 Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_20f.tdf
     Info (12023): Found entity 1: alt_u_div_20f
-Info (12130): Elaborated megafunction instantiation "invadersImg:imagegen|lpm_divide:Div1"
-Info (12133): Instantiated megafunction "invadersImg:imagegen|lpm_divide:Div1" with the following parameter:
+Info (12130): Elaborated megafunction instantiation "invadersImg:imagegen|lpm_divide:Div2"
+Info (12133): Instantiated megafunction "invadersImg:imagegen|lpm_divide:Div2" with the following parameter:
     Info (12134): Parameter "LPM_WIDTHN" = "17"
     Info (12134): Parameter "LPM_WIDTHD" = "10"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
@@ -1217,8 +1364,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/sign
     Info (12023): Found entity 1: sign_div_unsign_8nh
 Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_m2f.tdf
     Info (12023): Found entity 1: alt_u_div_m2f
-Info (12130): Elaborated megafunction instantiation "invadersImg:imagegen|lpm_divide:Div0"
-Info (12133): Instantiated megafunction "invadersImg:imagegen|lpm_divide:Div0" with the following parameter:
+Info (12130): Elaborated megafunction instantiation "invadersImg:imagegen|lpm_divide:Div1"
+Info (12133): Instantiated megafunction "invadersImg:imagegen|lpm_divide:Div1" with the following parameter:
     Info (12134): Parameter "LPM_WIDTHN" = "17"
     Info (12134): Parameter "LPM_WIDTHD" = "14"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
@@ -1229,40 +1376,57 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/sign
     Info (12023): Found entity 1: sign_div_unsign_cnh
 Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_u2f.tdf
     Info (12023): Found entity 1: alt_u_div_u2f
-Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "LEDR[2]" is stuck at GND
-    Warning (13410): Pin "LEDR[3]" is stuck at GND
-    Warning (13410): Pin "LEDR[4]" is stuck at GND
-    Warning (13410): Pin "LEDR[5]" is stuck at GND
-    Warning (13410): Pin "LEDR[6]" is stuck at GND
-    Warning (13410): Pin "LEDR[7]" is stuck at GND
-    Warning (13410): Pin "LEDR[8]" is stuck at GND
-    Warning (13410): Pin "LEDR[9]" is stuck at GND
+Info (12130): Elaborated megafunction instantiation "invadersImg:imagegen|lpm_divide:Mod0"
+Info (12133): Instantiated megafunction "invadersImg:imagegen|lpm_divide:Mod0" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "13"
+    Info (12134): Parameter "LPM_WIDTHD" = "13"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "SIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "SIGNED"
+    Info (12134): Parameter "LPM_HINT" = "LPM_REMAINDERPOSITIVE=FALSE"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_sio.tdf
+    Info (12023): Found entity 1: lpm_divide_sio
+Info (12021): Found 1 design units, including 1 entities, in source file db/abs_divider_2dg.tdf
+    Info (12023): Found entity 1: abs_divider_2dg
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_k2f.tdf
+    Info (12023): Found entity 1: alt_u_div_k2f
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_abs_3p9.tdf
+    Info (12023): Found entity 1: lpm_abs_3p9
+Info (12130): Elaborated megafunction instantiation "invadersImg:imagegen|lpm_divide:Div0"
+Info (12133): Instantiated megafunction "invadersImg:imagegen|lpm_divide:Div0" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "13"
+    Info (12134): Parameter "LPM_WIDTHD" = "7"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "SIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "SIGNED"
+    Info (12134): Parameter "LPM_HINT" = "LPM_REMAINDERPOSITIVE=FALSE"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_cpo.tdf
+    Info (12023): Found entity 1: lpm_divide_cpo
+Info (12021): Found 1 design units, including 1 entities, in source file db/abs_divider_lbg.tdf
+    Info (12023): Found entity 1: abs_divider_lbg
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_qve.tdf
+    Info (12023): Found entity 1: alt_u_div_qve
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_abs_mn9.tdf
+    Info (12023): Found entity 1: lpm_abs_mn9
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Info (286030): Timing-Driven Synthesis is running
-Info (17049): 5 registers lost all their fanouts during netlist optimizations.
-Info (144001): Generated suppressed messages file C:/altera/13.0sp1/quartus/projects/plis/space_invaders/output_files/space_invaders.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
-    Info (16011): Adding 7 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
+    Info (16011): Adding 5 node(s), including 0 DDIO, 3 PLL, 0 transceiver and 0 LCELL
 Warning: RST port on the PLL is not properly connected on instance pll_25:pll_inst|pll_25_0002:pll_25_inst|altera_pll:altera_pll_i|general[0].gpll. The reset port on the PLL should be connected. If the PLL loses lock for any reason, you might need to manually reset the PLL in order to re-establish lock to the reference clock.
     Info: Must be connected
-Warning (21074): Design contains 1 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "SW[1]"
-Info (21057): Implemented 3660 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 8 input pins
-    Info (21059): Implemented 39 output pins
+Warning: RST port on the PLL is not properly connected on instance pll_25:pll_inst|pll_25_0002:pll_25_inst|altera_pll:altera_pll_i|general[1].gpll. The reset port on the PLL should be connected. If the PLL loses lock for any reason, you might need to manually reset the PLL in order to re-establish lock to the reference clock.
+    Info: Must be connected
+Warning: RST port on the PLL is not properly connected on instance pll_25:pll_inst|pll_25_0002:pll_25_inst|altera_pll:altera_pll_i|general[2].gpll. The reset port on the PLL should be connected. If the PLL loses lock for any reason, you might need to manually reset the PLL in order to re-establish lock to the reference clock.
+    Info: Must be connected
+Info (21057): Implemented 7145 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 9 input pins
+    Info (21059): Implemented 29 output pins
     Info (21060): Implemented 1 bidirectional pins
-    Info (21061): Implemented 3611 logic cells
-    Info (21065): Implemented 1 PLLs
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 19 warnings
-    Info: Peak virtual memory: 4768 megabytes
-    Info: Processing ended: Wed May 27 23:05:53 2026
-    Info: Elapsed time: 00:00:15
-    Info: Total CPU time (on all processors): 00:00:14
-
-
-+------------------------------------------+
-; Analysis & Synthesis Suppressed Messages ;
-+------------------------------------------+
-The suppressed messages can be found in C:/altera/13.0sp1/quartus/projects/plis/space_invaders/output_files/space_invaders.map.smsg.
+    Info (21061): Implemented 7098 logic cells
+    Info (21065): Implemented 3 PLLs
+    Info (21062): Implemented 5 DSP elements
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 14 warnings
+    Info: Peak virtual memory: 4790 megabytes
+    Info: Processing ended: Wed Jun 03 23:34:00 2026
+    Info: Elapsed time: 00:00:31
+    Info: Total CPU time (on all processors): 00:00:31
 
 
