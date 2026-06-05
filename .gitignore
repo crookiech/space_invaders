@@ -7,5 +7,4 @@ simulation/
 uart_module_restored/
 *.txt
 *.echo
-*rom*
 *.vhd.bak
