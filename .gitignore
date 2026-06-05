@@ -8,3 +8,4 @@ uart_module_restored/
 *.txt
 *.echo
 *.vhd.bak
+*uart_module*
