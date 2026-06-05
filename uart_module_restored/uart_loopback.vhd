@@ -369,6 +369,7 @@ begin
                             need_to_search <= '0';
                             search_state <= IDLE;
                             search_counter <= 0;
+									 command_found_flag <= '0';
                             
                         when others =>
                             search_state <= IDLE;

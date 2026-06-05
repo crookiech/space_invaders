@@ -3,8 +3,9 @@ greybox_tmp/
 hc_output/
 incremental_db/
 output_files/
+simulation/
+uart_module_restored/
 *.txt
 *.echo
 *rom*
-*ROM*
 *.vhd.bak

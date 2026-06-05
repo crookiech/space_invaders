@@ -1,0 +1,2037 @@
+# Reading D:/altera/13.0sp1/modelsim_ase/tcl/vsim/pref.tcl 
+# ERROR: No extended dataflow license exists
+# do uart_module_run_msim_rtl_vhdl.do 
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Copying D:\altera\13.0sp1\modelsim_ase\win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# ** Warning: Copied D:\altera\13.0sp1\modelsim_ase\win32aloem/../modelsim.ini to modelsim.ini.
+#          Updated modelsim.ini.
+# 
+# vcom -93 -work work {D:/altera/13.0sp1/uart_module/command_searcher.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity command_searcher
+# -- Compiling architecture rtl of command_searcher
+# 
+vcom -2008 D:/altera/13.0sp1/uart_module/tb_command_searcher.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity tb_command_searcher
+# -- Compiling architecture test of tb_command_searcher
+# -- Loading entity command_searcher
+vsim work.tb_command_searcher
+# vsim work.tb_command_searcher 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.tb_command_searcher(test)
+# Loading work.command_searcher(rtl)
+add wave -radix binary tb_command_searcher/dut/clk
+# (vish-4014) No objects found matching 'tb_command_searcher/dut/clk'.
+add wave -radix binary tb_command_searcher/dut/rst
+# (vish-4014) No objects found matching 'tb_command_searcher/dut/rst'.
+add wave -radix binary tb_command_searcher/dut/start_search
+# (vish-4014) No objects found matching 'tb_command_searcher/dut/start_search'.
+add wave -radix ASCII tb_command_searcher/dut/search_string
+# (vish-4014) No objects found matching 'tb_command_searcher/dut/search_string'.
+add wave tb_command_searcher/dut/string_len
+# (vish-4014) No objects found matching 'tb_command_searcher/dut/string_len'.
+add wave -radix binary tb_command_searcher/dut/command_found
+# (vish-4014) No objects found matching 'tb_command_searcher/dut/command_found'.
+add wave -radix decimal tb_command_searcher/dut/command_code
+# (vish-4014) No objects found matching 'tb_command_searcher/dut/command_code'.
+add wave -radix hex tb_command_searcher/dut/rom_address
+# (vish-4014) No objects found matching 'tb_command_searcher/dut/rom_address'.
+add wave -radix ASCII tb_command_searcher/dut/rom_data
+# (vish-4014) No objects found matching 'tb_command_searcher/dut/rom_data'.
+add wave tb_command_searcher/dut/search_state
+# (vish-4014) No objects found matching 'tb_command_searcher/dut/search_state'.
+add wave -radix hex tb_command_searcher/dut/command_start_addr
+# (vish-4014) No objects found matching 'tb_command_searcher/dut/command_start_addr'.
+add wave -radix binary tb_command_searcher/dut/command_found_flag
+# (vish-4014) No objects found matching 'tb_command_searcher/dut/command_found_flag'.
+add wave -radix binary tb_command_searcher/dut/found_code
+# (vish-4014) No objects found matching 'tb_command_searcher/dut/found_code'.
+add wave -radix decimal tb_command_searcher/dut/search_counter
+# (vish-4014) No objects found matching 'tb_command_searcher/dut/search_counter'.
+run 85000ns
+# ** Note: Starting command_searcher testbench
+#    Time: 0 ps  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 1: Searching for 'res1024' (should be found, code=1)
+#    Time: 200 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 1: command_found mismatch. Expected='1' Got='0'
+#    Time: 770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 1: command_code mismatch. Expected=1 Got=0
+#    Time: 770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 1 completed successfully
+#    Time: 770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 2: Searching for 'res1280' (should be found, code=2)
+#    Time: 770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 1010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 1050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 1090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 1130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 1170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 1210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 1250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 1290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 2: command_found mismatch. Expected='1' Got='0'
+#    Time: 1330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 2: command_code mismatch. Expected=2 Got=0
+#    Time: 1330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 2 completed successfully
+#    Time: 1330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 3: Searching for 'speed1' (should be found, code=3)
+#    Time: 1330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 1370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 1410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 1450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 1490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 1530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 1570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 1610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 1650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 1690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 1730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 1770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 1810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 1850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 3: command_found mismatch. Expected='1' Got='0'
+#    Time: 1890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 3: command_code mismatch. Expected=3 Got=0
+#    Time: 1890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 3 completed successfully
+#    Time: 1890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 4: Searching for 'speed5' (should be found, code=7)
+#    Time: 1890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 1930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 1970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 2010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 2050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 2090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 2130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 2170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 2210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 2250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 2290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 2330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 2370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 2410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 4: command_found mismatch. Expected='1' Got='0'
+#    Time: 2450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 4: command_code mismatch. Expected=7 Got=0
+#    Time: 2450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 4 completed successfully
+#    Time: 2450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 5: Searching for 'speed10' (should be found, code=12)
+#    Time: 2450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 2490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 2530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 2570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 2610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 2650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 2690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 2730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 2770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 2810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 2850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 2890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 2930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 2970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 5: command_found mismatch. Expected='1' Got='0'
+#    Time: 3010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 5: command_code mismatch. Expected=12 Got=0
+#    Time: 3010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 5 completed successfully
+#    Time: 3010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 6: Searching for 'invalid' (should not be found)
+#    Time: 3010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 3050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 3090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 3130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 3170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 3210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 3250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 3290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 3330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 3370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 3410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 3450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 3490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 3530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 6 completed successfully
+#    Time: 3570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 7: Searching with empty string (should not be found)
+#    Time: 3570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 3610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 3650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 3690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 3730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 3770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 3810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 3850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 3890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 3930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 3970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 4010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 4050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 4090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 7 completed successfully
+#    Time: 4130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 8: Searching for 'res' partial (should not be found)
+#    Time: 4130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 4170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 4210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 4250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 4290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 4330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 4370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 4410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 4450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 4490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 4530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 4570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 4610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 4650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 8 completed successfully
+#    Time: 4690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 9: Searching for 'RES1024' uppercase (should not be found)
+#    Time: 4690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 4730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 4770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 4810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 4850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 4890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 4930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 4970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 5010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 5050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 5090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 5130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 5170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 5210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 9 completed successfully
+#    Time: 5250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 10: Searching for 'res1024extra' (should match as res1024)
+#    Time: 5250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 5290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 5330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 5370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 5410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 5450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 5490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 5530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 5570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 5610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 5650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 5690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 5730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 5770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 10: command_found mismatch. Expected='1' Got='0'
+#    Time: 5810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 10: command_code mismatch. Expected=1 Got=0
+#    Time: 5810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 10 completed successfully
+#    Time: 5810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 11: Starting search while busy (should be ignored)
+#    Time: 5810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 5850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 5890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 5930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 5970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 6010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 6050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 6090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 6130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 6170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 6210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 6250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 6290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 6330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 11: command_found mismatch. Expected='1' Got='0'
+#    Time: 6370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 11: command_code mismatch. Expected=3 Got=0
+#    Time: 6370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 11 completed successfully
+#    Time: 6370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 12: Searching for 'speed11' (last command, code=13)
+#    Time: 6370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 6410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 6450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 6490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 6530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 6570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 6610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 6650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 6690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 6730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 6770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 6810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 6850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 6890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 12: command_found mismatch. Expected='1' Got='0'
+#    Time: 6930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 12: command_code mismatch. Expected=13 Got=0
+#    Time: 6930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 12 completed successfully
+#    Time: 6930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 13: Searching with 1-character string (should not be found)
+#    Time: 6930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 6970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 7010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 7050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 7090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 7130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 7170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 7210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 7250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 7290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 7330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 7370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 7410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 7450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 13 completed successfully
+#    Time: 7490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 14: Reset during active search
+#    Time: 7490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 7530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 14 completed
+#    Time: 7750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 15: Multiple sequential searches
+#    Time: 7750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 7830 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 7870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 7910 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 7950 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 7990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 8030 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 8070 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 8110 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 8150 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 8190 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 8230 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 8270 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15a: command_found mismatch. Expected='1' Got='0'
+#    Time: 8310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15a: command_code mismatch. Expected=3 Got=0
+#    Time: 8310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 15a completed successfully
+#    Time: 8310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 8350 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 8390 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 8430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 8470 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 8510 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 8550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 8590 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 8630 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 8670 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 8710 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 8750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 8790 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 8830 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15b: command_found mismatch. Expected='1' Got='0'
+#    Time: 8870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15b: command_code mismatch. Expected=7 Got=0
+#    Time: 8870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 15b completed successfully
+#    Time: 8870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 8910 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 8950 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 8990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 9030 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 9070 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 9110 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 9150 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 9190 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 9230 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 9270 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 9310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 9350 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 9390 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15c: command_found mismatch. Expected='1' Got='0'
+#    Time: 9430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15c: command_code mismatch. Expected=2 Got=0
+#    Time: 9430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 15c completed successfully
+#    Time: 9430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 16: Searching for 'speed99' (does not exist)
+#    Time: 9430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 9470 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 9510 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 9550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 9590 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 9630 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 9670 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 9710 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 9750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 9790 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 9830 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 9870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 9910 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 9950 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 16 completed successfully
+#    Time: 9990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 17: Searching for 'speed1' with exact length match
+#    Time: 9990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 10030 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 10070 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 10110 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 10150 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 10190 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 10230 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 10270 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 10310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 10350 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 10390 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 10430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 10470 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 10510 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 17: command_found mismatch. Expected='1' Got='0'
+#    Time: 10550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 17: command_code mismatch. Expected=3 Got=0
+#    Time: 10550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 17 completed successfully
+#    Time: 10550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 18: Performance test measuring search time
+#    Time: 10550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 10590 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 10630 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 10670 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 10710 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 10750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 10790 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 10830 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 10870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 10910 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 10950 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 10990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 11030 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 11070 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Search completed in 11090000 ps
+#    Time: 11090 ns  Iteration: 3  Instance: /tb_command_searcher
+# ** Note: All tests completed successfully!
+#    Time: 11090 ns  Iteration: 3  Instance: /tb_command_searcher
+restart
+vcom -2008 D:/altera/13.0sp1/uart_module/tb_command_searcher.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity tb_command_searcher
+# -- Compiling architecture test of tb_command_searcher
+# -- Loading entity command_searcher
+vsim work.tb_command_searcheradd wave -position end -color "Yellow" -label "clk" sim:/tb_command_searcher/clk
+# ** Error: (vish-3296) Unknown option '-position'.
+# Use the -help option for complete vsim usage.
+# ** Error: (vish-3296) Unknown option '-color'.
+# Use the -help option for complete vsim usage.
+# ** Error: (vish-3296) Unknown option '-label'.
+# Use the -help option for complete vsim usage.
+# Error loading design
+add wave -position end -color "Cyan" -label "rst" sim:/tb_command_searcher/rst
+add wave -position end -color "Magenta" -label "start_search" sim:/tb_command_searcher/start_search
+add wave -position end -color "White" -label "busy" sim:/tb_command_searcher/busy
+add wave -position end -color "Green" -label "command_found" sim:/tb_command_searcher/command_found
+add wave -position end -color "Orange" -label "command_code" sim:/tb_command_searcher/command_code
+
+# >1028BL 2E>4=K5 40==K5 ?>8A:0
+add wave -position end -color "Yellow" -label "search_string" -radix hexadecimal sim:/tb_command_searcher/search_string
+add wave -position end -color "Yellow" -label "string_len" -radix decimal sim:/tb_command_searcher/string_len
+
+# >1028BL A83=0;K ROM
+add wave -position end -color "Red" -label "rom_address" -radix decimal sim:/tb_command_searcher/rom_address
+add wave -position end -color "Red" -label "rom_data" -radix ascii sim:/tb_command_searcher/rom_data
+
+# >1028BL 2=CB@5==85 A83=0;K UUT (command_searcher)
+add wave -position end -color "Blue" -label "state" sim:/tb_command_searcher/uut/state
+add wave -position end -color "Blue" -label "cmd_index" sim:/tb_command_searcher/uut/cmd_index
+add wave -position end -color "Blue" -label "char_pos" sim:/tb_command_searcher/uut/char_pos
+add wave -position end -color "Blue" -label "match_found" sim:/tb_command_searcher/uut/match_found
+add wave -position end -color "Blue" -label "internal_busy" sim:/tb_command_searcher/uut/internal_busy
+
+# !3@C??8@>20BL A83=0;K
+group -label "Testbench Controls" -color "White" {sim:/tb_command_searcher/clk sim:/tb_command_searcher/rst sim:/tb_command_searcher/start_search}
+# invalid command name "group"
+group -label "Outputs" -color "Green" {sim:/tb_command_searcher/busy sim:/tb_command_searcher/command_found sim:/tb_command_searcher/command_code}
+# invalid command name "group"
+group -label "Search Input" -color "Yellow" {sim:/tb_command_searcher/search_string sim:/tb_command_searcher/string_len}
+# invalid command name "group"
+group -label "ROM Interface" -color "Red" {sim:/tb_command_searcher/rom_address sim:/tb_command_searcher/rom_data}
+# invalid command name "group"
+group -label "Internal State" -color "Blue" {sim:/tb_command_searcher/uut/state sim:/tb_command_searcher/uut/cmd_index sim:/tb_command_searcher/uut/char_pos sim:/tb_command_searcher/uut/match_found}
+# invalid command name "group"
+run 85000ns
+# ** Note: Starting command_searcher testbench
+#    Time: 0 ps  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 1: Searching for 'res1024' (should be found, code=1)
+#    Time: 200 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 1: command_found mismatch. Expected='1' Got='0'
+#    Time: 770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 1: command_code mismatch. Expected=1 Got=0
+#    Time: 770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 1 completed successfully
+#    Time: 770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 2: Searching for 'res1280' (should be found, code=2)
+#    Time: 770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 1010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 1050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 1090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 1130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 1170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 1210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 1250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 1290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 2: command_found mismatch. Expected='1' Got='0'
+#    Time: 1330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 2: command_code mismatch. Expected=2 Got=0
+#    Time: 1330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 2 completed successfully
+#    Time: 1330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 3: Searching for 'speed1' (should be found, code=3)
+#    Time: 1330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 1370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 1410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 1450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 1490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 1530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 1570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 1610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 1650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 1690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 1730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 1770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 1810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 1850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 3: command_found mismatch. Expected='1' Got='0'
+#    Time: 1890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 3: command_code mismatch. Expected=3 Got=0
+#    Time: 1890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 3 completed successfully
+#    Time: 1890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 4: Searching for 'speed5' (should be found, code=7)
+#    Time: 1890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 1930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 1970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 2010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 2050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 2090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 2130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 2170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 2210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 2250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 2290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 2330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 2370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 2410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 4: command_found mismatch. Expected='1' Got='0'
+#    Time: 2450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 4: command_code mismatch. Expected=7 Got=0
+#    Time: 2450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 4 completed successfully
+#    Time: 2450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 5: Searching for 'speed10' (should be found, code=12)
+#    Time: 2450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 2490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 2530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 2570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 2610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 2650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 2690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 2730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 2770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 2810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 2850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 2890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 2930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 2970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 5: command_found mismatch. Expected='1' Got='0'
+#    Time: 3010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 5: command_code mismatch. Expected=12 Got=0
+#    Time: 3010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 5 completed successfully
+#    Time: 3010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 6: Searching for 'invalid' (should not be found)
+#    Time: 3010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 3050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 3090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 3130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 3170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 3210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 3250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 3290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 3330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 3370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 3410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 3450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 3490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 3530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 6 completed successfully
+#    Time: 3570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 7: Searching with empty string (should not be found)
+#    Time: 3570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 3610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 3650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 3690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 3730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 3770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 3810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 3850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 3890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 3930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 3970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 4010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 4050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 4090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 7 completed successfully
+#    Time: 4130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 8: Searching for 'res' partial (should not be found)
+#    Time: 4130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 4170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 4210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 4250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 4290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 4330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 4370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 4410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 4450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 4490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 4530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 4570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 4610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 4650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 8 completed successfully
+#    Time: 4690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 9: Searching for 'RES1024' uppercase (should not be found)
+#    Time: 4690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 4730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 4770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 4810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 4850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 4890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 4930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 4970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 5010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 5050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 5090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 5130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 5170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 5210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 9 completed successfully
+#    Time: 5250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 10: Searching for 'res1024extra' (should match as res1024)
+#    Time: 5250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 5290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 5330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 5370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 5410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 5450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 5490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 5530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 5570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 5610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 5650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 5690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 5730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 5770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 10: command_found mismatch. Expected='1' Got='0'
+#    Time: 5810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 10: command_code mismatch. Expected=1 Got=0
+#    Time: 5810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 10 completed successfully
+#    Time: 5810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 11: Starting search while busy (should be ignored)
+#    Time: 5810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 5850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 5890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 5930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 5970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 6010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 6050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 6090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 6130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 6170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 6210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 6250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 6290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 6330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 11: command_found mismatch. Expected='1' Got='0'
+#    Time: 6370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 11: command_code mismatch. Expected=3 Got=0
+#    Time: 6370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 11 completed successfully
+#    Time: 6370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 12: Searching for 'speed11' (last command, code=13)
+#    Time: 6370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 6410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 6450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 6490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 6530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 6570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 6610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 6650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 6690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 6730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 6770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 6810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 6850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 6890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 12: command_found mismatch. Expected='1' Got='0'
+#    Time: 6930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 12: command_code mismatch. Expected=13 Got=0
+#    Time: 6930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 12 completed successfully
+#    Time: 6930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 13: Searching with 1-character string (should not be found)
+#    Time: 6930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 6970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 7010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 7050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 7090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 7130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 7170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 7210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 7250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 7290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 7330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 7370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 7410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 7450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 13 completed successfully
+#    Time: 7490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 14: Reset during active search
+#    Time: 7490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 7530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 14 completed
+#    Time: 7750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 15: Multiple sequential searches
+#    Time: 7750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 7830 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 7870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 7910 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 7950 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 7990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 8030 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 8070 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 8110 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 8150 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 8190 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 8230 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 8270 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15a: command_found mismatch. Expected='1' Got='0'
+#    Time: 8310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15a: command_code mismatch. Expected=3 Got=0
+#    Time: 8310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 15a completed successfully
+#    Time: 8310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 8350 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 8390 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 8430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 8470 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 8510 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 8550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 8590 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 8630 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 8670 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 8710 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 8750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 8790 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 8830 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15b: command_found mismatch. Expected='1' Got='0'
+#    Time: 8870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15b: command_code mismatch. Expected=7 Got=0
+#    Time: 8870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 15b completed successfully
+#    Time: 8870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 8910 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 8950 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 8990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 9030 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 9070 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 9110 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 9150 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 9190 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 9230 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 9270 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 9310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 9350 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 9390 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15c: command_found mismatch. Expected='1' Got='0'
+#    Time: 9430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15c: command_code mismatch. Expected=2 Got=0
+#    Time: 9430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 15c completed successfully
+#    Time: 9430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 16: Searching for 'speed99' (does not exist)
+#    Time: 9430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 9470 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 9510 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 9550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 9590 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 9630 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 9670 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 9710 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 9750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 9790 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 9830 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 9870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 9910 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 9950 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 16 completed successfully
+#    Time: 9990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 17: Searching for 'speed1' with exact length match
+#    Time: 9990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 10030 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 10070 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 10110 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 10150 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 10190 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 10230 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 10270 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 10310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 10350 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 10390 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 10430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 10470 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 10510 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 17: command_found mismatch. Expected='1' Got='0'
+#    Time: 10550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 17: command_code mismatch. Expected=3 Got=0
+#    Time: 10550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 17 completed successfully
+#    Time: 10550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 18: Performance test measuring search time
+#    Time: 10550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 10590 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 10630 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 10670 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 10710 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 10750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 10790 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 10830 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 10870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 10910 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 10950 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 10990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 11030 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 11070 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Search completed in 11090000 ps
+#    Time: 11090 ns  Iteration: 3  Instance: /tb_command_searcher
+# ** Note: All tests completed successfully!
+#    Time: 11090 ns  Iteration: 3  Instance: /tb_command_searcher
+restart
+# Loading work.tb_command_searcher(test)
+vcom -2008 D:/altera/13.0sp1/uart_module/tb_command_searcher.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity tb_command_searcher
+# -- Compiling architecture test of tb_command_searcher
+# -- Loading entity command_searcher
+vsim work.tb_command_searcheradd wave -position end -color "Yellow" -label "clk" sim:/tb_command_searcher/clk
+# ** Error: (vish-3296) Unknown option '-position'.
+# Use the -help option for complete vsim usage.
+# ** Error: (vish-3296) Unknown option '-color'.
+# Use the -help option for complete vsim usage.
+# ** Error: (vish-3296) Unknown option '-label'.
+# Use the -help option for complete vsim usage.
+# Error loading design
+add wave -position end -color "Cyan" -label "rst" sim:/tb_command_searcher/rst
+add wave -position end -color "Magenta" -label "start_search" sim:/tb_command_searcher/start_search
+add wave -position end -color "White" -label "busy" sim:/tb_command_searcher/busy
+add wave -position end -color "Green" -label "command_found" sim:/tb_command_searcher/command_found
+add wave -position end -color "Orange" -label "command_code" sim:/tb_command_searcher/command_code
+
+# >1028BL 2E>4=K5 40==K5 ?>8A:0
+add wave -position end -color "Yellow" -label "search_string" -radix hexadecimal sim:/tb_command_searcher/search_string
+add wave -position end -color "Yellow" -label "string_len" -radix decimal sim:/tb_command_searcher/string_len
+
+# >1028BL A83=0;K ROM
+add wave -position end -color "Red" -label "rom_address" -radix decimal sim:/tb_command_searcher/rom_address
+add wave -position end -color "Red" -label "rom_data" -radix ascii sim:/tb_command_searcher/rom_data
+
+# >1028BL 2=CB@5==85 A83=0;K UUT (command_searcher)
+add wave -position end -color "Blue" -label "state" sim:/tb_command_searcher/uut/state
+add wave -position end -color "Blue" -label "cmd_index" sim:/tb_command_searcher/uut/cmd_index
+add wave -position end -color "Blue" -label "char_pos" sim:/tb_command_searcher/uut/char_pos
+add wave -position end -color "Blue" -label "match_found" sim:/tb_command_searcher/uut/match_found
+add wave -position end -color "Blue" -label "internal_busy" sim:/tb_command_searcher/uut/internal_busy
+
+# !3@C??8@>20BL A83=0;K
+group -label "Testbench Controls" -color "White" {sim:/tb_command_searcher/clk sim:/tb_command_searcher/rst sim:/tb_command_searcher/start_search}
+# invalid command name "group"
+group -label "Outputs" -color "Green" {sim:/tb_command_searcher/busy sim:/tb_command_searcher/command_found sim:/tb_command_searcher/command_code}
+# invalid command name "group"
+group -label "Search Input" -color "Yellow" {sim:/tb_command_searcher/search_string sim:/tb_command_searcher/string_len}
+# invalid command name "group"
+group -label "ROM Interface" -color "Red" {sim:/tb_command_searcher/rom_address sim:/tb_command_searcher/rom_data}
+# invalid command name "group"
+group -label "Internal State" -color "Blue" {sim:/tb_command_searcher/uut/state sim:/tb_command_searcher/uut/cmd_index sim:/tb_command_searcher/uut/char_pos sim:/tb_command_searcher/uut/match_found}
+# invalid command name "group"
+run 12000ns
+# ** Note: Starting command_searcher testbench
+#    Time: 0 ps  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 1: Searching for 'res1024' (should be found, code=1)
+#    Time: 200 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 1: command_found mismatch. Expected='1' Got='0'
+#    Time: 770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 1: command_code mismatch. Expected=1 Got=0
+#    Time: 770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 1 completed successfully
+#    Time: 770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 2: Searching for 'res1280' (should be found, code=2)
+#    Time: 770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 1010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 1050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 1090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 1130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 1170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 1210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 1250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 1290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 2: command_found mismatch. Expected='1' Got='0'
+#    Time: 1330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 2: command_code mismatch. Expected=2 Got=0
+#    Time: 1330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 2 completed successfully
+#    Time: 1330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 3: Searching for 'speed1' (should be found, code=3)
+#    Time: 1330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 1370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 1410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 1450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 1490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 1530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 1570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 1610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 1650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 1690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 1730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 1770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 1810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 1850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 3: command_found mismatch. Expected='1' Got='0'
+#    Time: 1890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 3: command_code mismatch. Expected=3 Got=0
+#    Time: 1890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 3 completed successfully
+#    Time: 1890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 4: Searching for 'speed5' (should be found, code=7)
+#    Time: 1890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 1930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 1970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 2010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 2050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 2090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 2130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 2170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 2210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 2250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 2290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 2330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 2370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 2410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 4: command_found mismatch. Expected='1' Got='0'
+#    Time: 2450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 4: command_code mismatch. Expected=7 Got=0
+#    Time: 2450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 4 completed successfully
+#    Time: 2450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 5: Searching for 'speed10' (should be found, code=12)
+#    Time: 2450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 2490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 2530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 2570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 2610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 2650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 2690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 2730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 2770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 2810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 2850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 2890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 2930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 2970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 5: command_found mismatch. Expected='1' Got='0'
+#    Time: 3010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 5: command_code mismatch. Expected=12 Got=0
+#    Time: 3010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 5 completed successfully
+#    Time: 3010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 6: Searching for 'invalid' (should not be found)
+#    Time: 3010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 3050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 3090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 3130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 3170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 3210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 3250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 3290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 3330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 3370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 3410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 3450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 3490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 3530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 6 completed successfully
+#    Time: 3570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 7: Searching with empty string (should not be found)
+#    Time: 3570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 3610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 3650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 3690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 3730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 3770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 3810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 3850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 3890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 3930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 3970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 4010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 4050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 4090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 7 completed successfully
+#    Time: 4130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 8: Searching for 'res' partial (should not be found)
+#    Time: 4130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 4170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 4210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 4250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 4290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 4330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 4370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 4410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 4450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 4490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 4530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 4570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 4610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 4650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 8 completed successfully
+#    Time: 4690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 9: Searching for 'RES1024' uppercase (should not be found)
+#    Time: 4690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 4730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 4770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 4810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 4850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 4890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 4930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 4970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 5010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 5050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 5090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 5130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 5170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 5210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 9 completed successfully
+#    Time: 5250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 10: Searching for 'res1024extra' (should match as res1024)
+#    Time: 5250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 5290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 5330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 5370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 5410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 5450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 5490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 5530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 5570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 5610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 5650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 5690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 5730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 5770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 10: command_found mismatch. Expected='1' Got='0'
+#    Time: 5810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 10: command_code mismatch. Expected=1 Got=0
+#    Time: 5810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 10 completed successfully
+#    Time: 5810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 11: Starting search while busy (should be ignored)
+#    Time: 5810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 5850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 5890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 5930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 5970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 6010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 6050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 6090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 6130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 6170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 6210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 6250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 6290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 6330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 11: command_found mismatch. Expected='1' Got='0'
+#    Time: 6370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 11: command_code mismatch. Expected=3 Got=0
+#    Time: 6370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 11 completed successfully
+#    Time: 6370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 12: Searching for 'speed11' (last command, code=13)
+#    Time: 6370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 6410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 6450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 6490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 6530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 6570 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 6610 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 6650 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 6690 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 6730 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 6770 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 6810 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 6850 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 6890 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 12: command_found mismatch. Expected='1' Got='0'
+#    Time: 6930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 12: command_code mismatch. Expected=13 Got=0
+#    Time: 6930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 12 completed successfully
+#    Time: 6930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 13: Searching with 1-character string (should not be found)
+#    Time: 6930 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 6970 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 7010 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 7050 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 7090 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 7130 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 7170 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 7210 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 7250 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 7290 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 7330 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 7370 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 7410 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 7450 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 13 completed successfully
+#    Time: 7490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 14: Reset during active search
+#    Time: 7490 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 7530 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 14 completed
+#    Time: 7750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 15: Multiple sequential searches
+#    Time: 7750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 7830 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 7870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 7910 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 7950 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 7990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 8030 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 8070 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 8110 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 8150 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 8190 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 8230 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 8270 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15a: command_found mismatch. Expected='1' Got='0'
+#    Time: 8310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15a: command_code mismatch. Expected=3 Got=0
+#    Time: 8310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 15a completed successfully
+#    Time: 8310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 8350 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 8390 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 8430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 8470 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 8510 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 8550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 8590 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 8630 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 8670 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 8710 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 8750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 8790 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 8830 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15b: command_found mismatch. Expected='1' Got='0'
+#    Time: 8870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15b: command_code mismatch. Expected=7 Got=0
+#    Time: 8870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 15b completed successfully
+#    Time: 8870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 8910 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 8950 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 8990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 9030 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 9070 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 9110 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 9150 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 9190 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 9230 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 9270 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 9310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 9350 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 9390 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15c: command_found mismatch. Expected='1' Got='0'
+#    Time: 9430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 15c: command_code mismatch. Expected=2 Got=0
+#    Time: 9430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 15c completed successfully
+#    Time: 9430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 16: Searching for 'speed99' (does not exist)
+#    Time: 9430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 9470 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 9510 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 9550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 9590 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 9630 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 9670 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 9710 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 9750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 9790 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 9830 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 9870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 9910 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 9950 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 16 completed successfully
+#    Time: 9990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 17: Searching for 'speed1' with exact length match
+#    Time: 9990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 10030 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 10070 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 10110 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 10150 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 10190 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 10230 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 10270 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 10310 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 10350 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 10390 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 10430 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 10470 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 10510 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 17: command_found mismatch. Expected='1' Got='0'
+#    Time: 10550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Error: Test 17: command_code mismatch. Expected=3 Got=0
+#    Time: 10550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 17 completed successfully
+#    Time: 10550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Test 18: Performance test measuring search time
+#    Time: 10550 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=0 data=114
+#    Time: 10590 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=8 data=114
+#    Time: 10630 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=16 data=115
+#    Time: 10670 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=24 data=115
+#    Time: 10710 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=32 data=115
+#    Time: 10750 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=40 data=115
+#    Time: 10790 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=48 data=115
+#    Time: 10830 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=56 data=115
+#    Time: 10870 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=64 data=115
+#    Time: 10910 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=72 data=115
+#    Time: 10950 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=80 data=115
+#    Time: 10990 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=88 data=115
+#    Time: 11030 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: ROM read: address=96 data=115
+#    Time: 11070 ns  Iteration: 0  Instance: /tb_command_searcher
+# ** Note: Search completed in 11090000 ps
+#    Time: 11090 ns  Iteration: 3  Instance: /tb_command_searcher
+# ** Note: All tests completed successfully!
+#    Time: 11090 ns  Iteration: 3  Instance: /tb_command_searcher
