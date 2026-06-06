@@ -31,7 +31,7 @@ module  pll_25_0002(
 		.output_clock_frequency1("65.0 MHz"),
 		.phase_shift1("0 ps"),
 		.duty_cycle1(50),
-		.output_clock_frequency2("75.0 MHz"),
+		.output_clock_frequency2("86.666666 MHz"),
 		.phase_shift2("0 ps"),
 		.duty_cycle2(50),
 		.output_clock_frequency3("0 MHz"),

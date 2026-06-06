@@ -5,6 +5,39 @@ state.MENU 0 0 0
 state.PLAYING 0 1 1 
 state.GAME_OVER 1 0 1 
 
+State Machine - |spaceInvaders|uart_loopback:uart_inst|search_state
+Name search_state.COMMAND_FOUND search_state.NEXT_COMMAND search_state.COMPARE search_state.READ_DATA search_state.READ_ADDR search_state.IDLE 
+search_state.IDLE 0 0 0 0 0 0 
+search_state.READ_ADDR 0 0 0 0 1 1 
+search_state.READ_DATA 0 0 0 1 0 1 
+search_state.COMPARE 0 0 1 0 0 1 
+search_state.NEXT_COMMAND 0 1 0 0 0 1 
+search_state.COMMAND_FOUND 1 0 0 0 0 1 
+
+State Machine - |spaceInvaders|uart_loopback:uart_inst|state
+Name state.WAIT_TX state.WAIT_END state.WAIT_START state.LOAD_CHAR state.IDLE_STATE 
+state.IDLE_STATE 0 0 0 0 0 
+state.LOAD_CHAR 0 0 0 1 1 
+state.WAIT_START 0 0 1 0 1 
+state.WAIT_END 0 1 0 0 1 
+state.WAIT_TX 1 0 0 0 1 
+
+State Machine - |spaceInvaders|uart_loopback:uart_inst|uart_tx:u_tx|state
+Name state.STOP_BIT state.PARITY_BIT state.DATA_BITS state.START_BIT state.IDLE 
+state.IDLE 0 0 0 0 0 
+state.START_BIT 0 0 0 1 1 
+state.DATA_BITS 0 0 1 0 1 
+state.PARITY_BIT 0 1 0 0 1 
+state.STOP_BIT 1 0 0 0 1 
+
+State Machine - |spaceInvaders|uart_loopback:uart_inst|uart_rx:u_rx|state
+Name state.STOP_BIT state.PARITY_BIT state.DATA_BITS state.START_BIT state.IDLE 
+state.IDLE 0 0 0 0 0 
+state.START_BIT 0 0 0 1 1 
+state.DATA_BITS 0 0 1 0 1 
+state.PARITY_BIT 0 1 0 0 1 
+state.STOP_BIT 1 0 0 0 1 
+
 State Machine - |spaceInvaders|adv7513_wrapper:i2c_init|adv7513_setup:setup_inst|state
 Name state.S_DONE state.S_BUSYWAIT state.S_SEND state.S_WAIT state.S_RESET 
 state.S_RESET 0 0 0 0 0 

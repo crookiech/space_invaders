@@ -4,28 +4,25 @@ use ieee.numeric_std.all;
 
 entity adv7513_setup is
   generic (
-    CLK_FREQ_MHZ : integer := 50;  -- Частота системного клока в MHz
-    DELAY_MS     : integer := 200   -- Задержка после сброса в ms
+    CLK_FREQ_MHZ : integer := 50; 
+    DELAY_MS : integer := 200 
   );
   port (
-    clk   : in std_logic;
-    rst   : in std_logic;
-    resolution : in std_logic_vector(1 downto 0);  -- "00":640x480, "01":1024x768, "10":1280x720
+    clk : in std_logic;
+    rst : in std_logic;
+    resolution : in std_logic_vector(1 downto 0);  -- "00":640x480, "01":1024x768, "10":1360x768
     
     -- Интерфейс с I2C контроллером
-    i2c_activate     : out std_logic;
-    i2c_busy         : in  std_logic;
-    i2c_address      : out std_logic_vector(6 downto 0);
+    i2c_activate : out std_logic;
+    i2c_busy : in  std_logic;
+    i2c_address : out std_logic_vector(6 downto 0);
     i2c_readnotwrite : out std_logic;
-    i2c_byte1        : out std_logic_vector(7 downto 0);
-    i2c_byte2        : out std_logic_vector(7 downto 0);
+    i2c_byte1 : out std_logic_vector(7 downto 0);
+    i2c_byte2 : out std_logic_vector(7 downto 0);
     
     -- Сигналы состояния
     active : out std_logic;
-    done   : out std_logic;
-    
-    -- Отладочные сигналы
-    debug_state : out std_logic_vector(2 downto 0)
+    done : out std_logic
   );
 end adv7513_setup;
 
@@ -38,40 +35,37 @@ architecture rtl of adv7513_setup is
   signal state : state_type := S_RESET;
   
   -- Сигналы
-  signal rom_step    : unsigned(7 downto 0) := (others => '0');
-  signal rom_length  : std_logic_vector(7 downto 0);
-  signal rom_data    : std_logic_vector(23 downto 0);
-  signal delay_cnt   : unsigned(31 downto 0) := (others => '0');
-  signal busy_seen   : std_logic := '0';
-  signal active_int  : std_logic := '0';
-  signal done_int    : std_logic := '0';
+  signal rom_step : unsigned(7 downto 0) := (others => '0');
+  signal rom_length : std_logic_vector(7 downto 0);
+  signal rom_data : std_logic_vector(23 downto 0);
+  signal delay_cnt : unsigned(31 downto 0) := (others => '0');
+  signal busy_seen : std_logic := '0';
+  signal active_int : std_logic := '0';
+  signal done_int : std_logic := '0';
   
-  -- Компонент ROM с поддержкой разрешений
+  -- Компонент с поддержкой разрешений
   component setup_rom is
     port (
-      address    : in  std_logic_vector(7 downto 0);
+      address : in  std_logic_vector(7 downto 0);
       resolution : in  std_logic_vector(1 downto 0);
-      data       : out std_logic_vector(23 downto 0);
+      data : out std_logic_vector(23 downto 0);
       rom_length : out std_logic_vector(7 downto 0)
     );
   end component;
   
 begin
-  -- Инстанцирование ROM
   rom_inst: setup_rom
     port map (
-      address    => std_logic_vector(rom_step),
+      address => std_logic_vector(rom_step),
       resolution => resolution,
-      data       => rom_data,
+      data => rom_data,
       rom_length => rom_length
     );
   
   -- Выходные сигналы
   active <= active_int;
-  done   <= done_int;
-  debug_state <= std_logic_vector(to_unsigned(state_type'pos(state), 3));
+  done <= done_int;
   
-  -- Основной процесс
   process(clk, rst)
   begin
     if rst = '1' then
@@ -114,7 +108,6 @@ begin
             busy_seen <= '0';
             state <= S_BUSYWAIT;
             i2c_activate <= '1';
-            -- Распаковка данных: [23:17] = address, [16] = rw, [15:8] = byte1, [7:0] = byte2
             i2c_address <= rom_data(23 downto 17);
             i2c_readnotwrite <= rom_data(16);
             i2c_byte1 <= rom_data(15 downto 8);

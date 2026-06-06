@@ -1,9 +1,11 @@
-db/
-hc_output/
-incremental_db/
-output_files/
+/db
+/hc_output
+/incremental_db
+/output_files
 *.txt
 *.echo
 *rom*
 *ROM*
 *.vhd.bak
+*.v.bak
+*.qsf.bak
