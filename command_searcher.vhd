@@ -20,7 +20,7 @@ port (
 end entity;
 
 architecture rtl of command_searcher is
-	constant ROM_SIZE : integer := 112;
+	constant ROM_SIZE : integer := 96;
 	constant ROM_MAX_ADDR : integer := ROM_SIZE - 1;
 	
 	signal char_buffer : std_logic_vector(63 downto 0) := (others => '0');
@@ -111,6 +111,8 @@ begin
 						when READ_ADDR =>
 							if rom_address_in > ROM_MAX_ADDR then
 								command_found_flag <= '0';
+								search_state <= COMMAND_FOUND;
+							elsif char_count > 8 or char_count < 6 then
 								search_state <= COMMAND_FOUND;
 							else
 								rom_address <= std_logic_vector(to_unsigned(rom_address_in, 8));
@@ -211,6 +213,7 @@ begin
 							else
 								right_in <= '0';
 								response_success <= '0';
+								command_code <= (others => '0');
 							end if;
 							char_count <= 0;
 							char_overflow <= '0';
@@ -218,7 +221,7 @@ begin
 							need_to_search <= '0';
 							search_state <= IDLE;
 							search_counter <= 0;
-								
+							
 						when others =>
 							search_state <= IDLE;
 					end case;

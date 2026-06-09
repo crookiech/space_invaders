@@ -12,7 +12,7 @@ port (
 	rx : in  std_logic;
 	data_out : out std_logic_vector(7 downto 0);
 	valid : out std_logic;
-	v_parity_error : out std_logic;
+	parity_error : out std_logic;
 	framing_error : out std_logic
 );
 end entity;
@@ -31,7 +31,7 @@ architecture rtl of uart_rx is
 begin
 	data_out <= rx_in;
 	valid <= valid_in;
-	v_parity_error  <= parity_error_in;
+	parity_error  <= parity_error_in;
 	framing_error <= framing_error_in;
 	process(clk, rst)
 		variable v_parity_error  : std_logic;
