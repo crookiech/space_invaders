@@ -80,6 +80,12 @@ architecture toplevel of spaceInvaders is
     signal wave_speed : integer range 0 to 10 := 0;
 	 signal right_int : std_logic;
     
+	 signal current_resolution : std_logic_vector(1 downto 0) := "00";
+	 signal current_wave_speed : integer range 0 to 10 := 0;
+	 signal uart_resolution_valid : std_logic := '0';
+	 signal uart_speed_valid : std_logic := '0';
+	 signal last_right_int : std_logic := '0';
+
     -- Компоненты
     component pll_25 is
         port (
@@ -103,7 +109,7 @@ architecture toplevel of spaceInvaders is
         );
     end component;
 	 
-	 component uart_loopback is
+	 component command_controller is
         port (
             clk : in std_logic;
             rst : in std_logic;
@@ -118,50 +124,81 @@ architecture toplevel of spaceInvaders is
 
 begin
     right <= right_int;
-	 process(SW, right_int)
-    begin
-        if right_int = '1' then
-            -- Если есть команда от UART, используем её
-            case uart_command_code is
-                when "0001" => resolution <= "01";  -- res1024
-                when "0010" => resolution <= "10";  -- res1360
-                when "0011" => resolution <= "00";  -- res640
-                when others => resolution <= resolution;
-            end case;
-				--right_int <= '0'; типо команда пришла обработать и забыть мб чтобы можно было испольховать переключатели без ресета
-        else
-            -- Ручное управление переключателями
-            if SW(2) = '0' and SW(1) = '0' then
-                resolution <= "00";      -- 640x480
-            elsif SW(2) = '1' and SW(1) = '0' then
-                resolution <= "10";      -- 1360x768
-            elsif SW(2) = '0' and SW(1) = '1' then
-                resolution <= "01";      -- 1024x768
-            else
-                resolution <= "00";
-            end if;
-        end if;
-    end process;
 	 
-	 process(uart_command_code, right_int)
+	 process(clock_pixel, KEY(4))
+	 begin
+		if KEY(4) = '0' then  -- reset
+			uart_resolution_valid <= '0';
+			uart_speed_valid <= '0';
+			last_right_int <= '0';
+		elsif rising_edge(clock_pixel) then
+			-- Определяем фронт right_int
+			if right_int = '1' and last_right_int = '0' then
+				-- Проверяем код разрешения (0001, 0010, 0011)
+				if uart_command_code = "0001" or uart_command_code = "0010" or uart_command_code = "0011" then
+					uart_resolution_valid <= '1';
+				else
+					uart_resolution_valid <= '0';
+            end if;
+            
+            -- Проверяем код скорости
+            if uart_command_code = "0100" or uart_command_code = "0101" or uart_command_code = "0110" or uart_command_code = "0111" or uart_command_code = "1000" or
+               uart_command_code = "1001" or uart_command_code = "1010" or uart_command_code = "1011" or uart_command_code = "1100" then
+					uart_speed_valid <= '1';
+            else
+                uart_speed_valid <= '0';
+            end if;
+			end if;
+			last_right_int <= right_int;
+		end if;
+	 end process;
+	 
+	 process(SW, right_int, uart_resolution_valid)
     begin
-        if right_int = '1' then
+        if right_int = '1' and uart_resolution_valid = '1' then
+            -- Только если команда от UART корректна, обновляем разрешение
             case uart_command_code is
-                when "0100" => wave_speed <= 1;   -- speed1
-                when "0101" => wave_speed <= 2;   -- speed2
-                when "0110" => wave_speed <= 3;   -- speed3
-                when "0111" => wave_speed <= 4;   -- speed4
-                when "1000" => wave_speed <= 5;   -- speed5
-                when "1001" => wave_speed <= 6;   -- speed6
-                when "1010" => wave_speed <= 7;   -- speed7
-                when "1011" => wave_speed <= 8;   -- speed8
-                when "1100" => wave_speed <= 9;   -- speed9
-                when "1101" => wave_speed <= 10;  -- speed10
-                when others => null;
-            end case;
-        end if;
+					when "0001" => current_resolution <= "01";  -- res1024
+					when "0010" => current_resolution <= "10";  -- res1360
+					when "0011" => current_resolution <= "00";  -- res640
+					when others => null;  -- Неверная команда - ничего не меняем
+			   end case;
+		  elsif right_int = '0' then
+			   -- Ручное управление переключателями
+			   if SW(2) = '0' and SW(1) = '0' then
+				 	 current_resolution <= "00";      -- 640x480
+			   elsif SW(2) = '1' and SW(1) = '0' then
+					 current_resolution <= "10";      -- 1360x768
+			   elsif SW(2) = '0' and SW(1) = '1' then
+					 current_resolution <= "01";      -- 1024x768
+			   else
+					 current_resolution <= "00";
+			   end if;
+		  end if;
+	 end process;
+	 
+	 process(uart_speed_valid, right_int)
+	 begin
+		  if right_int = '1' and uart_speed_valid = '1' then
+			   -- Только если команда от UART корректна, обновляем скорость
+			   case uart_command_code is
+					when "0100" => current_wave_speed <= 1;
+					when "0101" => current_wave_speed <= 2;
+					when "0110" => current_wave_speed <= 3;
+					when "0111" => current_wave_speed <= 4;
+					when "1000" => current_wave_speed <= 5;
+					when "1001" => current_wave_speed <= 6;
+					when "1010" => current_wave_speed <= 7;
+					when "1011" => current_wave_speed <= 8;
+					when "1100" => current_wave_speed <= 9;
+					when others => null;  -- Неверная команда - ничего не меняем
+			  end case;
+		 end if;
     end process;
     
+	 resolution <= current_resolution;
+	 wave_speed <= current_wave_speed;
+	 
     process(resolution, clock_25, clock_65, clock_85, pll_locked)
     begin
         case resolution is
@@ -206,7 +243,7 @@ begin
             init_done => init_done
         );
 	 
-	 uart_inst: component uart_loopback
+	 uart_inst: component command_controller
         port map(
             clk => clk_50,
             rst => KEY(4),
@@ -242,7 +279,7 @@ begin
             refresh => refresh,
             resolution => resolution,
 			   wave_speed => wave_speed,
-            clock_25 => clock_pixel,
+            clock_pix => clock_pixel,
             video_on => video_on,
             btn_left => not KEY(2),
             btn_right => not KEY(0),

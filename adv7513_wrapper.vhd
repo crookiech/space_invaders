@@ -6,7 +6,7 @@ entity adv7513_wrapper is
         clk : in  std_logic;
         reset_n : in  std_logic;
 		  resolution : in  std_logic_vector(1 downto 0); 
-        i2c_scl : out std_logic;
+        i2c_scl : inout  std_logic;
         i2c_sda : inout std_logic;
         init_done : out std_logic
     );
@@ -16,7 +16,8 @@ architecture structural of adv7513_wrapper is
 
     signal i2c_scl_e, i2c_scl_o : std_logic;
     signal i2c_sda_e, i2c_sda_o : std_logic;
-    signal i2c_sda_i : std_logic;
+    signal i2c_scl_i, i2c_sda_i : std_logic;
+    signal i2c_scl_buf, i2c_sda_buf : std_logic;
     
     signal i2c_activate : std_logic;
     signal i2c_busy : std_logic;
@@ -30,10 +31,6 @@ architecture structural of adv7513_wrapper is
     signal scl_datain_vec : std_logic_vector(0 downto 0);
     signal scl_dataio_vec : std_logic_vector(0 downto 0);
     
-    signal sda_oe_vec : std_logic_vector(0 downto 0);
-    signal sda_datain_vec : std_logic_vector(0 downto 0);
-    signal sda_dataout_vec : std_logic_vector(0 downto 0);
-
     component I2C_CONTROLLER is
         port(
             clk : in  std_logic;
@@ -74,47 +71,38 @@ architecture structural of adv7513_wrapper is
             done : out std_logic
         );
     end component;
-    
-    component i2ciobuf is
-        port(
-            datain : in  std_logic_vector(0 downto 0);
-            oe : in  std_logic_vector(0 downto 0);
-            dataio : inout std_logic_vector(0 downto 0);
-            dataout : out std_logic_vector(0 downto 0)
-        );
-    end component;
+	 
+	 component i2ciobuf is
+    port(
+        datain  : in  std_logic_vector(0 downto 0);
+        oe      : in  std_logic_vector(0 downto 0);
+        dataio  : inout std_logic_vector(0 downto 0);
+        dataout : out std_logic_vector(0 downto 0)
+		 );
+	end component;
 
 begin
-    scl_datain_vec(0) <= i2c_scl_o;
-    scl_oe_vec(0) <= i2c_scl_e;
-    
-    sda_datain_vec(0) <= i2c_sda_o;
-    sda_oe_vec(0) <= i2c_sda_e;
-    
-    i2c_sda_i <= sda_dataout_vec(0);
-    i2c_scl <= scl_dataio_vec(0);
-
     scl_buf: i2ciobuf
-        port map(
-            datain => scl_datain_vec,
-            oe => scl_oe_vec,
-            dataio => scl_dataio_vec,
-            dataout => open
-        );
-    
-    sda_buf: i2ciobuf
-        port map(
-            datain => sda_datain_vec,
-            oe => sda_oe_vec,
-            dataio(0) => i2c_sda,
-            dataout => sda_dataout_vec
-        );
+    port map(
+        datain(0) => i2c_scl_o,
+        oe(0)     => i2c_scl_e,
+        dataio(0) => i2c_scl,
+        dataout(0) => i2c_scl_i
+    );
 
-    i2c_inst: I2C_CONTROLLER
+	sda_buf: i2ciobuf
+		 port map(
+			  datain(0) => i2c_sda_o,
+			  oe(0)     => i2c_sda_e,
+			  dataio(0) => i2c_sda,
+			  dataout(0) => i2c_sda_i
+		 );
+    
+	 i2c_inst: I2C_CONTROLLER
         port map(
             clk => clk,
             reset => not reset_n,
-            scl_i => '0',
+            scl_i => i2c_scl_i,
             scl_o => i2c_scl_o,
             scl_e => i2c_scl_e,
             sda_i => i2c_sda_i,

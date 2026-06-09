@@ -193,12 +193,16 @@ begin
 
     de_i <= '1' when (to_integer(h_count) < H_VISIBLE_reg and to_integer(v_count) < V_VISIBLE_reg) else '0';
 
-    hsync <= hsync_i;
-    vsync <= vsync_i;
-    de <= de_i;
-
-    pixel_x <= h_count;
-    pixel_y <= v_count;
+    process(pixel_clk)
+	 begin
+		if rising_edge(pixel_clk) then
+			hsync <= hsync_i;
+			vsync <= vsync_i;
+			de <= de_i;
+			pixel_x <= h_count;
+			pixel_y <= v_count;
+		end if;
+	end process;
 
     frame_tick <= '1' when (h_count = 0 and v_count = 0) else '0';
 

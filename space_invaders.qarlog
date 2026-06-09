@@ -1,0 +1,43 @@
+Quartus II Archive log --	C:/altera/13.0sp1/quartus/projects/plis/space_invaders/space_invaders.qarlog
+
+Archive:	C:/altera/13.0sp1/quartus/projects/plis/space_invaders/space_invaders.qar
+Date:		Mon Jun 08 18:50:36 2026
+Quartus II 64-Bit		13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition
+
+	=========== Files Selected: ===========
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/I2C_CONTROLLER.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/ROM.cmp
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/ROM.mif
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/ROM.qip
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/ROM.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/ROM_inst.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/adv7513_setup.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/adv7513_wrapper.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/baud_rate_gen.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/command_controller.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/command_searcher.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/i2ciobuf.v
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/incremental_db/compiled_partitions/space_invaders.db_info
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/invadersImg.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/pll_25.cmp
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/pll_25.qip
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/pll_25.sip
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/pll_25.spd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/pll_25.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/pll_25/pll_25_0002.qip
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/pll_25/pll_25_0002.v
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/pll_25_sim/pll_25.vho
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/setup_rom.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/spaceInvaders.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/spaceInvadersGame.qsf
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/spaceInvadersSync.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/space_invaders.qpf
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/space_invaders.qsf
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/uart.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/uart_rx.vhd
+C:/altera/13.0sp1/quartus/projects/plis/space_invaders/uart_tx.vhd
+c:/altera/13.0sp1/quartus/bin64/assignment_defaults.qdf
+	======= Total: 32 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.

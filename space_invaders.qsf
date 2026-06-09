@@ -98,15 +98,26 @@ set_location_assignment PIN_G11 -to I2C_SDA
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name USE_CONFIGURATION_DEVICE ON
+set_global_assignment -name CRC_ERROR_OPEN_DRAIN ON
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS_WEAK_PULLUP "AS INPUT TRI-STATED"
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_global_assignment -name ACTIVE_SERIAL_CLOCK FREQ_100MHZ
+set_global_assignment -name SOURCE_FILE i2ciobuf.cmp
+set_global_assignment -name MIF_FILE ROM.mif
+set_global_assignment -name VHDL_FILE uart.vhd
+set_global_assignment -name VHDL_FILE command_searcher.vhd
+set_global_assignment -name VHDL_FILE command_controller.vhd
 set_global_assignment -name SOURCE_FILE pll_25.cmp
 set_global_assignment -name QIP_FILE ROM.qip
-set_global_assignment -name VHDL_FILE uart_loopback.vhd
 set_global_assignment -name VHDL_FILE ROM.vhd
 set_global_assignment -name SOURCE_FILE ROM.cmp
 set_global_assignment -name VHDL_FILE uart_tx.vhd
 set_global_assignment -name VHDL_FILE uart_rx.vhd
 set_global_assignment -name VHDL_FILE baud_rate_gen.vhd
-set_global_assignment -name VERILOG_FILE i2ciobuf.v
 set_global_assignment -name VHDL_FILE adv7513_wrapper.vhd
 set_global_assignment -name SOURCE_FILE spaceInvadersGame.qsf
 set_global_assignment -name VHDL_FILE spaceInvaders.vhd
@@ -117,4 +128,5 @@ set_global_assignment -name SIP_FILE pll_25.sip
 set_global_assignment -name VHDL_FILE I2C_CONTROLLER.vhd
 set_global_assignment -name VHDL_FILE setup_rom.vhd
 set_global_assignment -name VHDL_FILE adv7513_setup.vhd
+set_global_assignment -name QIP_FILE i2ciobuf.qip
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
