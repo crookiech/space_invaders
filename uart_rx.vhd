@@ -23,7 +23,7 @@ architecture rtl of uart_rx is
 	signal rx_in : std_logic_vector(7 downto 0);
 	signal bit_count : integer range 0 to 7;
 	signal ovs_count : integer range 0 to 15;
-	signal parity_calc: std_logic;
+	signal parity: std_logic;
 	signal sampled_bit: std_logic;
 	signal valid_in : std_logic;
 	signal parity_error_in : std_logic;
@@ -34,7 +34,7 @@ begin
 	parity_error  <= parity_error_in;
 	framing_error <= framing_error_in;
 	process(clk, rst)
-		variable v_parity_error  : std_logic;
+		variable v_parity_error : std_logic;
 		variable v_framing_error : std_logic;
 	begin
 		if rst = '0' then
@@ -42,7 +42,7 @@ begin
 			rx_in <= (others => '0');
 			bit_count <= 0;
 			ovs_count <= 0;
-			parity_calc <= '0';
+			parity <= '0';
 			valid_in <= '0';
 			parity_error_in <= '0';
 			framing_error_in <= '0';
@@ -59,7 +59,7 @@ begin
 						if rx = '0' then
 							state <= START_BIT;
 							ovs_count <= 0;
-							parity_calc <= '0';
+							parity <= '0';
 						end if;
 					
 					when START_BIT =>
@@ -85,7 +85,7 @@ begin
 						if ovs_count = 7 then
 							sampled_bit <= rx;
 							rx_in(bit_count) <= rx;
-							parity_calc <= parity_calc xor rx;
+							parity <= parity xor rx;
 						end if;
 						if ovs_count = 15 then
 							if bit_count = 7 then
@@ -103,7 +103,7 @@ begin
 							sampled_bit <= rx;
 						end if;
 						if ovs_count = 15 then
-							if sampled_bit /= parity_calc then
+							if sampled_bit /= parity then
 								v_parity_error := '1';
 							end if;
 							state <= STOP_BIT;
@@ -120,7 +120,7 @@ begin
 							if sampled_bit /= '1' then
 								v_framing_error := '1';
 							end if;
-							parity_error_in  <= v_parity_error;
+							parity_error_in <= v_parity_error;
 							framing_error_in <= v_framing_error;
 							if v_parity_error = '0' and v_framing_error = '0' then
 								valid_in <= '1';

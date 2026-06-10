@@ -32,11 +32,10 @@ architecture rtl of command_searcher is
 	type search_state_type is (IDLE, READ_ADDR, READ_DATA, COMPARE, NEXT_COMMAND, COMMAND_FOUND);
 	signal search_state : search_state_type := IDLE;
 	signal rom_address_in : integer range 0 to 127 := 0;
-	signal command_start_address : integer range 0 to 127 := 0;
 	signal compare_index : integer range 0 to 31 := 0;
 	signal command_found_flag : std_logic := '0';
 	signal need_to_search : std_logic := '0';
-	signal search_counter : integer range 0 to 255 := 0;
+	signal search_counter : integer range 0 to 96 := 0;
 	
 	function is_valid_char(data : std_logic_vector(7 downto 0)) return boolean is
 		variable char : integer;
@@ -64,7 +63,6 @@ begin
 				char_overflow <= '0';
 				right_in <= '0';
 				rom_address_in <= 0;
-				command_start_address <= 0;
 				command_found_flag <= '0';
 				compare_index <= 0;
 				need_to_search <= '0';
@@ -84,7 +82,6 @@ begin
 								if char_count > 0 then
 									need_to_search <= '1';
 									rom_address_in <= 0;
-									command_start_address <= 0;
 									compare_index <= 0;
 									command_found_flag <= '0';
 									search_counter <= 0;
@@ -121,7 +118,7 @@ begin
 						
 						when READ_DATA =>
 							rom_char := rom_data;
-							if search_counter < 255 then
+							if search_counter < 96 then
 								search_counter <= search_counter + 1;
 							end if;
 							if search_counter >= ROM_SIZE then
@@ -140,9 +137,6 @@ begin
 									search_state <= NEXT_COMMAND;
 								end if;
 							elsif compare_index < char_count then
-								if compare_index = 0 then
-									command_start_address <= rom_address_in;
-								end if;
 								buffer_char := char_buffer(8*compare_index+7 downto 8*compare_index);
 								if buffer_char = rom_char then
 									compare_index <= compare_index + 1;

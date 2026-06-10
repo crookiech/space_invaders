@@ -26,8 +26,8 @@ architecture rtl of uart is
 	signal char_index : integer range 0 to 21 := 0;
 	signal busy_in : std_logic := '0';
 	
-	type state_type is (IDLE_STATE, LOAD_CHAR, WAIT_START, WAIT_END, WAIT_TX);
-	signal state : state_type := IDLE_STATE;
+	type state_type is (IDLE, LOAD_CHAR, WAIT_START, WAIT_END, WAIT_TX);
+	signal state : state_type := IDLE;
 	
 	function is_valid_char(data : std_logic_vector(7 downto 0)) return boolean is
 		variable char : integer;
@@ -63,7 +63,7 @@ begin
 				message_len <= 0;
 				tx_data <= (others => '0');
 				message <= (others => (others => '0'));
-				state <= IDLE_STATE;
+				state <= IDLE;
 			else
 				tx_start <= '0';
 				line_valid <= '0';
@@ -76,7 +76,7 @@ begin
 					end if;
 				end if;
 				case state is
-					when IDLE_STATE =>
+					when IDLE =>
 						if busy_in = '1' then
 							busy_in <= '0';
 							line_valid <= '1';
@@ -128,14 +128,14 @@ begin
 					when WAIT_TX =>
 						if tx_busy = '0' then
 							if char_index = message_len then
-								state <= IDLE_STATE;
+								state <= IDLE;
 							else
 								state <= LOAD_CHAR;
 							end if;
 						end if;
 					
 					when others =>
-						state <= IDLE_STATE;
+						state <= IDLE;
 				end case;
 			end if;
 		end if;

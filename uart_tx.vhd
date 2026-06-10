@@ -1,8 +1,5 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-library altera;
-use altera.altera_syn_attributes.all;
 
 entity uart_tx is
 port (
