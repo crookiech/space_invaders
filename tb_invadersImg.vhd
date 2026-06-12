@@ -16,7 +16,7 @@ architecture behavior of tb_invadersImg is
     signal btn_start   : std_logic := '0';
     signal btn_reset   : std_logic := '1';
     signal pause       : std_logic := '0';
-    signal resolution  : std_logic_vector(1 downto 0) := "00"; -- Свитчи разрешения
+    signal resolution  : std_logic_vector(1 downto 0) := "00";
     signal wave_speed  : integer := 0;
     
     signal pixel_x     : integer range 0 to 2047 := 0;
@@ -33,7 +33,7 @@ architecture behavior of tb_invadersImg is
 
 begin
 
-    -- Подключаем игру
+    -- Подключаем тестируемый игровой модуль
     uut: entity work.invadersImg
         port map (
             clock_pix   => clock_pix,
@@ -54,14 +54,14 @@ begin
             blue_out    => blue_out
         );
 
-    -- Генератор clock_pix (25 MHz)
+    -- 1. Стабильный генератор clock_pix
     clk_process : process
     begin
         clock_pix <= '0'; wait for CLK_PERIOD/2;
         clock_pix <= '1'; wait for CLK_PERIOD/2;
     end process;
 
-    -- Автоподстройка границ кадра под симулируемое разрешение
+    -- 2. Автоподстройка под симулируемое разрешение
     process(resolution)
     begin
         if resolution = "00" then
@@ -73,44 +73,58 @@ begin
         end if;
     end process;
 
-    -- Упрощенный симулятор развертки монитора (без гашения, для скорости симуляции)
-    video_simulator : process
+    -- 3. Легковесный генератор координат луча (без вложенных тяжелых циклов)
+    pixel_counter_process : process(clock_pix)
     begin
-        wait for 100 ns;
-        while true loop
-            for y in 0 to sim_max_y loop
-                pixel_y <= y;
-                for x in 0 to sim_max_x loop
-                    pixel_x <= x;
-                    if x < sim_max_x and y < sim_max_y then
-                        video_on <= '1';
-                    else
-                        video_on <= '0';
-                    end if;
-                    wait until rising_edge(clock_pix);
-                end loop;
-            end loop;
-            
-            -- Конец кадра: формируем импульс refresh
-            refresh <= '1';  wait for 200 ns;
-            refresh <= '0';  wait for 200 ns;
-        end loop;
+        if rising_edge(clock_pix) then
+            if pixel_x < sim_max_x then
+                pixel_x <= pixel_x + 1;
+            else
+                pixel_x <= 0;
+                if pixel_y < sim_max_y then
+                    pixel_y <= pixel_y + 1;
+                else
+                    pixel_y <= 0;
+                end if;
+            end if;
+        end if;
     end process;
 
+    video_on <= '1' when (pixel_x < sim_max_x and pixel_y < sim_max_y) else '0';
+
+    -- 4. СТАБИЛЬНЫЙ ГЕНЕРАТОР REFRESH: выдает импульс строго каждые 10 мс!
+    -- Теперь симулятору не нужно считать миллионы пикселей, чтобы дернуть refresh.
+    refresh_generator : process
+    begin
+        refresh <= '0';
+        wait for 10 ms; -- Длина кадра в симуляции равна ровно 10 мс (100 Гц)
+        refresh <= '1';
+        wait for 10 us; -- Длительность импульса
+        refresh <= '0';
+    end process;
+
+    -- 5. СЦЕНАРИЙ СИМУЛЯЦИИ (Очень быстрый и наглядный)
     stimulus_process : process
     begin
+        -- Сброс в начале
         btn_reset <= '1';
-        wait for 500 ns;
+        wait for 1 ms;
         btn_reset <= '0';
-        wait for 500 ns;
+        wait for 5 ms;
         
+        -- Разрешение 640x480 (Ждем 30 мс, чтобы гарантированно прошло 3 кадра по 10 мс)
         resolution <= "00";
-        wait for 60 ms; 
+        wait for 30 ms; 
         
+        -- Разрешение 1024x768 (Ждем 30 мс)
         resolution <= "01";
-        wait for 60 ms;
+        wait for 30 ms;
         
-        -- Конец теста
+        -- Разрешение 1360x768 (Ждем 30 мс)
+        resolution <= "10";
+        wait for 30 ms;
+        
+        -- Конец симуляции
         assert false report "Simulation Finished!" severity failure;
         wait;
     end process;
