@@ -59,6 +59,9 @@ architecture behavior of invadersImg is
     constant TANK_H : integer := 16;
     signal tank_x : integer := 305;
     
+    -- Регистры для синхронного CDC отслеживания переключения разрешения
+    signal r_tank_y : integer := 440;
+    
     -- Пуля игрока
     signal bullet_x : integer := 0;
     signal bullet_y : integer := 0;
@@ -72,7 +75,7 @@ architecture behavior of invadersImg is
     -- Пришельцы
     constant ALIEN_W : integer := 24;
     constant ALIEN_H : integer := 16;
-    constant ALIEN_GAP : integer := 16;
+    constant ALIEN_GAP : integer := 8;
     constant ROWS : integer := 4;
     constant COLS : integer := 8;
     constant MAX_ALIENS_PER_WAVE : integer := ROWS * COLS;
@@ -117,8 +120,14 @@ architecture behavior of invadersImg is
     signal pending_wave_speed : integer range 0 to 10 := 0;
     signal wave_speed_processed : std_logic := '0';
 	 signal wave_speed_timer : integer range 0 to 50_000_000 := 0; 
+	 
+	 -- Детектор фронта сигнала refresh для синхронизации CDC
+    signal refresh_r1 : std_logic := '0';
+    signal refresh_r2 : std_logic := '0';
 
-    -- Шрифт 5x7
+	 signal refresh_pulse : std_logic := '0';
+
+    -- Шрифт 5x7 (Расширен до 27 индексов для полноценных букв L и F)
     function is_char_pixel (
         px, py : integer;
         char_val : integer;
@@ -129,7 +138,7 @@ architecture behavior of invadersImg is
         constant CHAR_HEIGHT : integer := 7;
         variable local_x, local_y : integer;
         
-        type char_pattern_array is array (0 to 26) of std_logic_vector(34 downto 0);
+        type char_pattern_array is array (0 to 27) of std_logic_vector(34 downto 0);
         constant FONT_5X7 : char_pattern_array := (
             0  => "01110" & "10001" & "10001" & "10001" & "10001" & "10001" & "01110",
             1  => "00100" & "01100" & "00100" & "00100" & "00100" & "00100" & "01110",
@@ -155,9 +164,10 @@ architecture behavior of invadersImg is
             21 => "10001" & "10001" & "01010" & "00100" & "00100" & "00100" & "00100",
             22 => "11111" & "00100" & "00100" & "00100" & "00100" & "00100" & "00100",
             23 => "01110" & "10001" & "10001" & "10001" & "10001" & "10001" & "01110",
-            24 => (others => '0'),
+            24 => "10000" & "10000" & "10000" & "10000" & "10000" & "10000" & "11111", 
             25 => "01110" & "10001" & "10000" & "10111" & "10001" & "10001" & "01110",
-            26 => "10001" & "11011" & "10101" & "10001" & "10001" & "10001" & "10001"
+            26 => "10001" & "11011" & "10101" & "10001" & "10001" & "10001" & "10001",
+            27 => "11111" & "10000" & "10000" & "11110" & "10000" & "10000" & "10000"  
         );
     begin
         local_x := (px - start_x) / scale;
@@ -172,14 +182,14 @@ architecture behavior of invadersImg is
     end function;
 
 begin
-    -- Адаптация параметров под разрешение
+    -- Адаптация параметров под разрешение (Чистая комбинаторная дешифрация переключателей)
     process(resolution)
     begin
         case resolution is
-            when "00" =>   -- 640x480
+            when "00" =>   -- 640x480 (center_x = 320)
                 MAX_X <= 640;
                 MAX_Y <= 480;
-				center_x <= 320;
+                center_x <= 320;
                 TANK_Y <= 440;
                 ALIENS_START_X <= 50;
                 ALIENS_START_Y <= 40;
@@ -190,17 +200,19 @@ begin
                 SCORE_Y <= 190;
                 RESTART_Y <= 270;
                 BUTTONS_Y <= 360;
-                -- Координаты кнопок для 640x480
-                btn_key3_x <= 230;
-                btn_key2_x <= 290;
-                btn_key1_x <= 350;
-                btn_key0_x <= 410;
+                
+                -- Координаты кнопок (Центрированы на 320):
+                btn_key3_x <= 230; 
+                btn_key2_x <= 290; 
+                btn_key1_x <= 350; 
+                btn_key0_x <= 410; 
                 btn_y <= 360;
                 btn_radius_sq <= 144;  -- 12^2
-            when "01" =>   -- 1024x768
+                
+            when "01" =>   -- 1024x768 (center_x = 512)
                 MAX_X <= 1024;
                 MAX_Y <= 768;
-				center_x <= 512;
+                center_x <= 512;
                 TANK_Y <= 700;
                 ALIENS_START_X <= 100;
                 ALIENS_START_Y <= 80;
@@ -211,17 +223,19 @@ begin
                 SCORE_Y <= 300;
                 RESTART_Y <= 430;
                 BUTTONS_Y <= 550;
-                -- Координаты кнопок для 1024x768
-                btn_key3_x <= 410;
-                btn_key2_x <= 490;
-                btn_key1_x <= 570;
-                btn_key0_x <= 650;
+                
+                -- Координаты кнопок (Центрированы на 512):
+                btn_key3_x <= 392; 
+                btn_key2_x <= 472; 
+                btn_key1_x <= 552; 
+                btn_key0_x <= 632; 
                 btn_y <= 550;
-                btn_radius_sq <= 256;  -- 16^2 (масштабируем)
-            when "10" =>   -- 1360x768
+                btn_radius_sq <= 256;  -- 16^2
+                
+            when "10" =>   -- 1360x768 (center_x = 680)
                 MAX_X <= 1360;
                 MAX_Y <= 768;
-				center_x <= 680;
+                center_x <= 680;
                 TANK_Y <= 700;
                 ALIENS_START_X <= 160;
                 ALIENS_START_Y <= 80;
@@ -232,20 +246,22 @@ begin
                 SCORE_Y <= 300;
                 RESTART_Y <= 430;
                 BUTTONS_Y <= 550;
-                -- Координаты кнопок для 1360x768
-                btn_key3_x <= 560;
-                btn_key2_x <= 650;
-                btn_key1_x <= 740;
+                
+                btn_key3_x <= 530; 
+                btn_key2_x <= 630; 
+                btn_key1_x <= 730;
                 btn_key0_x <= 830;
                 btn_y <= 550;
                 btn_radius_sq <= 256;  -- 16^2
-            when others =>
+                
+            when others => -- 640x480
                 MAX_X <= 640;
                 MAX_Y <= 480;
-				center_x <= 320;
+                center_x <= 320;
                 TANK_Y <= 440;
                 ALIENS_START_X <= 50;
                 ALIENS_START_Y <= 40;
+                
                 btn_key3_x <= 230;
                 btn_key2_x <= 290;
                 btn_key1_x <= 350;
@@ -255,6 +271,17 @@ begin
         end case;
     end process;
 
+	 -- Синхронизация CDC
+    process(clock_pix)
+    begin
+        if rising_edge(clock_pix) then
+            refresh_r1 <= refresh;
+            refresh_r2 <= refresh_r1;
+        end if;
+    end process;
+    refresh_pulse <= refresh_r1 and (not refresh_r2); -- Импульс шириной в 1 такт clock_pix на кадр
+
+	 
     -- LFSR генератор
     process(clock_pix)
     begin
@@ -263,249 +290,294 @@ begin
         end if;
     end process;
 
-    -- ЛОГИКА ИГРЫ (без изменений)
+    -- ЛОГИКА ИГРЫ
     process(refresh, btn_reset)
-    variable shoot_col : integer range 0 to COLS-1;
-    variable found_alien : boolean;
-    variable all_aliens_dead : boolean;
-    variable temp_aliens_alive : alien_array;
-    variable leftmost_alien : integer;
-    variable rightmost_alien : integer;
-    variable can_move_left : boolean;
-    variable can_move_right : boolean;
-begin
-    if btn_reset = '1' then
-        state <= MENU;
-        tank_x <= (MAX_X - TANK_W) / 2;
-        bullet_active <= '0';
-        e_bullet_active <= '0';
-        aliens_alive <= (others => (others => '1'));
-        aliens_x_off <= ALIENS_START_X;
-        aliens_y_off <= ALIENS_START_Y;
-        score <= 0;
-        lives <= 3;
-        wave <= 1;
-        aliens_killed_count <= 0;
-        alien_timer <= 0;
-        shoot_timer <= 0;
-        aliens_dir <= '1';
-        alien_invasion_gameover <= '0';
-        blink_reg <= (others => '0');
-        blink_on <= '0';
-        gameover_timer <= 0;
-        wave_speed_processed <= '0';
-        pending_wave_speed <= 0;
-    elsif rising_edge(refresh) then
-        if wave_speed /= 0 and wave_speed_processed = '0' then
-            if wave_speed >= 1 and wave_speed <= 10 then
-                wave <= wave_speed;
-                alien_timer <= 0;
-                shoot_timer <= 0;
-            end if;
-            wave_speed_processed <= '1';
-            pending_wave_speed <= wave_speed;
-			wave_speed_timer <= 25_000_000; 
-        end if;
-        
-        if wave_speed_timer > 0 then
-            wave_speed_timer <= wave_speed_timer - 1;
-            if wave_speed_timer = 1 then
-                wave_speed_processed <= '0';
-                wave_speed_timer <= 0;
-            end if;
-        end if;
-        
-        if blink_reg = 29 then
+        variable shoot_col : integer range 0 to COLS-1;
+        variable found_alien : boolean;
+        variable all_aliens_dead : boolean;
+        variable temp_aliens_alive : alien_array;
+        variable leftmost_alien : integer;
+        variable rightmost_alien : integer;
+        variable can_move_left : boolean;
+        variable can_move_right : boolean;
+        variable any_alive : boolean;
+    begin
+        if btn_reset = '1' then
+            state <= MENU;
+            tank_x <= 305; 
+            bullet_active <= '0';
+            e_bullet_active <= '0';
+            aliens_alive <= (others => (others => '1'));
+            aliens_x_off <= 50;
+            aliens_y_off <= 40;
+            r_tank_y <= 440;
+            score <= 0;
+            lives <= 3;
+            wave <= 1;
+            aliens_killed_count <= 0;
+            alien_timer <= 0;
+            shoot_timer <= 0;
+            aliens_dir <= '1';
+            alien_invasion_gameover <= '0';
             blink_reg <= (others => '0');
-            blink_on <= not blink_on;
-        else
-            blink_reg <= blink_reg + 1;
-        end if;
+            blink_on <= '0';
+            gameover_timer <= 0;
+            wave_speed_processed <= '0';
+            pending_wave_speed <= 0;
+        elsif rising_edge(refresh) then
+	 
+            -- =====================================================================
+            -- СИНХРОННАЯ И ДИНАМИЧЕСКАЯ АДАПТАЦИЯ К ТЕКУЩЕМУ РАЗРЕШЕНИЮ
+            -- =====================================================================
+            
+            if TANK_Y /= r_tank_y then
+                aliens_y_off <= aliens_y_off + (TANK_Y - r_tank_y);
+                r_tank_y <= TANK_Y;
+            end if;
 
-        if pause = '0' then
-            case state is
-                when MENU =>
-                    gameover_timer <= 0;
-                    if btn_start = '1' then
-                        state <= PLAYING;
-                        score <= 0;
-                        lives <= 3;
-                        if pending_wave_speed >= 1 and pending_wave_speed <= 10 then
-                            wave <= pending_wave_speed;
-                        else
-                            wave <= 1;
+            if state = MENU then
+                tank_x <= center_x - 15;
+                aliens_x_off <= ALIENS_START_X;
+                aliens_y_off <= ALIENS_START_Y;
+            else
+                if tank_x < 10 then
+                    tank_x <= 10;
+                elsif tank_x > (MAX_X - TANK_W - 10) then
+                    tank_x <= MAX_X - TANK_W - 10;
+                end if;
+
+                any_alive := false;
+                leftmost_alien := COLS - 1;
+                rightmost_alien := 0;
+                for r in 0 to ROWS-1 loop
+                    for c in 0 to COLS-1 loop
+                        if aliens_alive(r,c) = '1' then
+                            any_alive := true;
+                            if c < leftmost_alien then leftmost_alien := c; end if;
+                            if c > rightmost_alien then rightmost_alien := c; end if;
                         end if;
-                        aliens_killed_count <= 0;
-                        aliens_alive <= (others => (others => '1'));
-                        aliens_x_off <= ALIENS_START_X;
-                        aliens_y_off <= ALIENS_START_Y;
-                        bullet_active <= '0';
-                        e_bullet_active <= '0';
-                        alien_timer <= 0;
-                        shoot_timer <= 0;
-                        aliens_dir <= '1';
-                        alien_invasion_gameover <= '0';
-                    end if;
-                    
-                when PLAYING =>
-                    gameover_timer <= 0;
-                    
-                    if wave < 1 then wave <= 1; end if;
-                    if wave > 10 then wave <= 10; end if;
-                    
-                    found_alien := false;
-                    for r in 0 to ROWS-1 loop
-                        for c in 0 to COLS-1 loop
-                            if aliens_alive(r,c) = '1' then
-                                if (aliens_y_off + r*(ALIEN_H+ALIEN_GAP) + ALIEN_H) >= TANK_Y then
-                                    found_alien := true;
-                                end if;
-                            end if;
-                        end loop;
                     end loop;
+                end loop;
 
-                    if found_alien then
-                        alien_invasion_gameover <= '1';
-                        state <= GAME_OVER;
+                if any_alive then
+                    if (aliens_x_off + leftmost_alien * 32) < 20 then
+                        aliens_x_off <= 20 - (leftmost_alien * 32);
+                    elsif (aliens_x_off + rightmost_alien * 32 + ALIEN_W) > (MAX_X - 20) then
+                        aliens_x_off <= MAX_X - 20 - ALIEN_W - (rightmost_alien * 32);
                     end if;
+                end if;
+            end if;
 
-                    if btn_left = '1' and tank_x > 10 then
-                        tank_x <= tank_x - 3;
-                    elsif btn_right = '1' and tank_x < (MAX_X - TANK_W - 10) then
-                        tank_x <= tank_x + 3;
-                    end if;
+            if bullet_active = '1' and (bullet_x > MAX_X or bullet_y > TANK_Y + TANK_H) then
+                bullet_active <= '0';
+            end if;
+            if e_bullet_active = '1' and (e_bullet_x > MAX_X or e_bullet_y > TANK_Y + TANK_H) then
+                e_bullet_active <= '0';
+            end if;
+            
 
-                    if bullet_active = '0' then
-                        if btn_fire = '1' then
-                            bullet_active <= '1';
-                            bullet_x <= tank_x + 15;
-                            bullet_y <= TANK_Y - 5;
+
+            if wave_speed /= 0 and wave_speed_processed = '0' then
+                if wave_speed >= 1 and wave_speed <= 10 then
+                    wave <= wave_speed;
+                    alien_timer <= 0;
+                    shoot_timer <= 0;
+                end if;
+                wave_speed_processed <= '1';
+                pending_wave_speed <= wave_speed;
+                wave_speed_timer <= 25_000_000; 
+            end if;
+            
+            if wave_speed_timer > 0 then
+                wave_speed_timer <= wave_speed_timer - 1;
+                if wave_speed_timer = 1 then
+                    wave_speed_processed <= '0';
+                    wave_speed_timer <= 0;
+                end if;
+            end if;
+            
+            if blink_reg = 29 then
+                blink_reg <= (others => '0');
+                blink_on <= not blink_on;
+            else
+                blink_reg <= blink_reg + 1;
+            end if;
+
+            if pause = '0' then
+                case state is
+                    when MENU =>
+                        gameover_timer <= 0;
+                        if btn_start = '1' then
+                            state <= PLAYING;
+                            score <= 0;
+                            lives <= 3;
+                            if pending_wave_speed >= 1 and pending_wave_speed <= 10 then
+                                wave <= pending_wave_speed;
+                            else
+                                wave <= 1;
+                            end if;
+                            aliens_killed_count <= 0;
+                            aliens_alive <= (others => (others => '1'));
+                            aliens_x_off <= ALIENS_START_X;
+                            aliens_y_off <= ALIENS_START_Y;
+                            tank_x <= center_x - 15; 
+                            bullet_active <= '0';
+                            e_bullet_active <= '0';
+                            alien_timer <= 0;
+                            shoot_timer <= 0;
+                            aliens_dir <= '1';
+                            alien_invasion_gameover <= '0';
                         end if;
-                    else
-                        bullet_y <= bullet_y - 7;
-                        if bullet_y < 10 then bullet_active <= '0'; end if;
-                    end if;
-
-                    alien_timer <= alien_timer + 1;
-                    if alien_timer >= ALIEN_MOVE_SPEED_FRAMES(wave) then
-                        alien_timer <= 0;
                         
-                        leftmost_alien := COLS-1;
-                        rightmost_alien := 0;
+                    when PLAYING =>
+                        gameover_timer <= 0;
+                        
+                        if wave < 1 then wave <= 1; end if;
+                        if wave > 10 then wave <= 10; end if;
+                        
+                        found_alien := false;
                         for r in 0 to ROWS-1 loop
                             for c in 0 to COLS-1 loop
                                 if aliens_alive(r,c) = '1' then
-                                    if c < leftmost_alien then leftmost_alien := c; end if;
-                                    if c > rightmost_alien then rightmost_alien := c; end if;
-                                end if;
-                            end loop;
-                        end loop;
-                        
-                        can_move_left := (aliens_x_off + leftmost_alien*(ALIEN_W+ALIEN_GAP) > 20);
-                        can_move_right := (aliens_x_off + rightmost_alien*(ALIEN_W+ALIEN_GAP) + ALIEN_W < MAX_X - 20);
-                        
-                        if aliens_dir = '1' then
-                            if can_move_right then
-                                aliens_x_off <= aliens_x_off + 8;
-                            else
-                                aliens_dir <= '0';
-                                aliens_y_off <= aliens_y_off + 15;
-                            end if;
-                        else
-                            if can_move_left then
-                                aliens_x_off <= aliens_x_off - 8;
-                            else
-                                aliens_dir <= '1';
-                                aliens_y_off <= aliens_y_off + 15;
-                            end if;
-                        end if;
-                    end if;
-
-                    if e_bullet_active = '0' then
-                        shoot_timer <= shoot_timer + 1;
-                        if shoot_timer >= ALIEN_SHOOT_SPEED_FRAMES(wave) then
-                            shoot_timer <= 0;
-                            shoot_col := to_integer(unsigned(lfsr(2 downto 0))) mod COLS;
-                            found_alien := false;
-                            for r_idx in ROWS-1 downto 0 loop
-                                if aliens_alive(r_idx, shoot_col) = '1' then
-                                    e_bullet_active <= '1';
-                                    e_bullet_x <= aliens_x_off + shoot_col*(ALIEN_W+ALIEN_GAP) + ALIEN_W/2;
-                                    e_bullet_y <= aliens_y_off + r_idx*(ALIEN_H+ALIEN_GAP) + ALIEN_H;
-                                    found_alien := true;
-                                    exit;
-                                end if;
-                            end loop;
-                        end if;
-                    else
-                        e_bullet_y <= e_bullet_y + 5;
-                        if e_bullet_y > MAX_Y then e_bullet_active <= '0'; end if;
-                    end if;
-
-                    all_aliens_dead := true;
-                    temp_aliens_alive := aliens_alive;
-                    for r in 0 to ROWS-1 loop
-                        for c in 0 to COLS-1 loop
-                            if aliens_alive(r,c) = '1' then
-                                all_aliens_dead := false;
-                                if bullet_active = '1' then
-                                    if bullet_x >= (aliens_x_off + c*(ALIEN_W+ALIEN_GAP)) and
-                                       bullet_x <= (aliens_x_off + c*(ALIEN_W+ALIEN_GAP) + ALIEN_W) and
-                                       bullet_y >= (aliens_y_off + r*(ALIEN_H+ALIEN_GAP)) and
-                                       bullet_y <= (aliens_y_off + r*(ALIEN_H+ALIEN_GAP) + ALIEN_H) then
-                                           temp_aliens_alive(r,c) := '0';
-                                           bullet_active <= '0';
-                                           score <= score + 10;
-                                           aliens_killed_count <= aliens_killed_count + 1;
+                                    if (aliens_y_off + r*32 + ALIEN_H) >= TANK_Y then 
+                                         found_alien := true;
                                     end if;
                                 end if;
-                            end if;
+                            end loop;
                         end loop;
-                    end loop;
-                    aliens_alive <= temp_aliens_alive;
 
-                    if aliens_killed_count = MAX_ALIENS_PER_WAVE then
-                        if wave < 10 then
-                            wave <= wave + 1;
-                            if lives < 3 then lives <= lives + 1; end if;
-                        end if;
-                        aliens_killed_count <= 0;
-                        aliens_alive <= (others => (others => '1'));
-                        aliens_x_off <= ALIENS_START_X;
-                        aliens_y_off <= ALIENS_START_Y;
-                        alien_timer <= 0;
-                        shoot_timer <= 0;
-                        bullet_active <= '0';
-                        e_bullet_active <= '0';
-                        aliens_dir <= '1';
-                    end if;
-                    
-                    if e_bullet_active = '1' and
-                       e_bullet_x >= tank_x and e_bullet_x <= tank_x + TANK_W and
-                       e_bullet_y >= TANK_Y and e_bullet_y <= TANK_Y + TANK_H then
-                        lives <= lives - 1;
-                        e_bullet_active <= '0';
-                        if lives = 0 then
+                        if found_alien then
+                            alien_invasion_gameover <= '1';
                             state <= GAME_OVER;
                         end if;
-                    end if;
 
-                when GAME_OVER =>
-                    if gameover_timer < 1023 then
-                        gameover_timer <= gameover_timer + 3; 
-                    end if;
+                        if btn_left = '1' and tank_x > 10 then
+                            tank_x <= tank_x - 3;
+                        elsif btn_right = '1' and tank_x < (MAX_X - TANK_W - 10) then
+                            tank_x <= tank_x + 3;
+                        end if;
 
-                    if btn_start = '1' then 
-                        state <= MENU; 
-                    end if;
-            end case;
+                        if bullet_active = '0' then
+                            if btn_fire = '1' then
+                                bullet_active <= '1';
+                                bullet_x <= tank_x + 15;
+                                bullet_y <= TANK_Y - 5;
+                            end if;
+                        else
+                            bullet_y <= bullet_y - 7;
+                            if bullet_y < 10 then bullet_active <= '0'; end if;
+                        end if;
+
+                        alien_timer <= alien_timer + 1;
+                        if alien_timer >= ALIEN_MOVE_SPEED_FRAMES(wave) then
+                            alien_timer <= 0;
+                            
+                            can_move_left := (aliens_x_off + leftmost_alien*32 > 20);
+                            can_move_right := (aliens_x_off + rightmost_alien*32 + ALIEN_W < MAX_X - 20);
+                            
+                            if aliens_dir = '1' then
+                                if can_move_right then
+                                    aliens_x_off <= aliens_x_off + 8;
+                                else
+                                    aliens_dir <= '0';
+                                    aliens_y_off <= aliens_y_off + 15;
+                                end if;
+                            else
+                                if can_move_left then
+                                    aliens_x_off <= aliens_x_off - 8;
+                                else
+                                    aliens_dir <= '1';
+                                    aliens_y_off <= aliens_y_off + 15;
+                                end if;
+                            end if;
+                        end if;
+
+                        if e_bullet_active = '0' then
+                            shoot_timer <= shoot_timer + 1;
+                            if shoot_timer >= ALIEN_SHOOT_SPEED_FRAMES(wave) then
+                                shoot_timer <= 0;
+                                shoot_col := to_integer(unsigned(lfsr(2 downto 0))) mod COLS;
+                                found_alien := false;
+                                for r_idx in ROWS-1 downto 0 loop
+                                    if aliens_alive(r_idx, shoot_col) = '1' then
+                                        e_bullet_active <= '1';
+                                        e_bullet_x <= aliens_x_off + shoot_col*32 + ALIEN_W/2;
+                                        e_bullet_y <= aliens_y_off + r_idx*32 + ALIEN_H;
+                                        found_alien := true;
+                                        exit;
+                                    end if;
+                                end loop;
+                            end if;
+                        else
+                            e_bullet_y <= e_bullet_y + 5;
+                            if e_bullet_y > MAX_Y then e_bullet_active <= '0'; end if;
+                        end if;
+
+                        all_aliens_dead := true;
+                        temp_aliens_alive := aliens_alive;
+                        for r in 0 to ROWS-1 loop
+                            for c in 0 to COLS-1 loop
+                                if aliens_alive(r,c) = '1' then
+                                    if bullet_active = '1' then
+                                         if bullet_x >= (aliens_x_off + c*32) and
+                                             bullet_x <= (aliens_x_off + c*32 + ALIEN_W) and
+                                             bullet_y >= (aliens_y_off + r*32) and
+                                             bullet_y <= (aliens_y_off + r*32 + ALIEN_H) then
+                                                  temp_aliens_alive(r,c) := '0';
+                                                  bullet_active <= '0';
+                                                  score <= score + 10;
+                                         else
+                                              all_aliens_dead := false;
+                                         end if;
+                                    else
+                                         all_aliens_dead := false;
+                                    end if;
+                                end if;
+                            end loop;
+                        end loop;
+                        aliens_alive <= temp_aliens_alive;
+
+                        if all_aliens_dead then
+                            if wave < 10 then
+                                wave <= wave + 1;
+                                if lives < 3 then lives <= lives + 1; end if;
+                            end if;
+                            aliens_alive <= (others => (others => '1'));
+                            aliens_x_off <= ALIENS_START_X;
+                            aliens_y_off <= ALIENS_START_Y;
+                            alien_timer <= 0;
+                            shoot_timer <= 0;
+                            bullet_active <= '0';
+                            e_bullet_active <= '0';
+                            aliens_dir <= '1';
+                        end if;
+                        
+                        -- Попадание в игрока
+                        if e_bullet_active = '1' and
+                           e_bullet_x >= tank_x and e_bullet_x <= tank_x + TANK_W and
+                           e_bullet_y >= TANK_Y and e_bullet_y <= TANK_Y + TANK_H then
+                            lives <= lives - 1;
+                            e_bullet_active <= '0';
+                            if lives = 0 then
+                                state <= GAME_OVER;
+                            end if;
+                        end if;
+
+                    when GAME_OVER =>
+                        if gameover_timer < 1023 then
+                            gameover_timer <= gameover_timer + 3; 
+                        end if;
+
+                        if btn_start = '1' then 
+                            state <= MENU; 
+                        end if;
+                end case;
+            end if;
         end if;
-    end if;
-end process;
+    end process;
 
-    -- ГРАФИКА (адаптирована под разрешение)
+    -- ГРАФИКА
     
-    -- Синхронная отрисовка объектов
     process(clock_pix)
     begin
         if rising_edge(clock_pix) then            
@@ -548,24 +620,24 @@ end process;
             alien_on <= '0';
             if state = PLAYING then
                 rel_x := pixel_x - aliens_x_off;
-                rel_y := pixel_y - aliens_y_off;
-                
-                if rel_x >= 0 and rel_x < (COLS * 40) and rel_y >= 0 and rel_y < (ROWS * 32) then
-                    col_idx := rel_x / 40; 
-                    row_idx := rel_y / 32;
-                    
-                    alien_pixel_x := rel_x mod 40;
-                    alien_pixel_y := rel_y mod 32;
-                    
-                    if row_idx < ROWS and col_idx < COLS then
-                        if aliens_alive(row_idx, col_idx) = '1' and alien_pixel_x < ALIEN_W and alien_pixel_y < ALIEN_H then
-                            if not ((alien_pixel_y < 4 and (alien_pixel_x < 4 or alien_pixel_x > ALIEN_W-5)) or 
-                                    (alien_pixel_y > ALIEN_H-5 and (alien_pixel_x < 4 or alien_pixel_x > ALIEN_W-5))) then
-                                alien_on <= '1';
-                            end if;
-                        end if;
-                    end if;
-                end if;
+						 rel_y := pixel_y - aliens_y_off;
+						 
+						 if rel_x >= 0 and rel_x < (COLS * 32) and rel_y >= 0 and rel_y < (ROWS * 32) then
+							  col_idx := rel_x / 32; 
+							  row_idx := rel_y / 32;
+							  
+							  alien_pixel_x := rel_x mod 32; 
+							  alien_pixel_y := rel_y mod 32;
+							  
+							  if row_idx < ROWS and col_idx < COLS then
+									if aliens_alive(row_idx, col_idx) = '1' and alien_pixel_x < ALIEN_W and alien_pixel_y < ALIEN_H then
+										 if not ((alien_pixel_y < 4 and (alien_pixel_x < 4 or alien_pixel_x > ALIEN_W-5)) or 
+													(alien_pixel_y > ALIEN_H-5 and (alien_pixel_x < 4 or alien_pixel_x > ALIEN_W-5))) then
+											  alien_on <= '1';
+										 end if;
+									end if;
+							  end if;
+						 end if;
             end if;
         end if;
     end process;
@@ -575,112 +647,111 @@ end process;
                                           (pixel_x >= center_x + 5 and pixel_x <= center_x + 10)) 
                     and (pixel_y >= MAX_Y/2 - 20 and pixel_y <= MAX_Y/2 + 20) else '0';
 
-    process(video_on, tank_on, p_bullet_on, e_bullet_on, alien_on, pause_on,
-            pixel_x, pixel_y, score, lives, state, blink_on, gameover_timer,
-            MAX_X, MAX_Y, HUD_Y_POS, MENU_TITLE_Y, MENU_TEXT_Y, GAME_OVER_Y, SCORE_Y, RESTART_Y, BUTTONS_Y,
-            btn_key3_x, btn_key2_x, btn_key1_x, btn_key0_x, btn_y, btn_radius_sq)
-
+    process(clock_pix)
         variable hud_pixel_on : std_logic;
         variable menu_char_on : std_logic;
         variable dist3, dist2, dist1, dist0 : integer;
-        variable score_start_x : integer;
-        variable press_start_x : integer;
+		  
+		  variable title_start_x   : integer;
+        variable press_start_x   : integer;
+        variable game_over_start_x : integer;
+        variable score_start_x   : integer;
         variable restart_start_x : integer;
-    begin        
-        if video_on = '0' then
-            red_out <= (others => '0'); green_out <= (others => '0'); blue_out <= (others => '0');
-        else
-            red_out <= (others => '0'); green_out <= (others => '0'); blue_out <= (others => '0');
 
-            if state = MENU then
-                menu_char_on := '0';
-                
-                -- Заголовок "SPACE INVADERS"
-                if pixel_y >= MENU_TITLE_Y and pixel_y < MENU_TITLE_Y + 28 then
-                    if is_char_pixel(pixel_x, pixel_y, 10, center_x - 156, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 11, center_x - 132, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 12, center_x - 108, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 13, center_x - 84, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 14, center_x - 60, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 15, center_x - 12, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 16, center_x + 12, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 17, center_x + 36, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 12, center_x + 60, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 18, center_x + 84, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 14, center_x + 108, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 19, center_x + 132, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 10, center_x + 156, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if;
-                end if;
-                
-                if menu_char_on = '1' then
-                    red_out <= "00000000"; green_out <= "11111111"; blue_out <= "00000000";
+    begin
+        if rising_edge(clock_pix) then
+            red_out <= (others => '0');
+            green_out <= (others => '0');
+            blue_out <= (others => '0');
+
+            if video_on = '1' then
+                if state = MENU then
                     menu_char_on := '0';
-                end if;
+						  
+						  title_start_x := center_x - 166;
+                    if pixel_y >= MENU_TITLE_Y and pixel_y < MENU_TITLE_Y + 28 then
+                    if is_char_pixel(pixel_x, pixel_y, 10, title_start_x + 0*24,  MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if; -- S
+                    if is_char_pixel(pixel_x, pixel_y, 11, title_start_x + 1*24,  MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if; -- P
+                    if is_char_pixel(pixel_x, pixel_y, 12, title_start_x + 2*24,  MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if; -- A
+						  if is_char_pixel(pixel_x, pixel_y, 13, title_start_x + 3*24,  MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if; -- C
+                    if is_char_pixel(pixel_x, pixel_y, 14, title_start_x + 4*24,  MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if; -- E
+                    if is_char_pixel(pixel_x, pixel_y, 15, title_start_x + 6*24,  MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if; -- I
+                    if is_char_pixel(pixel_x, pixel_y, 16, title_start_x + 7*24,  MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if; -- N
+                    if is_char_pixel(pixel_x, pixel_y, 17, title_start_x + 8*24,  MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if; -- V
+                    if is_char_pixel(pixel_x, pixel_y, 12, title_start_x + 9*24,  MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if; -- A
+                    if is_char_pixel(pixel_x, pixel_y, 18, title_start_x + 10*24, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if; -- D
+                    if is_char_pixel(pixel_x, pixel_y, 14, title_start_x + 11*24, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if; -- E
+                    if is_char_pixel(pixel_x, pixel_y, 19, title_start_x + 12*24, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if; -- R
+                    if is_char_pixel(pixel_x, pixel_y, 10, title_start_x + 13*24, MENU_TITLE_Y, 4) = '1' then menu_char_on := '1'; end if; -- S
 
-                -- Текст "PRESS KEY3 TO START" (адаптированный под разрешение)
-                press_start_x := center_x - 120;
+                    end if;
+                    
+                press_start_x := center_x - 113;
                 if pixel_y >= MENU_TEXT_Y and pixel_y < MENU_TEXT_Y + 14 then
-                    if is_char_pixel(pixel_x, pixel_y, 11, press_start_x, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 19, press_start_x + 12, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 14, press_start_x + 24, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 10, press_start_x + 36, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 10, press_start_x + 48, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 20, press_start_x + 72, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 14, press_start_x + 84, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 21, press_start_x + 96, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 3,  press_start_x + 108, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 22, press_start_x + 132, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 23, press_start_x + 144, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 10, press_start_x + 168, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 22, press_start_x + 180, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 12, press_start_x + 192, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 19, press_start_x + 204, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 22, press_start_x + 216, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if;
+                    if is_char_pixel(pixel_x, pixel_y, 11, press_start_x + 0*12,  MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- P
+                    if is_char_pixel(pixel_x, pixel_y, 19, press_start_x + 1*12,  MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- R
+                    if is_char_pixel(pixel_x, pixel_y, 14, press_start_x + 2*12,  MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- E
+                    if is_char_pixel(pixel_x, pixel_y, 10, press_start_x + 3*12,  MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- S
+                    if is_char_pixel(pixel_x, pixel_y, 10, press_start_x + 4*12,  MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- S
+                    if is_char_pixel(pixel_x, pixel_y, 20, press_start_x + 6*12,  MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- K
+                    if is_char_pixel(pixel_x, pixel_y, 14, press_start_x + 7*12,  MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- E
+                    if is_char_pixel(pixel_x, pixel_y, 21, press_start_x + 8*12,  MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- Y
+                    if is_char_pixel(pixel_x, pixel_y, 3,  press_start_x + 9*12,  MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- 3
+                    if is_char_pixel(pixel_x, pixel_y, 22, press_start_x + 11*12, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- T
+                    if is_char_pixel(pixel_x, pixel_y, 23, press_start_x + 12*12, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- O
+                    if is_char_pixel(pixel_x, pixel_y, 10, press_start_x + 14*12, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- S
+                    if is_char_pixel(pixel_x, pixel_y, 22, press_start_x + 15*12, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- T
+                    if is_char_pixel(pixel_x, pixel_y, 12, press_start_x + 16*12, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- A
+                    if is_char_pixel(pixel_x, pixel_y, 19, press_start_x + 17*12, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- R
+                    if is_char_pixel(pixel_x, pixel_y, 22, press_start_x + 18*12, MENU_TEXT_Y, 2) = '1' then menu_char_on := '1'; end if; -- T
                 end if;
 
                 if menu_char_on = '1' then
                     red_out <= "11111111"; green_out <= "11111111"; blue_out <= "11111111";
                 end if;
-					 
 
-            elsif state = GAME_OVER then
-                menu_char_on := '0';
-                
-                -- "GAME OVER"
-                if pixel_y >= GAME_OVER_Y and pixel_y < GAME_OVER_Y + 28 and pixel_x < gameover_timer then
-                    if is_char_pixel(pixel_x, pixel_y, 25, center_x - 108, GAME_OVER_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 12, center_x - 84, GAME_OVER_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 26, center_x - 60, GAME_OVER_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 14, center_x - 36, GAME_OVER_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 23, center_x + 12, GAME_OVER_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 17, center_x + 36, GAME_OVER_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 14, center_x + 60, GAME_OVER_Y, 4) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 19, center_x + 84, GAME_OVER_Y, 4) = '1' then menu_char_on := '1'; end if;
-                end if;
-                
-                if menu_char_on = '1' then
-                    red_out <= "11111111"; green_out <= "00000000"; blue_out <= "00000000";
-                    menu_char_on := '0';
-                end if;
-					 
-                -- "SCORE: XXXXX" (адаптировано под разрешение)
-                score_start_x := center_x - 80;
-                if gameover_timer > 300 and pixel_y >= SCORE_Y and pixel_y < SCORE_Y + 14 and pixel_x < (gameover_timer - 100) then
-                    if is_char_pixel(pixel_x, pixel_y, 10, score_start_x, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 13, score_start_x + 12, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 23, score_start_x + 24, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 19, score_start_x + 36, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 14, score_start_x + 48, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if;
+                    dist3 := (pixel_x - btn_key3_x)*(pixel_x - btn_key3_x) + (pixel_y - btn_y)*(pixel_y - btn_y);
+						 dist2 := (pixel_x - btn_key2_x)*(pixel_x - btn_key2_x) + (pixel_y - btn_y)*(pixel_y - btn_y);
+						 dist1 := (pixel_x - btn_key1_x)*(pixel_x - btn_key1_x) + (pixel_y - btn_y)*(pixel_y - btn_y);
+						 dist0 := (pixel_x - btn_key0_x)*(pixel_x - btn_key0_x) + (pixel_y - btn_y)*(pixel_y - btn_y);
+
+                    if menu_char_on = '1' then
+                        green_out <= "11111111"; -- Текст меню
+                    elsif dist3 <= btn_radius_sq then
+                        if blink_on = '1' then green_out <= "11111111"; else green_out <= "01000000"; end if;
+                    elsif dist2 <= btn_radius_sq or dist1 <= btn_radius_sq or dist0 <= btn_radius_sq then red_out <= "01000000"; green_out <= "01000000"; blue_out <= "01000000";
+                    end if;
+
+                --  ЛОГИКА GAME OVER
+                elsif state = GAME_OVER then
+						  game_over_start_x := center_x - 106;
+                    if pixel_y >= GAME_OVER_Y and pixel_y < GAME_OVER_Y + 28 and 
+                   (gameover_timer >= 300 or pixel_x < game_over_start_x + gameover_timer * 2) then
+                       if is_char_pixel(pixel_x, pixel_y, 25, game_over_start_x + 0*24, GAME_OVER_Y, 4) = '1' then red_out <= "11111111"; end if;
+								if is_char_pixel(pixel_x, pixel_y, 12, game_over_start_x + 1*24, GAME_OVER_Y, 4) = '1' then red_out <= "11111111"; end if;
+								if is_char_pixel(pixel_x, pixel_y, 26, game_over_start_x + 2*24, GAME_OVER_Y, 4) = '1' then red_out <= "11111111"; end if;
+								if is_char_pixel(pixel_x, pixel_y, 14, game_over_start_x + 3*24, GAME_OVER_Y, 4) = '1' then red_out <= "11111111"; end if;
+								if is_char_pixel(pixel_x, pixel_y, 23, game_over_start_x + 5*24, GAME_OVER_Y, 4) = '1' then red_out <= "11111111"; end if;
+								if is_char_pixel(pixel_x, pixel_y, 17, game_over_start_x + 6*24, GAME_OVER_Y, 4) = '1' then red_out <= "11111111"; end if;
+								if is_char_pixel(pixel_x, pixel_y, 14, game_over_start_x + 7*24, GAME_OVER_Y, 4) = '1' then red_out <= "11111111"; end if;
+								if is_char_pixel(pixel_x, pixel_y, 19, game_over_start_x + 8*24, GAME_OVER_Y, 4) = '1' then red_out <= "11111111"; end if;
+                    end if;
                     
-                    -- Двоеточие
+                    score_start_x := center_x - 66;
+                if gameover_timer > 300 and pixel_y >= SCORE_Y and pixel_y < SCORE_Y + 14 and 
+                   (gameover_timer >= 600 or pixel_x < score_start_x + (gameover_timer - 300) * 2) then
+                    if is_char_pixel(pixel_x, pixel_y, 10, score_start_x + 0*12, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if; -- S
+                    if is_char_pixel(pixel_x, pixel_y, 13, score_start_x + 1*12, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if; -- C
+                    if is_char_pixel(pixel_x, pixel_y, 23, score_start_x + 2*12, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if; -- O
+                    if is_char_pixel(pixel_x, pixel_y, 19, score_start_x + 3*12, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if; -- R
+                    if is_char_pixel(pixel_x, pixel_y, 14, score_start_x + 4*12, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if; -- E
                     if (pixel_x >= score_start_x + 62 and pixel_x <= score_start_x + 64 and pixel_y >= SCORE_Y + 2 and pixel_y <= SCORE_Y + 4) or
                        (pixel_x >= score_start_x + 62 and pixel_x <= score_start_x + 64 and pixel_y >= SCORE_Y + 8 and pixel_y <= SCORE_Y + 10) then
                         menu_char_on := '1';
                     end if;
-                    
-                    if is_char_pixel(pixel_x, pixel_y, (score/10000) mod 10, score_start_x + 74, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, (score/1000) mod 10,  score_start_x + 86, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, (score/100) mod 10,   score_start_x + 98, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if;
+                    if is_char_pixel(pixel_x, pixel_y, (score/10000) mod 10, score_start_x + 74,  SCORE_Y, 2) = '1' then menu_char_on := '1'; end if;
+                    if is_char_pixel(pixel_x, pixel_y, (score/1000) mod 10,  score_start_x + 86,  SCORE_Y, 2) = '1' then menu_char_on := '1'; end if;
+                    if is_char_pixel(pixel_x, pixel_y, (score/100) mod 10,   score_start_x + 98,  SCORE_Y, 2) = '1' then menu_char_on := '1'; end if;
                     if is_char_pixel(pixel_x, pixel_y, (score/10) mod 10,    score_start_x + 110, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if;
                     if is_char_pixel(pixel_x, pixel_y, score mod 10,         score_start_x + 122, SCORE_Y, 2) = '1' then menu_char_on := '1'; end if;
                 end if;
@@ -689,80 +760,89 @@ end process;
                     red_out <= "11111111"; green_out <= "11111111"; blue_out <= "11111111";
                     menu_char_on := '0';
                 end if;
-
-                -- "PRESS KEY3 TO RESTART" (адаптировано под разрешение)
-                restart_start_x := center_x - 160;
-                if gameover_timer > 500 and pixel_y >= RESTART_Y and pixel_y < RESTART_Y + 14 and pixel_x < (gameover_timer - 300) then
-                    -- PRESS
-                    if is_char_pixel(pixel_x, pixel_y, 11, restart_start_x, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 19, restart_start_x + 12, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 14, restart_start_x + 24, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 10, restart_start_x + 36, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 10, restart_start_x + 48, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    -- KEY3
-                    if is_char_pixel(pixel_x, pixel_y, 20, restart_start_x + 72, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 14, restart_start_x + 84, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 21, restart_start_x + 96, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 3,  restart_start_x + 108, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    -- TO
-                    if is_char_pixel(pixel_x, pixel_y, 22, restart_start_x + 132, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 23, restart_start_x + 144, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    -- RESTART
-                    if is_char_pixel(pixel_x, pixel_y, 19, restart_start_x + 168, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 14, restart_start_x + 180, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 10, restart_start_x + 192, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 22, restart_start_x + 204, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 12, restart_start_x + 216, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 19, restart_start_x + 228, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 22, restart_start_x + 240, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if;
+                
+                restart_start_x := center_x - 125;
+                if gameover_timer > 500 and pixel_y >= RESTART_Y and pixel_y < RESTART_Y + 14 and 
+                   (gameover_timer >= 800 or pixel_x < restart_start_x + (gameover_timer - 500) * 2) then
+                    if is_char_pixel(pixel_x, pixel_y, 11, restart_start_x + 0*12,  RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- P
+                    if is_char_pixel(pixel_x, pixel_y, 19, restart_start_x + 1*12,  RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- R
+                    if is_char_pixel(pixel_x, pixel_y, 14, restart_start_x + 2*12,  RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- E
+                    if is_char_pixel(pixel_x, pixel_y, 10, restart_start_x + 3*12,  RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- S
+                    if is_char_pixel(pixel_x, pixel_y, 10, restart_start_x + 4*12,  RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- S
+                    if is_char_pixel(pixel_x, pixel_y, 20, restart_start_x + 6*12,  RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- K
+                    if is_char_pixel(pixel_x, pixel_y, 14, restart_start_x + 7*12,  RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- E
+                    if is_char_pixel(pixel_x, pixel_y, 21, restart_start_x + 8*12,  RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- Y
+                    if is_char_pixel(pixel_x, pixel_y, 3,  restart_start_x + 9*12,  RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- 3
+                    if is_char_pixel(pixel_x, pixel_y, 22, restart_start_x + 11*12, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- T
+                    if is_char_pixel(pixel_x, pixel_y, 23, restart_start_x + 12*12, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- O
+                    if is_char_pixel(pixel_x, pixel_y, 19, restart_start_x + 14*12, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- R
+                    if is_char_pixel(pixel_x, pixel_y, 14, restart_start_x + 15*12, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- E
+                    if is_char_pixel(pixel_x, pixel_y, 10, restart_start_x + 16*12, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- S
+                    if is_char_pixel(pixel_x, pixel_y, 22, restart_start_x + 17*12, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- T
+                    if is_char_pixel(pixel_x, pixel_y, 12, restart_start_x + 18*12, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- A
+                    if is_char_pixel(pixel_x, pixel_y, 19, restart_start_x + 19*12, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- R
+                    if is_char_pixel(pixel_x, pixel_y, 22, restart_start_x + 20*12, RESTART_Y, 2) = '1' then menu_char_on := '1'; end if; -- T
                 end if;
 
                 if menu_char_on = '1' then
                     red_out <= "11111111"; green_out <= "11111111"; blue_out <= "11111111";
                 end if;
 
-            else
-                -- Игровой экран
-                if tank_on = '1' then
-                    red_out <= "00000000"; green_out <= "11111111"; blue_out <= "00000000";
-                elsif p_bullet_on = '1' then
-                    red_out <= "11111111"; green_out <= "11111111"; blue_out <= "11111111";
-                elsif e_bullet_on = '1' then
-                    red_out <= "11111111"; green_out <= "00000000"; blue_out <= "11111111";
-                elsif alien_on = '1' then
-                    red_out <= "11111111"; green_out <= "11111111"; blue_out <= "11111111";
+                -- Кнопки в GAME OVER
+                if gameover_timer > 700 then
+                    dist3 := (pixel_x - btn_key3_x)*(pixel_x - btn_key3_x) + (pixel_y - btn_y)*(pixel_y - btn_y);
+                    dist2 := (pixel_x - btn_key2_x)*(pixel_x - btn_key2_x) + (pixel_y - btn_y)*(pixel_y - btn_y);
+                    dist1 := (pixel_x - btn_key1_x)*(pixel_x - btn_key1_x) + (pixel_y - btn_y)*(pixel_y - btn_y);
+                    dist0 := (pixel_x - btn_key0_x)*(pixel_x - btn_key0_x) + (pixel_y - btn_y)*(pixel_y - btn_y);
+
+                    if dist3 <= btn_radius_sq then
+                        if blink_on = '1' then
+                            red_out <= "00000000"; green_out <= "11111111"; blue_out <= "00000000";
+                        else
+                            red_out <= "00000000"; green_out <= "01000000"; blue_out <= "00000000";
+                        end if;
+                    elsif dist2 <= btn_radius_sq or dist1 <= btn_radius_sq or dist0 <= btn_radius_sq then
+                        red_out <= "01000000"; green_out <= "01000000"; blue_out <= "01000000";
+                    end if;
                 end if;
 
-                -- HUD
-                hud_pixel_on := '0';
-                
-                if pixel_y >= HUD_Y_POS and pixel_y < HUD_Y_POS + 7 then
-                    if is_char_pixel(pixel_x, pixel_y, 10, HUD_Y_POS, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 13, HUD_Y_POS + 6, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 23, HUD_Y_POS + 12, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 19, HUD_Y_POS + 18, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 14, HUD_Y_POS + 24, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+                -- ИГРОВОЙ ПРОЦЕСС
+                else
+                    if tank_on = '1' then
+                        green_out <= "11111111";
+                    elsif p_bullet_on = '1' then
+                        red_out <= "11111111"; green_out <= "11111111"; blue_out <= "11111111";
+                    elsif e_bullet_on = '1' then
+                        red_out <= "11111111"; blue_out <= "11111111";
+                    elsif alien_on = '1' then
+                        red_out <= "11111111"; green_out <= "11111111"; blue_out <= "11111111";
+                    end if;
+
+                    hud_pixel_on := '0';
+                    if pixel_y >= HUD_Y_POS and pixel_y < HUD_Y_POS + 7 then
+                       if is_char_pixel(pixel_x, pixel_y, 10, HUD_Y_POS, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+	                    if is_char_pixel(pixel_x, pixel_y, 13, HUD_Y_POS + 6, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+	                    if is_char_pixel(pixel_x, pixel_y, 23, HUD_Y_POS + 12, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+	                    if is_char_pixel(pixel_x, pixel_y, 19, HUD_Y_POS + 18, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+	                    if is_char_pixel(pixel_x, pixel_y, 14, HUD_Y_POS + 24, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+	                    
+	                    if is_char_pixel(pixel_x, pixel_y, (score/10000) mod 10, HUD_Y_POS + 40, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+	                    if is_char_pixel(pixel_x, pixel_y, (score/1000) mod 10,  HUD_Y_POS + 46, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+	                    if is_char_pixel(pixel_x, pixel_y, (score/100) mod 10,   HUD_Y_POS + 52, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+	                    if is_char_pixel(pixel_x, pixel_y, (score/10) mod 10,    HUD_Y_POS + 58, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+	                    if is_char_pixel(pixel_x, pixel_y, score mod 10,         HUD_Y_POS + 64, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+	                    
+	                    if is_char_pixel(pixel_x, pixel_y, 24, MAX_X - 70, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+					        if is_char_pixel(pixel_x, pixel_y, 15, MAX_X - 64, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+	                    if is_char_pixel(pixel_x, pixel_y, 27, MAX_X - 58, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+	                    if is_char_pixel(pixel_x, pixel_y, 14, MAX_X - 52, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+	                    if is_char_pixel(pixel_x, pixel_y, 10, MAX_X - 46, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+	                    if is_char_pixel(pixel_x, pixel_y, lives, MAX_X - 35, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
+                    end if;
                     
-                    if is_char_pixel(pixel_x, pixel_y, (score/10000) mod 10, HUD_Y_POS + 40, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, (score/1000) mod 10,  HUD_Y_POS + 46, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, (score/100) mod 10,   HUD_Y_POS + 52, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, (score/10) mod 10,    HUD_Y_POS + 58, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, score mod 10,         HUD_Y_POS + 64, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-                    
-                    if is_char_pixel(pixel_x, pixel_y, 15, MAX_X - 70, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-					if is_char_pixel(pixel_x, pixel_y, 15, MAX_X - 64, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 17, MAX_X - 58, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 14, MAX_X - 52, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, 10, MAX_X - 46, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-                    if is_char_pixel(pixel_x, pixel_y, lives, MAX_X - 35, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
-                end if;
-
-                if hud_pixel_on = '1' then
-                    red_out <= "11111111"; green_out <= "11111111"; blue_out <= "00000000";
-                end if;
-
-                if pause_on = '1' then
-                    red_out <= "11111111"; green_out <= "11111111"; blue_out <= "00000000";
+                    if hud_pixel_on = '1' or pause_on = '1' then
+                        red_out <= "11111111"; green_out <= "11111111"; -- Желтый
+                    end if;
                 end if;
             end if;
         end if;
