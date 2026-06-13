@@ -2,20 +2,20 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity setup_rom is
+entity setup_settings is
   port (
     address : in  std_logic_vector(7 downto 0);
     resolution : in  std_logic_vector(1 downto 0);  -- "00":640x480, "01":1024x768, "10":1360x768
     data : out std_logic_vector(23 downto 0);
-    rom_length : out std_logic_vector(7 downto 0)
+    settings_length : out std_logic_vector(7 downto 0)
   );
-end setup_rom;
+end setup_settings;
 
-architecture rtl of setup_rom is
-  type rom_array is array (0 to 60) of std_logic_vector(23 downto 0);
+architecture rtl of setup_settings is
+  type settings_array is array (0 to 60) of std_logic_vector(23 downto 0);
   
   -- Базовая конфигурация (общая для всех разрешений)
-  constant ROM_BASE : rom_array := (
+  constant settings_BASE : settings_array := (
     0 => x"724110",  -- Power-down mode ON
     1 => x"724100",  -- Power-down OFF
     2 => x"729803",  -- ADI required (0x98 = 0x03)
@@ -40,7 +40,7 @@ architecture rtl of setup_rom is
   );
   
   -- Конфигурация для 640x480 @ 60Hz
-  constant ROM_640x480 : rom_array := (
+  constant settings_640x480 : settings_array := (
     0 => x"72358F",  -- DE H placement low byte (0x8F)
     1 => x"723602",  -- DE H placement high byte (0x02)
     2 => x"72377F",  -- DE H duration low byte (0x7F)
@@ -54,7 +54,7 @@ architecture rtl of setup_rom is
   );
   
   -- Конфигурация для 1024x768 @ 60Hz
-  constant ROM_1024x768 : rom_array := (
+  constant settings_1024x768 : settings_array := (
     0 => x"72352F",  -- DE H placement low byte (0x2F)
     1 => x"723604",  -- DE H placement high byte (0x04)
     2 => x"723F7F",  -- DE H duration low byte (0x7F)
@@ -68,7 +68,7 @@ architecture rtl of setup_rom is
   );
   
   -- Конфигурация для 1360x768 @ 60Hz
-  constant ROM_1360x768 : rom_array := (
+  constant settings_1360x768 : settings_array := (
     0 => x"723536",  -- DE H placement low byte (0x36)
     1 => x"723600",  -- DE H placement high byte (0x00)
     2 => x"7237AA",  -- DE H duration low byte (0xAA)
@@ -81,41 +81,41 @@ architecture rtl of setup_rom is
     others => x"000000"
   );
   
-  signal rom_data : std_logic_vector(23 downto 0);
-  signal rom_len : std_logic_vector(7 downto 0);
+  signal settings_data : std_logic_vector(23 downto 0);
+  signal settings_len : std_logic_vector(7 downto 0);
   
 begin
   process(address, resolution)
     variable addr_int : integer;
     variable base_offset : integer;
-    variable rom_offset : integer;
+    variable settings_offset : integer;
   begin
     addr_int := to_integer(unsigned(address));
-    rom_data <= (others => '0');
-    rom_len <= (others => '0');
+    settings_data <= (others => '0');
+    settings_len <= (others => '0');
     
     -- первые 19 команд
     if addr_int <= 19 then
-      rom_data <= ROM_BASE(addr_int);
-      rom_len <= std_logic_vector(to_unsigned(20 + 9, 8));  -- 19 базовых + до 9 специфичных
+      settings_data <= settings_BASE(addr_int);
+      settings_len <= std_logic_vector(to_unsigned(20 + 9, 8));  -- 19 базовых + до 9 специфичных
       
     -- Специфичная часть для каждого разрешения
     else
-      rom_offset := addr_int - 19;
+      settings_offset := addr_int - 19;
       case resolution is
         when "00" =>  -- 640x480
-          if rom_offset <= 8 then
-            rom_data <= ROM_640x480(rom_offset);
+          if settings_offset <= 8 then
+            settings_data <= settings_640x480(settings_offset);
           end if;
           
         when "01" =>  -- 1024x768
-          if rom_offset <= 8 then
-            rom_data <= ROM_1024x768(rom_offset);
+          if settings_offset <= 8 then
+            settings_data <= settings_1024x768(settings_offset);
           end if;
           
         when "10" =>  -- 1360x768
-          if rom_offset <= 8 then
-            rom_data <= ROM_1360x768(rom_offset);
+          if settings_offset <= 8 then
+            settings_data <= settings_1360x768(settings_offset);
           end if;
           
         when others =>
@@ -124,7 +124,7 @@ begin
     end if;
   end process;
   
-  data <= rom_data;
-  rom_length <= rom_len;
+  data <= settings_data;
+  settings_length <= settings_len;
   
 end rtl;

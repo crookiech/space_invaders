@@ -35,31 +35,34 @@ architecture rtl of adv7513_setup is
   signal state : state_type := S_RESET;
   
   -- Сигналы
-  signal rom_step : unsigned(7 downto 0) := (others => '0');
-  signal rom_length : std_logic_vector(7 downto 0);
-  signal rom_data : std_logic_vector(23 downto 0);
+  signal settings_step : unsigned(7 downto 0) := (others => '0');
+  signal settings_length : std_logic_vector(7 downto 0);
+  signal settings_data : std_logic_vector(23 downto 0);
   signal delay_cnt : unsigned(31 downto 0) := (others => '0');
   signal busy_seen : std_logic := '0';
   signal active_int : std_logic := '0';
   signal done_int : std_logic := '0';
   
+  signal resolution_prev : std_logic_vector(1 downto 0);
+  signal restart : std_logic;
+  
   -- Компонент с поддержкой разрешений
-  component setup_rom is
+  component setup_settings is
     port (
       address : in  std_logic_vector(7 downto 0);
       resolution : in  std_logic_vector(1 downto 0);
       data : out std_logic_vector(23 downto 0);
-      rom_length : out std_logic_vector(7 downto 0)
+      settings_length : out std_logic_vector(7 downto 0)
     );
   end component;
   
 begin
-  rom_inst: setup_rom
+  settings_inst: setup_settings
     port map (
-      address => std_logic_vector(rom_step),
+      address => std_logic_vector(settings_step),
       resolution => resolution,
-      data => rom_data,
-      rom_length => rom_length
+      data => settings_data,
+      settings_length => settings_length
     );
   
   -- Выходные сигналы
@@ -72,16 +75,24 @@ begin
       state <= S_RESET;
       active_int <= '0';
       done_int <= '0';
-      rom_step <= (others => '0');
+      settings_step <= (others => '0');
       delay_cnt <= (others => '0');
       busy_seen <= '0';
       i2c_activate <= '0';
+		resolution_prev <= (others => '0');
       
     elsif rising_edge(clk) then
-      case state is
-        
+      resolution_prev <= resolution;
+		
+      if resolution /= resolution_prev then
+        restart <= '1';
+      else
+        restart <= '0';
+      end if;
+		
+		case state is
         when S_RESET =>
-          rom_step <= (others => '0');
+          settings_step <= (others => '0');
           delay_cnt <= (others => '0');
           state <= S_WAIT;
           i2c_activate <= '0';
@@ -93,7 +104,7 @@ begin
           if delay_cnt >= to_unsigned(DELAY_CYCLES - 1, 32) then
             state <= S_SEND;
             busy_seen <= '0';
-            rom_step <= (others => '0');
+            settings_step <= (others => '0');
             delay_cnt <= (others => '0');
           else
             delay_cnt <= delay_cnt + 1;
@@ -102,16 +113,16 @@ begin
           end if;
         
         when S_SEND =>
-          if rom_step = unsigned(rom_length) then
+          if settings_step = unsigned(settings_length) then
             state <= S_DONE;
           else
             busy_seen <= '0';
             state <= S_BUSYWAIT;
             i2c_activate <= '1';
-            i2c_address <= rom_data(23 downto 17);
-            i2c_readnotwrite <= rom_data(16);
-            i2c_byte1 <= rom_data(15 downto 8);
-            i2c_byte2 <= rom_data(7 downto 0);
+            i2c_address <= settings_data(23 downto 17);
+            i2c_readnotwrite <= settings_data(16);
+            i2c_byte1 <= settings_data(15 downto 8);
+            i2c_byte2 <= settings_data(7 downto 0);
           end if;
         
         when S_BUSYWAIT =>
@@ -119,7 +130,7 @@ begin
             if i2c_busy = '1' then
               busy_seen <= '1';
               i2c_activate <= '0';
-              rom_step <= rom_step + 1;
+              settings_step <= settings_step + 1;
             end if;
           elsif i2c_busy = '0' then
             busy_seen <= '0';
@@ -131,6 +142,11 @@ begin
           active_int <= '0';
           done_int <= '1';
           i2c_activate <= '0';
+			 if restart = '1' then
+            state <= S_RESET;
+            done_int <= '0';
+            active_int <= '1';
+          end if;
         
         when others =>
           state <= S_RESET;

@@ -49,7 +49,6 @@ architecture structural of adv7513_wrapper is
             address : in  std_logic_vector(6 downto 0);
             location : in  std_logic_vector(7 downto 0);
             data : in  std_logic_vector(7 downto 0);
-            data_repeat : in  std_logic_vector(2 downto 0);
             start_pulse : out std_logic;
             stop_pulse : out std_logic;
             got_ack : out std_logic
@@ -85,7 +84,7 @@ begin
     scl_buf: i2ciobuf
     port map(
         datain(0) => i2c_scl_o,
-        oe(0)     => i2c_scl_e,
+        oe(0) => i2c_scl_e,
         dataio(0) => i2c_scl,
         dataout(0) => i2c_scl_i
     );
@@ -93,7 +92,7 @@ begin
 	sda_buf: i2ciobuf
 		 port map(
 			  datain(0) => i2c_sda_o,
-			  oe(0)     => i2c_sda_e,
+			  oe(0) => i2c_sda_e,
 			  dataio(0) => i2c_sda,
 			  dataout(0) => i2c_sda_i
 		 );
@@ -116,7 +115,6 @@ begin
             address => i2c_address,
             location => i2c_byte1,
             data => i2c_byte2,
-            data_repeat => "000",
             start_pulse => open,
             stop_pulse => open,
             got_ack => open

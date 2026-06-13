@@ -25,7 +25,6 @@ entity I2C_CONTROLLER is
     address     : in  std_logic_vector(6 downto 0);
     location    : in  std_logic_vector(7 downto 0);
     data        : in  std_logic_vector(7 downto 0);
-    data_repeat : in  std_logic_vector(2 downto 0);
     
     clk   : in  std_logic;
     reset : in  std_logic;
@@ -54,7 +53,6 @@ architecture rtl of I2C_CONTROLLER is
   signal k_address  : std_logic_vector(7 downto 0);
   signal k_location : std_logic_vector(7 downto 0);
   signal k_data     : std_logic_vector(7 downto 0);
-  signal k_data_repeat : integer range 0 to 7 := 0;
   
   signal got_ack_int : std_logic;
   
@@ -64,6 +62,7 @@ begin
   process(clk, reset)
     variable clk_div_cnt_next : unsigned(CLK_CNT_SZ-1 downto 0);
   begin
+  if rising_edge(clk) then
     if reset = '1' then
       state <= S_RESET;
       clk_div_cnt <= (others => '0');
@@ -78,7 +77,6 @@ begin
       stop_pulse <= '0';
       got_ack_int <= '0';
       
-    elsif rising_edge(clk) then
       if clk_div_cnt = 0 then
         clk_div_cnt <= (others => '1');
       else
@@ -112,7 +110,6 @@ begin
               k_address(0) <= read;
               k_location <= location;
               k_data <= data;
-              k_data_repeat <= to_integer(unsigned(data_repeat));
               state <= S_START;
               step <= 0;
               start_pulse <= '1';
@@ -235,13 +232,8 @@ begin
             end if;
             if byte_step = 8 and step = 0 then
               if state = S_DATA2 then
-                if k_data_repeat = 0 then
                   state <= S_STOP;
-                else
-                  k_data_repeat <= k_data_repeat - 1;
-                  byte_step <= 0;
-                  byte_idx <= 7;
-                end if;
+                
               else
                 if state = S_ADDRESS then
                   state <= S_DATA1;
@@ -292,5 +284,6 @@ begin
         end case;
       end if;
     end if;
+	 end if;
   end process;
 end rtl;
