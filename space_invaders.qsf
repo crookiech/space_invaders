@@ -106,7 +106,6 @@ set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
 set_global_assignment -name ACTIVE_SERIAL_CLOCK FREQ_100MHZ
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name SOURCE_FILE tb_invadersImg
 set_global_assignment -name SOURCE_FILE i2ciobuf.cmp
 set_global_assignment -name MIF_FILE ROM.mif
@@ -131,3 +130,4 @@ set_global_assignment -name VHDL_FILE I2C_CONTROLLER.vhd
 set_global_assignment -name VHDL_FILE setup_rom.vhd
 set_global_assignment -name VHDL_FILE adv7513_setup.vhd
 set_global_assignment -name QIP_FILE i2ciobuf.qip
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

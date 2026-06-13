@@ -31,7 +31,7 @@ architecture behavior of invadersImg is
     type state_type is (MENU, PLAYING, GAME_OVER);
     signal state : state_type := MENU;
 
-    -- Параметры экрана
+    -- Параметры экрана (управляются исключительно в process(resolution))
     signal MAX_X : integer := 640;
     signal MAX_Y : integer := 480;
     signal TANK_Y : integer := 440;
@@ -164,10 +164,10 @@ architecture behavior of invadersImg is
             21 => "10001" & "10001" & "01010" & "00100" & "00100" & "00100" & "00100",
             22 => "11111" & "00100" & "00100" & "00100" & "00100" & "00100" & "00100",
             23 => "01110" & "10001" & "10001" & "10001" & "10001" & "10001" & "01110",
-            24 => "10000" & "10000" & "10000" & "10000" & "10000" & "10000" & "11111", 
+            24 => "10000" & "10000" & "10000" & "10000" & "10000" & "10000" & "11111", -- 'L'
             25 => "01110" & "10001" & "10000" & "10111" & "10001" & "10001" & "01110",
             26 => "10001" & "11011" & "10101" & "10001" & "10001" & "10001" & "10001",
-            27 => "11111" & "10000" & "10000" & "11110" & "10000" & "10000" & "10000"  
+            27 => "11111" & "10000" & "10000" & "11110" & "10000" & "10000" & "10000"  -- 'F'
         );
     begin
         local_x := (px - start_x) / scale;
@@ -271,7 +271,7 @@ begin
         end case;
     end process;
 
-	 -- Синхронизация CDC
+	 -- Синхронизация CDC: переводим refresh во временную область clock_pix
     process(clock_pix)
     begin
         if rising_edge(clock_pix) then
@@ -304,7 +304,7 @@ begin
     begin
         if btn_reset = '1' then
             state <= MENU;
-            tank_x <= 305; 
+            tank_x <= 305; -- Безопасный асинхронный сброс в константу
             bullet_active <= '0';
             e_bullet_active <= '0';
             aliens_alive <= (others => (others => '1'));
@@ -330,22 +330,33 @@ begin
             -- СИНХРОННАЯ И ДИНАМИЧЕСКАЯ АДАПТАЦИЯ К ТЕКУЩЕМУ РАЗРЕШЕНИЮ
             -- =====================================================================
             
+            -- 1. Смена разрешения по вертикали (коррекция Y-координаты пришельцев):
+            -- Сдвигаем пришельцев по вертикали на ту же разницу, на которую сместился TANK_Y.
+            -- ИСПРАВЛЕНО: добавлена защита от перехода в отрицательные координаты (застревания вверху)
             if TANK_Y /= r_tank_y then
-                aliens_y_off <= aliens_y_off + (TANK_Y - r_tank_y);
+                if (aliens_y_off + (TANK_Y - r_tank_y)) < ALIENS_START_Y then
+                    aliens_y_off <= ALIENS_START_Y; -- Зажимаем на стартовом Y нового разрешения
+                else
+                    aliens_y_off <= aliens_y_off + (TANK_Y - r_tank_y);
+                end if;
                 r_tank_y <= TANK_Y;
             end if;
 
+            -- 2. Постоянное безусловное удержание игровых объектов на экране:
             if state = MENU then
+                -- В меню жестко принудительно центрируем корабль и пришельцев каждый кадр
                 tank_x <= center_x - 15;
                 aliens_x_off <= ALIENS_START_X;
                 aliens_y_off <= ALIENS_START_Y;
             else
+                -- Во время активной игры (PLAYING или GAME_OVER) зажимаем корабль в рамках экрана
                 if tank_x < 10 then
                     tank_x <= 10;
                 elsif tank_x > (MAX_X - TANK_W - 10) then
                     tank_x <= MAX_X - TANK_W - 10;
                 end if;
 
+                -- Находим крайних живых пришельцев, чтобы защитить их от вылета за экран
                 any_alive := false;
                 leftmost_alien := COLS - 1;
                 rightmost_alien := 0;
@@ -359,6 +370,7 @@ begin
                     end loop;
                 end loop;
 
+                -- Если при переключении свичей пришельцы вылетают за правую/левую рамку:
                 if any_alive then
                     if (aliens_x_off + leftmost_alien * 32) < 20 then
                         aliens_x_off <= 20 - (leftmost_alien * 32);
@@ -368,6 +380,7 @@ begin
                 end if;
             end if;
 
+            -- 3. Безопасная нейтрализация улетевших снарядов (пуль)
             if bullet_active = '1' and (bullet_x > MAX_X or bullet_y > TANK_Y + TANK_H) then
                 bullet_active <= '0';
             end if;
@@ -375,7 +388,7 @@ begin
                 e_bullet_active <= '0';
             end if;
             
-
+            -- =====================================================================
 
             if wave_speed /= 0 and wave_speed_processed = '0' then
                 if wave_speed >= 1 and wave_speed <= 10 then
@@ -420,7 +433,7 @@ begin
                             aliens_alive <= (others => (others => '1'));
                             aliens_x_off <= ALIENS_START_X;
                             aliens_y_off <= ALIENS_START_Y;
-                            tank_x <= center_x - 15; 
+                            tank_x <= center_x - 15; -- Спавнимся строго по центру в момент старта
                             bullet_active <= '0';
                             e_bullet_active <= '0';
                             alien_timer <= 0;
@@ -578,6 +591,7 @@ begin
 
     -- ГРАФИКА
     
+    -- Синхронная отрисовка объектов
     process(clock_pix)
     begin
         if rising_edge(clock_pix) then            
@@ -665,6 +679,7 @@ begin
             blue_out <= (others => '0');
 
             if video_on = '1' then
+                -- 1. ЛОГИКА МЕНЮ
                 if state = MENU then
                     menu_char_on := '0';
 						  
@@ -722,7 +737,7 @@ begin
                     elsif dist2 <= btn_radius_sq or dist1 <= btn_radius_sq or dist0 <= btn_radius_sq then red_out <= "01000000"; green_out <= "01000000"; blue_out <= "01000000";
                     end if;
 
-                --  ЛОГИКА GAME OVER
+                -- 2. ЛОГИКА GAME OVER
                 elsif state = GAME_OVER then
 						  game_over_start_x := center_x - 106;
                     if pixel_y >= GAME_OVER_Y and pixel_y < GAME_OVER_Y + 28 and 
@@ -806,7 +821,7 @@ begin
                     end if;
                 end if;
 
-                -- ИГРОВОЙ ПРОЦЕСС
+                -- 3. ИГРОВОЙ ПРОЦЕСС
                 else
                     if tank_on = '1' then
                         green_out <= "11111111";
@@ -832,6 +847,7 @@ begin
 	                    if is_char_pixel(pixel_x, pixel_y, (score/10) mod 10,    HUD_Y_POS + 58, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
 	                    if is_char_pixel(pixel_x, pixel_y, score mod 10,         HUD_Y_POS + 64, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
 	                    
+	                    -- Вывод надписи L I F E S (Индексы: 24='L', 15='I', 27='F', 14='E', 10='S')
 	                    if is_char_pixel(pixel_x, pixel_y, 24, MAX_X - 70, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
 					        if is_char_pixel(pixel_x, pixel_y, 15, MAX_X - 64, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
 	                    if is_char_pixel(pixel_x, pixel_y, 27, MAX_X - 58, HUD_Y_POS, 1) = '1' then hud_pixel_on := '1'; end if;
