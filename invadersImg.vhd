@@ -15,7 +15,7 @@ entity invadersImg is
         btn_reset : in std_logic;
         pause : in std_logic;
         
-        resolution : in std_logic_vector(1 downto 0);  -- "00":640x480, "01":1024x768, "10":1360x768
+        resolution : in std_logic_vector(1 downto 0);  -- "00":640x480, "01":1024x768, "10":1360x768 
         wave_speed : in integer range 0 to 10 := 0;
         
         pixel_x : in integer range 0 to 2047;
@@ -31,7 +31,9 @@ architecture behavior of invadersImg is
     type state_type is (MENU, PLAYING, GAME_OVER);
     signal state : state_type := MENU;
 
-    -- Параметры экрана (управляются исключительно в process(resolution))
+    attribute syn_encoding : string;
+    attribute syn_encoding of state : signal is "safe, one-hot";
+
     signal MAX_X : integer := 640;
     signal MAX_Y : integer := 480;
     signal TANK_Y : integer := 440;
@@ -116,16 +118,20 @@ architecture behavior of invadersImg is
     signal blink_on : std_logic := '0';
     signal gameover_timer : integer range 0 to 1023 := 0;
     
-    -- Сигналы для UART команды wave_speed
+    -- Сигналы для UART детектора изменения скорости (без прожорливых таймеров!)
     signal pending_wave_speed : integer range 0 to 10 := 0;
-    signal wave_speed_processed : std_logic := '0';
-	 signal wave_speed_timer : integer range 0 to 50_000_000 := 0; 
+    signal r_wave_speed       : integer range 0 to 10 := 0;
 	 
 	 -- Детектор фронта сигнала refresh для синхронизации CDC
     signal refresh_r1 : std_logic := '0';
     signal refresh_r2 : std_logic := '0';
 
 	 signal refresh_pulse : std_logic := '0';
+
+    -- Промежуточные сигналы управления автоматом (декаплинг)
+    signal start_game   : std_logic := '0';
+    signal restart_game : std_logic := '0';
+    signal game_lost    : std_logic := '0';
 
     -- Шрифт 5x7 (Расширен до 27 индексов для полноценных букв L и F)
     function is_char_pixel (
@@ -182,116 +188,33 @@ architecture behavior of invadersImg is
     end function;
 
 begin
-    -- Адаптация параметров под разрешение (Чистая комбинаторная дешифрация переключателей)
-    process(resolution)
-    begin
-        case resolution is
-            when "00" =>   -- 640x480 (center_x = 320)
-                MAX_X <= 640;
-                MAX_Y <= 480;
-                center_x <= 320;
-                TANK_Y <= 440;
-                ALIENS_START_X <= 50;
-                ALIENS_START_Y <= 40;
-                HUD_Y_POS <= 10;
-                MENU_TITLE_Y <= 120;
-                MENU_TEXT_Y <= 220;
-                GAME_OVER_Y <= 100;
-                SCORE_Y <= 190;
-                RESTART_Y <= 270;
-                BUTTONS_Y <= 360;
-                
-                -- Координаты кнопок (Центрированы на 320):
-                btn_key3_x <= 230; 
-                btn_key2_x <= 290; 
-                btn_key1_x <= 350; 
-                btn_key0_x <= 410; 
-                btn_y <= 360;
-                btn_radius_sq <= 144;  -- 12^2
-                
-            when "01" =>   -- 1024x768 (center_x = 512)
-                MAX_X <= 1024;
-                MAX_Y <= 768;
-                center_x <= 512;
-                TANK_Y <= 700;
-                ALIENS_START_X <= 100;
-                ALIENS_START_Y <= 80;
-                HUD_Y_POS <= 20;
-                MENU_TITLE_Y <= 200;
-                MENU_TEXT_Y <= 350;
-                GAME_OVER_Y <= 180;
-                SCORE_Y <= 300;
-                RESTART_Y <= 430;
-                BUTTONS_Y <= 550;
-                
-                -- Координаты кнопок (Центрированы на 512):
-                btn_key3_x <= 392; 
-                btn_key2_x <= 472; 
-                btn_key1_x <= 552; 
-                btn_key0_x <= 632; 
-                btn_y <= 550;
-                btn_radius_sq <= 256;  -- 16^2
-                
-            when "10" =>   -- 1360x768 (center_x = 680)
-                MAX_X <= 1360;
-                MAX_Y <= 768;
-                center_x <= 680;
-                TANK_Y <= 700;
-                ALIENS_START_X <= 160;
-                ALIENS_START_Y <= 80;
-                HUD_Y_POS <= 20;
-                MENU_TITLE_Y <= 200;
-                MENU_TEXT_Y <= 350;
-                GAME_OVER_Y <= 180;
-                SCORE_Y <= 300;
-                RESTART_Y <= 430;
-                BUTTONS_Y <= 550;
-                
-                btn_key3_x <= 530; 
-                btn_key2_x <= 630; 
-                btn_key1_x <= 730;
-                btn_key0_x <= 830;
-                btn_y <= 550;
-                btn_radius_sq <= 256;  -- 16^2
-                
-            when others => -- 640x480
-                MAX_X <= 640;
-                MAX_Y <= 480;
-                center_x <= 320;
-                TANK_Y <= 440;
-                ALIENS_START_X <= 50;
-                ALIENS_START_Y <= 40;
-                
-                btn_key3_x <= 230;
-                btn_key2_x <= 290;
-                btn_key1_x <= 350;
-                btn_key0_x <= 410;
-                btn_y <= 360;
-                btn_radius_sq <= 144;
-        end case;
-    end process;
+    start_game   <= '1' when (state = MENU and btn_start = '1') else '0';
+    restart_game <= '1' when (state = GAME_OVER and btn_start = '1') else '0';
 
-	 -- Синхронизация CDC: переводим refresh во временную область clock_pix
-    process(clock_pix)
+    FSM_STATE_PROC: process(refresh, btn_reset)
     begin
-        if rising_edge(clock_pix) then
-            refresh_r1 <= refresh;
-            refresh_r2 <= refresh_r1;
-        end if;
-    end process;
-    refresh_pulse <= refresh_r1 and (not refresh_r2); -- Импульс шириной в 1 такт clock_pix на кадр
-
-	 
-    -- LFSR генератор
-    process(clock_pix)
-    begin
-        if rising_edge(clock_pix) then
-            lfsr <= lfsr(6 downto 0) & (lfsr(7) xnor lfsr(5) xnor lfsr(4) xnor lfsr(3));
+        if btn_reset = '1' then
+            state <= MENU;
+        elsif rising_edge(refresh) then
+            case state is
+                when MENU =>
+                    if start_game = '1' then
+                        state <= PLAYING;
+                    end if;
+                when PLAYING =>
+                    if game_lost = '1' then
+                        state <= GAME_OVER;
+                    end if;
+                when GAME_OVER =>
+                    if restart_game = '1' then
+                        state <= MENU;
+                    end if;
+            end case;
         end if;
     end process;
 
-    -- ЛОГИКА ИГРЫ
-    process(refresh, btn_reset)
+
+    GAME_DATAPATH_PROC: process(refresh, btn_reset)
         variable shoot_col : integer range 0 to COLS-1;
         variable found_alien : boolean;
         variable all_aliens_dead : boolean;
@@ -303,8 +226,7 @@ begin
         variable any_alive : boolean;
     begin
         if btn_reset = '1' then
-            state <= MENU;
-            tank_x <= 305; -- Безопасный асинхронный сброс в константу
+            tank_x <= 305;
             bullet_active <= '0';
             e_bullet_active <= '0';
             aliens_alive <= (others => (others => '1'));
@@ -322,41 +244,33 @@ begin
             blink_reg <= (others => '0');
             blink_on <= '0';
             gameover_timer <= 0;
-            wave_speed_processed <= '0';
+            game_lost <= '0';
+            
+            r_wave_speed <= wave_speed;
             pending_wave_speed <= 0;
         elsif rising_edge(refresh) then
 	 
-            -- =====================================================================
-            -- СИНХРОННАЯ И ДИНАМИЧЕСКАЯ АДАПТАЦИЯ К ТЕКУЩЕМУ РАЗРЕШЕНИЮ
-            -- =====================================================================
-            
-            -- 1. Смена разрешения по вертикали (коррекция Y-координаты пришельцев):
-            -- Сдвигаем пришельцев по вертикали на ту же разницу, на которую сместился TANK_Y.
-            -- ИСПРАВЛЕНО: добавлена защита от перехода в отрицательные координаты (застревания вверху)
             if TANK_Y /= r_tank_y then
                 if (aliens_y_off + (TANK_Y - r_tank_y)) < ALIENS_START_Y then
-                    aliens_y_off <= ALIENS_START_Y; -- Зажимаем на стартовом Y нового разрешения
+                    aliens_y_off <= ALIENS_START_Y; 
                 else
                     aliens_y_off <= aliens_y_off + (TANK_Y - r_tank_y);
                 end if;
                 r_tank_y <= TANK_Y;
             end if;
 
-            -- 2. Постоянное безусловное удержание игровых объектов на экране:
             if state = MENU then
-                -- В меню жестко принудительно центрируем корабль и пришельцев каждый кадр
                 tank_x <= center_x - 15;
                 aliens_x_off <= ALIENS_START_X;
                 aliens_y_off <= ALIENS_START_Y;
+                game_lost <= '0'; -- Сброс флага поражения
             else
-                -- Во время активной игры (PLAYING или GAME_OVER) зажимаем корабль в рамках экрана
                 if tank_x < 10 then
                     tank_x <= 10;
                 elsif tank_x > (MAX_X - TANK_W - 10) then
                     tank_x <= MAX_X - TANK_W - 10;
                 end if;
 
-                -- Находим крайних живых пришельцев, чтобы защитить их от вылета за экран
                 any_alive := false;
                 leftmost_alien := COLS - 1;
                 rightmost_alien := 0;
@@ -370,7 +284,6 @@ begin
                     end loop;
                 end loop;
 
-                -- Если при переключении свичей пришельцы вылетают за правую/левую рамку:
                 if any_alive then
                     if (aliens_x_off + leftmost_alien * 32) < 20 then
                         aliens_x_off <= 20 - (leftmost_alien * 32);
@@ -380,7 +293,6 @@ begin
                 end if;
             end if;
 
-            -- 3. Безопасная нейтрализация улетевших снарядов (пуль)
             if bullet_active = '1' and (bullet_x > MAX_X or bullet_y > TANK_Y + TANK_H) then
                 bullet_active <= '0';
             end if;
@@ -388,24 +300,13 @@ begin
                 e_bullet_active <= '0';
             end if;
             
-            -- =====================================================================
-
-            if wave_speed /= 0 and wave_speed_processed = '0' then
+            if wave_speed /= r_wave_speed then
+                r_wave_speed <= wave_speed;
                 if wave_speed >= 1 and wave_speed <= 10 then
                     wave <= wave_speed;
+                    pending_wave_speed <= wave_speed;
                     alien_timer <= 0;
                     shoot_timer <= 0;
-                end if;
-                wave_speed_processed <= '1';
-                pending_wave_speed <= wave_speed;
-                wave_speed_timer <= 25_000_000; 
-            end if;
-            
-            if wave_speed_timer > 0 then
-                wave_speed_timer <= wave_speed_timer - 1;
-                if wave_speed_timer = 1 then
-                    wave_speed_processed <= '0';
-                    wave_speed_timer <= 0;
                 end if;
             end if;
             
@@ -417,177 +318,183 @@ begin
             end if;
 
             if pause = '0' then
-                case state is
-                    when MENU =>
-                        gameover_timer <= 0;
-                        if btn_start = '1' then
-                            state <= PLAYING;
-                            score <= 0;
-                            lives <= 3;
-                            if pending_wave_speed >= 1 and pending_wave_speed <= 10 then
-                                wave <= pending_wave_speed;
-                            else
-                                wave <= 1;
-                            end if;
-                            aliens_killed_count <= 0;
-                            aliens_alive <= (others => (others => '1'));
-                            aliens_x_off <= ALIENS_START_X;
-                            aliens_y_off <= ALIENS_START_Y;
-                            tank_x <= center_x - 15; -- Спавнимся строго по центру в момент старта
-                            bullet_active <= '0';
-                            e_bullet_active <= '0';
-                            alien_timer <= 0;
-                            shoot_timer <= 0;
-                            aliens_dir <= '1';
-                            alien_invasion_gameover <= '0';
-                        end if;
-                        
-                    when PLAYING =>
-                        gameover_timer <= 0;
-                        
-                        if wave < 1 then wave <= 1; end if;
-                        if wave > 10 then wave <= 10; end if;
-                        
-                        found_alien := false;
-                        for r in 0 to ROWS-1 loop
-                            for c in 0 to COLS-1 loop
-                                if aliens_alive(r,c) = '1' then
-                                    if (aliens_y_off + r*32 + ALIEN_H) >= TANK_Y then 
-                                         found_alien := true;
-                                    end if;
+                
+                if start_game = '1' then
+                    score <= 0;
+                    lives <= 3;
+                    
+                    if pending_wave_speed >= 1 and pending_wave_speed <= 10 then
+                        wave <= pending_wave_speed;
+                    else
+                        wave <= 1;
+                    end if;
+                    
+                    aliens_killed_count <= 0;
+                    aliens_alive <= (others => (others => '1'));
+                    aliens_x_off <= ALIENS_START_X;
+                    aliens_y_off <= ALIENS_START_Y;
+                    tank_x <= center_x - 15;
+                    bullet_active <= '0';
+                    e_bullet_active <= '0';
+                    alien_timer <= 0;
+                    shoot_timer <= 0;
+                    aliens_dir <= '1';
+                    alien_invasion_gameover <= '0';
+                    game_lost <= '0';
+                    
+                elsif state = PLAYING then
+                    gameover_timer <= 0;
+                    
+                    if wave < 1 then wave <= 1; end if;
+                    if wave > 10 then wave <= 10; end if;
+                    
+                    -- Проверка вторжения пришельцев на высоту танка
+                    found_alien := false;
+                    for r in 0 to ROWS-1 loop
+                        for c in 0 to COLS-1 loop
+                            if aliens_alive(r,c) = '1' then
+                                if (aliens_y_off + r*32 + ALIEN_H) >= TANK_Y then 
+                                     found_alien := true;
                                 end if;
-                            end loop;
+                            end if;
                         end loop;
+                    end loop;
 
-                        if found_alien then
-                            alien_invasion_gameover <= '1';
-                            state <= GAME_OVER;
+                    if found_alien then
+                        alien_invasion_gameover <= '1';
+                        game_lost <= '1'; 
+                        pending_wave_speed <= 0; 
+                    end if;
+
+                    -- Обработка перемещения танка
+                    if btn_left = '1' and tank_x > 10 then
+                        tank_x <= tank_x - 3;
+                    elsif btn_right = '1' and tank_x < (MAX_X - TANK_W - 10) then
+                        tank_x <= tank_x + 3;
+                    end if;
+
+                    -- Выстрел игрока
+                    if bullet_active = '0' then
+                        if btn_fire = '1' then
+                            bullet_active <= '1';
+                            bullet_x <= tank_x + 15;
+                            bullet_y <= TANK_Y - 5;
                         end if;
+                    else
+                        bullet_y <= bullet_y - 7;
+                        if bullet_y < 10 then bullet_active <= '0'; end if;
+                    end if;
 
-                        if btn_left = '1' and tank_x > 10 then
-                            tank_x <= tank_x - 3;
-                        elsif btn_right = '1' and tank_x < (MAX_X - TANK_W - 10) then
-                            tank_x <= tank_x + 3;
-                        end if;
-
-                        if bullet_active = '0' then
-                            if btn_fire = '1' then
-                                bullet_active <= '1';
-                                bullet_x <= tank_x + 15;
-                                bullet_y <= TANK_Y - 5;
+                    -- Шаг сетки пришельцев
+                    alien_timer <= alien_timer + 1;
+                    if alien_timer >= ALIEN_MOVE_SPEED_FRAMES(wave) then
+                        alien_timer <= 0;
+                        
+                        can_move_left := (aliens_x_off + leftmost_alien*32 > 20);
+                        can_move_right := (aliens_x_off + rightmost_alien*32 + ALIEN_W < MAX_X - 20);
+                        
+                        if aliens_dir = '1' then
+                            if can_move_right then
+                                aliens_x_off <= aliens_x_off + 8;
+                            else
+                                aliens_dir <= '0';
+                                aliens_y_off <= aliens_y_off + 15;
                             end if;
                         else
-                            bullet_y <= bullet_y - 7;
-                            if bullet_y < 10 then bullet_active <= '0'; end if;
-                        end if;
-
-                        alien_timer <= alien_timer + 1;
-                        if alien_timer >= ALIEN_MOVE_SPEED_FRAMES(wave) then
-                            alien_timer <= 0;
-                            
-                            can_move_left := (aliens_x_off + leftmost_alien*32 > 20);
-                            can_move_right := (aliens_x_off + rightmost_alien*32 + ALIEN_W < MAX_X - 20);
-                            
-                            if aliens_dir = '1' then
-                                if can_move_right then
-                                    aliens_x_off <= aliens_x_off + 8;
-                                else
-                                    aliens_dir <= '0';
-                                    aliens_y_off <= aliens_y_off + 15;
-                                end if;
+                            if can_move_left then
+                                aliens_x_off <= aliens_x_off - 8;
                             else
-                                if can_move_left then
-                                    aliens_x_off <= aliens_x_off - 8;
-                                else
-                                    aliens_dir <= '1';
-                                    aliens_y_off <= aliens_y_off + 15;
-                                end if;
+                                aliens_dir <= '1';
+                                aliens_y_off <= aliens_y_off + 15;
                             end if;
                         end if;
+                    end if;
 
-                        if e_bullet_active = '0' then
-                            shoot_timer <= shoot_timer + 1;
-                            if shoot_timer >= ALIEN_SHOOT_SPEED_FRAMES(wave) then
-                                shoot_timer <= 0;
-                                shoot_col := to_integer(unsigned(lfsr(2 downto 0))) mod COLS;
-                                found_alien := false;
-                                for r_idx in ROWS-1 downto 0 loop
-                                    if aliens_alive(r_idx, shoot_col) = '1' then
-                                        e_bullet_active <= '1';
-                                        e_bullet_x <= aliens_x_off + shoot_col*32 + ALIEN_W/2;
-                                        e_bullet_y <= aliens_y_off + r_idx*32 + ALIEN_H;
-                                        found_alien := true;
-                                        exit;
-                                    end if;
-                                end loop;
-                            end if;
-                        else
-                            e_bullet_y <= e_bullet_y + 5;
-                            if e_bullet_y > MAX_Y then e_bullet_active <= '0'; end if;
-                        end if;
-
-                        all_aliens_dead := true;
-                        temp_aliens_alive := aliens_alive;
-                        for r in 0 to ROWS-1 loop
-                            for c in 0 to COLS-1 loop
-                                if aliens_alive(r,c) = '1' then
-                                    if bullet_active = '1' then
-                                         if bullet_x >= (aliens_x_off + c*32) and
-                                             bullet_x <= (aliens_x_off + c*32 + ALIEN_W) and
-                                             bullet_y >= (aliens_y_off + r*32) and
-                                             bullet_y <= (aliens_y_off + r*32 + ALIEN_H) then
-                                                  temp_aliens_alive(r,c) := '0';
-                                                  bullet_active <= '0';
-                                                  score <= score + 10;
-                                         else
-                                              all_aliens_dead := false;
-                                         end if;
-                                    else
-                                         all_aliens_dead := false;
-                                    end if;
+                    -- Выстрел пришельца
+                    if e_bullet_active = '0' then
+                        shoot_timer <= shoot_timer + 1;
+                        if shoot_timer >= ALIEN_SHOOT_SPEED_FRAMES(wave) then
+                            shoot_timer <= 0;
+                            shoot_col := to_integer(unsigned(lfsr(2 downto 0))) mod COLS;
+                            found_alien := false;
+                            for r_idx in ROWS-1 downto 0 loop
+                                if aliens_alive(r_idx, shoot_col) = '1' then
+                                    e_bullet_active <= '1';
+                                    e_bullet_x <= aliens_x_off + shoot_col*32 + ALIEN_W/2;
+                                    e_bullet_y <= aliens_y_off + r_idx*32 + ALIEN_H;
+                                    found_alien := true;
+                                    exit;
                                 end if;
                             end loop;
-                        end loop;
-                        aliens_alive <= temp_aliens_alive;
-
-                        if all_aliens_dead then
-                            if wave < 10 then
-                                wave <= wave + 1;
-                                if lives < 3 then lives <= lives + 1; end if;
-                            end if;
-                            aliens_alive <= (others => (others => '1'));
-                            aliens_x_off <= ALIENS_START_X;
-                            aliens_y_off <= ALIENS_START_Y;
-                            alien_timer <= 0;
-                            shoot_timer <= 0;
-                            bullet_active <= '0';
-                            e_bullet_active <= '0';
-                            aliens_dir <= '1';
                         end if;
-                        
-                        -- Попадание в игрока
-                        if e_bullet_active = '1' and
-                           e_bullet_x >= tank_x and e_bullet_x <= tank_x + TANK_W and
-                           e_bullet_y >= TANK_Y and e_bullet_y <= TANK_Y + TANK_H then
+                    else
+                        e_bullet_y <= e_bullet_y + 5;
+                        if e_bullet_y > MAX_Y then e_bullet_active <= '0'; end if;
+                    end if;
+
+                    -- Обработка коллизий (попадание игрока)
+                    all_aliens_dead := true;
+                    temp_aliens_alive := aliens_alive;
+                    for r in 0 to ROWS-1 loop
+                        for c in 0 to COLS-1 loop
+                            if aliens_alive(r,c) = '1' then
+                                if bullet_active = '1' then
+                                     if bullet_x >= (aliens_x_off + c*32) and
+                                         bullet_x <= (aliens_x_off + c*32 + ALIEN_W) and
+                                         bullet_y >= (aliens_y_off + r*32) and
+                                         bullet_y <= (aliens_y_off + r*32 + ALIEN_H) then
+                                              temp_aliens_alive(r,c) := '0';
+                                              bullet_active <= '0';
+                                              score <= score + 10;
+                                     else
+                                          all_aliens_dead := false;
+                                     end if;
+                                else
+                                     all_aliens_dead := false;
+                                end if;
+                            end if;
+                        end loop;
+                    end loop;
+                    aliens_alive <= temp_aliens_alive;
+
+                    if all_aliens_dead then
+                        if wave < 10 then
+                            wave <= wave + 1;
+                            if lives < 3 then lives <= lives + 1; end if;
+                        end if;
+                        aliens_alive <= (others => (others => '1'));
+                        aliens_x_off <= ALIENS_START_X;
+                        aliens_y_off <= ALIENS_START_Y;
+                        alien_timer <= 0;
+                        shoot_timer <= 0;
+                        bullet_active <= '0';
+                        e_bullet_active <= '0';
+                        aliens_dir <= '1';
+                    end if;
+                    
+                    -- Обработка попадания пришельца в игрока
+                    if e_bullet_active = '1' and
+                       e_bullet_x >= tank_x and e_bullet_x <= tank_x + TANK_W and
+                       e_bullet_y >= TANK_Y and e_bullet_y <= TANK_Y + TANK_H then
+                        e_bullet_active <= '0';
+                        if lives = 1 then
+                            lives <= 0;
+                            game_lost <= '1'; 
+                            pending_wave_speed <= 0; 
+                        else
                             lives <= lives - 1;
-                            e_bullet_active <= '0';
-                            if lives = 0 then
-                                state <= GAME_OVER;
-                            end if;
                         end if;
+                    end if;
 
-                    when GAME_OVER =>
-                        if gameover_timer < 1023 then
-                            gameover_timer <= gameover_timer + 3; 
-                        end if;
-
-                        if btn_start = '1' then 
-                            state <= MENU; 
-                        end if;
-                end case;
+                elsif state = GAME_OVER then
+                    if gameover_timer < 1023 then
+                        gameover_timer <= gameover_timer + 3; 
+                    end if;
+                end if;
             end if;
         end if;
     end process;
+
 
     -- ГРАФИКА
     
